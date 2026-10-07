@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@clerk/nextjs";
 import Link from "next/link";
 import { 
   Activity, 
@@ -23,8 +25,25 @@ import {
 import DailyHygieneChecklist from "@/components/DailyHygieneChecklist";
 
 export default function Dashboard() {
+  const { isLoaded, isSignedIn } = useAuth();
+  const router = useRouter();
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(true);
   const [profileData, setProfileData] = useState<any>(null);
+
+  // Redirect unauthenticated visitors to the landing page
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      router.replace("/landing");
+    }
+  }, [isLoaded, isSignedIn, router]);
+
+  if (!isLoaded || !isSignedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#030712]">
+        <div className="w-10 h-10 rounded-full border-2 border-teal-400 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
 
   useEffect(() => {
     const isCompleted = localStorage.getItem("asd_onboarding_completed");
