@@ -37,14 +37,7 @@ export default function Dashboard() {
     }
   }, [isLoaded, isSignedIn, router]);
 
-  if (!isLoaded || !isSignedIn) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-[#030712]">
-        <div className="w-10 h-10 rounded-full border-2 border-teal-400 border-t-transparent animate-spin" />
-      </div>
-    );
-  }
-
+  // Load onboarding state from localStorage (must be before any early return)
   useEffect(() => {
     const isCompleted = localStorage.getItem("asd_onboarding_completed");
     const savedData = localStorage.getItem("asd_onboarding_data");
@@ -62,6 +55,15 @@ export default function Dashboard() {
       setHasCompletedOnboarding(false);
     }
   }, []);
+
+  // Show spinner while Clerk loads or redirect is in flight
+  if (!isLoaded || !isSignedIn) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#030712]">
+        <div className="w-10 h-10 rounded-full border-2 border-teal-400 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
 
   const doctorWhatsapp = "https://wa.me/917758022942?text=" + encodeURIComponent(
     "Hello Dr. Nivrutti Reddy, I am contacting you through the ASD Oral Care AI Platform regarding child ASD-001."
