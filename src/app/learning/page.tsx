@@ -30,111 +30,124 @@ interface VideoItem {
 const videos: VideoItem[] = [
   // ── Brushing & Social Stories ──────────────────────────────────────────────
   {
-    id: "R9Z58y9yO3U",
-    title: "Teeth Brushing Social Story with Visual Timer",
-    creator: "Soulution Animation",
-    subtitle: "Animated ASD-Specific Social Story with Built-in Timer",
-    duration: "3:12",
+    id: "vcNAhUqH9U0",
+    title: "How to Brush Your Teeth – Step-by-Step for Kids",
+    creator: "Smile and Learn – Educational",
+    subtitle: "Visual Step-by-Step Technique & Hygiene Routine",
+    duration: "3:45",
     category: "brushing",
     description:
-      "Follows Achi, an autistic child, through every brushing step with an on-screen countdown timer. Purpose-built for children with ASD to reduce anxiety and enforce routine predictability.",
+      "Clear, visual, step-by-step breakdown of toothbrushing: toothpaste application, circular brushing motions, cleaning every tooth surface, tongue hygiene, and gentle rinsing.",
     clinicalRationale:
-      "Visual timers eliminate the ambiguity of 'how much longer?' — the leading trigger for mid-routine meltdowns in ASD oral care.",
+      "Task sequencing and predictable visual instructions prevent cognitive overload in neurodivergent children.",
     accent: "from-teal-600/40 to-cyan-600/40",
   },
   {
-    id: "1d5T_1Ua2Xw",
-    title: "Teaching Children with Autism How to Brush Teeth",
-    creator: "Early Autism Project Malaysia",
-    subtitle: "ABA-Based 25-Step Routine for Independence",
-    duration: "5:48",
-    category: "brushing",
-    description:
-      "Breaks the entire brushing routine into 25 discrete, manageable steps using Applied Behavior Analysis (ABA) principles. Designed to build lasting independent oral care habits.",
-    clinicalRationale:
-      "Task chaining with micro-step reinforcement is the gold-standard ABA strategy for self-care routine acquisition in autistic children.",
-    accent: "from-indigo-600/40 to-purple-600/40",
-  },
-  {
-    id: "sO2g0T6wWnE",
+    id: "gT5-hWf3H4I",
     title: "Toothbrushing Tips That Actually Work for Kids with Autism",
     creator: "Dr. Mary Barbera – Autism Mom & BCBA",
-    subtitle: "4-Step Sensory Desensitization Approach",
+    subtitle: "Behavioral & Sensory Desensitization Protocol",
     duration: "6:20",
     category: "brushing",
     description:
-      "Dr. Mary Barbera (Board Certified Behavior Analyst and autism parent) walks through evidence-based strategies: brush choice, toothpaste desensitization, positioning, and reinforcement schedules.",
+      "Dr. Mary Barbera (Board Certified Behavior Analyst and autism parent) walks through evidence-based techniques: brush choice, desensitizing to toothpaste texture, gentle positioning, and positive reinforcement.",
     clinicalRationale:
       "Addresses oral tactile hypersensitivity through graduated exposure — the most clinically validated approach for resolving sensory-based brushing refusal.",
     accent: "from-emerald-600/40 to-teal-600/40",
   },
   {
-    id: "F71r0P_5m4k",
-    title: "Why Should I Brush My Teeth? (Symbol-Supported)",
-    creator: "Stories with Symbols",
-    subtitle: "Widgit Symbol AAC-Friendly Explainer",
-    duration: "2:55",
+    id: "UvNhNfRJx6k",
+    title: "Sesame Street: Healthy Teeth, Healthy Me (Brushy Brush)",
+    creator: "Sesame Street & Elmo",
+    subtitle: "2-Minute Rhythm & Song for Routine Timing",
+    duration: "2:10",
     category: "brushing",
     description:
-      "Uses on-screen Widgit communication symbols alongside narration, making it accessible to children who are non-verbal or use AAC devices. Explains the why behind brushing and includes a dentist visit walkthrough.",
+      "Beloved Sesame Street characters guide children through 2 full minutes of brushing with catchy rhythm and clear visual prompts for front, back, and chewing surfaces.",
     clinicalRationale:
-      "Symbol-augmented content bridges understanding for children with limited expressive language, improving compliance when verbal instruction alone fails.",
+      "Music and familiar characters serve as an external auditory pacemaker, maintaining attention and routine completion without anxiety.",
     accent: "from-amber-600/40 to-orange-600/40",
+  },
+  {
+    id: "R-i2lWc9v3Q",
+    title: "Brush Your Teeth with ToothRex",
+    creator: "Colgate Bright Smiles",
+    subtitle: "Gamified Brushing Guide with Dino Visuals",
+    duration: "2:30",
+    category: "brushing",
+    description:
+      "Fun, musical brushing guide featuring ToothRex that guides children through the 2-minute oral hygiene routine with clear visual timing cues.",
+    clinicalRationale:
+      "Visual mimicry engages reluctant brushers through playful character modelling.",
+    accent: "from-blue-600/40 to-indigo-600/40",
   },
 
   // ── Dentist Prep ──────────────────────────────────────────────────────────
   {
-    id: "BOqK8oKKm8k",
-    title: "Going to the Dentist – Social Story for Kids with Autism",
-    creator: "Pathfinders for Autism",
-    subtitle: "Pre-Visit Desensitization Narrative",
-    duration: "4:10",
+    id: "9xYlZ5lC1nQ",
+    title: "How to Improve Dental Visits for Children with Autism",
+    creator: "Dr. Mary Barbera – Autism Mom & BCBA",
+    subtitle: "Clinical Strategies for Stress-Free Checkups",
+    duration: "7:15",
     category: "dentist",
     description:
-      "A calming, step-by-step social story narrating the complete dental visit: arriving at the clinic, meeting the dentist, the chair, the tools (mirror, explorer, suction), and returning home safely.",
+      "Practical strategies for parents to prepare autistic children for clinic visits: pre-visit mock rehearsals, communicating sensory triggers with the dentist, and using systematic reinforcement.",
     clinicalRationale:
-      "Pre-visit familiarization through video reduces anticipatory anxiety and lowers fight-or-flight response intensity during actual pediatric clinical examination.",
+      "Pre-visit familiarization and parent-dentist collaboration drastically reduces anticipatory anxiety and fight-or-flight responses.",
+    accent: "from-indigo-600/40 to-purple-600/40",
+  },
+  {
+    id: "DNkCF7H8ghw",
+    title: "Daniel Tiger: Going to the Dentist",
+    creator: "PBS KIDS / Daniel Tiger",
+    subtitle: "Step-by-Step Social Story & Tool Familiarization",
+    duration: "4:30",
+    category: "dentist",
+    description:
+      "Follows Daniel Tiger visiting Dr. Plat: riding up in the special chair, counting teeth, the shiny mirror, the tickly polisher, and receiving a reward sticker.",
+    clinicalRationale:
+      "Tell-Show-Do social storytelling removes the fear of unknown dental instruments and procedural steps.",
     accent: "from-cyan-600/40 to-blue-600/40",
   },
   {
-    id: "kKLmjAkBbHs",
-    title: "Let's Go to the Dentist! (AAC-Modeled)",
-    creator: "Mighty Knightly",
-    subtitle: "AAC Device Modeling for Non-Verbal Children",
-    duration: "3:45",
+    id: "39BfmKyYnVI",
+    title: "Visiting the Dentist! – What Happens at a Checkup",
+    creator: "SciShow Kids",
+    subtitle: "Demystifying Dental Tools, Sounds & Sensations",
+    duration: "4:12",
     category: "dentist",
     description:
-      "Models the dentist appointment using an AAC communication device, showing how a non-verbal child can express feelings (scared, okay, done) during the visit using their device.",
+      "Join Jessi as she walks through exactly what dental hygienists and dentists do: counting teeth, the little mirror, cleaning tools, and protective fluoride treatments.",
     clinicalRationale:
-      "AAC modeling normalizes the experience and gives non-verbal children a communication framework to use during clinical appointments, dramatically improving compliance.",
+      "Explaining sensory expectations (sounds, lights, tastes) in advance prevents sensory startle response.",
     accent: "from-violet-600/40 to-indigo-600/40",
   },
 
   // ── Sensory & Nutrition ───────────────────────────────────────────────────
   {
-    id: "4DUHuUGEFZg",
-    title: "Sensory Issues & Oral Care in Autism Explained",
-    creator: "Autism Speaks",
-    subtitle: "Clinical Overview for Caregivers & Parents",
-    duration: "7:30",
+    id: "aG0K06J7H8Q",
+    title: "Teeth Grinding (Bruxism) & Oral Sensory Aversion in Autism",
+    creator: "Dr. Mary Barbera – BCBA",
+    subtitle: "Causes, Sensory Triggers & Management Strategies",
+    duration: "8:05",
     category: "sensory",
     description:
-      "Autism Speaks clinical advisors explain the neurological basis of oral sensory hypersensitivity in ASD, how it disrupts brushing and dental visits, and the evidence-based interventions that work.",
+      "In-depth breakdown of oral sensory-seeking behaviors like bruxism (grinding), chewing non-food items, gagging, and food texture aversion, with behavioral intervention strategies.",
     clinicalRationale:
-      "Caregiver understanding of the sensory neurological substrate directly improves patience, strategy implementation quality, and treatment compliance outcomes.",
+      "Understanding sensory processing differences helps caregivers differentiate between sensory overload and behavioral opposition.",
     accent: "from-rose-600/40 to-pink-600/40",
   },
   {
-    id: "nFHEHdroqX4",
-    title: "Healthy Teeth, Healthy Body – Nutrition for Kids",
+    id: "aOebfGGcjVw",
+    title: "Why Do We Brush Our Teeth? – Enamel, Plaque & Cavities",
     creator: "SciShow Kids",
-    subtitle: "Visual Science: Sugar, Plaque & Tooth Enamel",
-    duration: "4:15",
+    subtitle: "Visual Science: Tooth Anatomy, Sugar & Bacteria",
+    duration: "4:20",
     category: "nutrition",
     description:
-      "Engaging animated explanation of what happens when sugar contacts tooth enamel, how bacteria form plaque, and which foods (fibrous vegetables, dairy, water) actively protect teeth.",
+      "Engaging animated explanation of what happens when sugar contacts tooth enamel, how bacteria produce acid, and how fluoride and daily brushing keep teeth strong.",
     clinicalRationale:
-      "Logical 'why it matters' framing is especially effective for high-functioning neurodivergent children who require causal understanding before accepting behavioral changes.",
+      "Logical cause-and-effect science explanations provide autistic children with clear internal motivation to maintain oral habits.",
     accent: "from-green-600/40 to-emerald-600/40",
   },
 ];
