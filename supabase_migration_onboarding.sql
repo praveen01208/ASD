@@ -9,7 +9,7 @@ ALTER TABLE caregivers
   ADD COLUMN IF NOT EXISTS preferred_contact text DEFAULT 'email',
   ADD COLUMN IF NOT EXISTS onboarding_completed boolean DEFAULT false,
   ADD COLUMN IF NOT EXISTS onboarding_completed_at timestamp with time zone,
-  ADD COLUMN IF NOT EXISTS clerk_user_id text UNIQUE;
+  ADD COLUMN IF NOT EXISTS provider_user_id text;
 
 -- 2. Add date_of_birth to children (currently only has integer age)
 ALTER TABLE children

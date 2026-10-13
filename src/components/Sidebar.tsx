@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Show, SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
+import { Show, SignInButton, SignOutButton, UserButton } from "@/components/AuthComponents";
 import { 
   LayoutDashboard, 
   User, 
