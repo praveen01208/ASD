@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { 
   Activity, 
@@ -56,7 +56,7 @@ export default function Dashboard() {
     }
   }, []);
 
-  // Show spinner while Clerk loads or redirect is in flight
+  // Show spinner while auth loads or redirect is in flight
   if (!isLoaded || !isSignedIn) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-[#030712]">

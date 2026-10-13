@@ -1,8 +1,8 @@
-import { ClerkProvider } from "@clerk/nextjs";
+import { AuthProvider } from "@/context/AuthContext";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
+import AppLayoutClient from "@/components/AppLayoutClient";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +13,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-import AppLayoutClient from "@/components/AppLayoutClient";
 
 export const metadata: Metadata = {
   title: "ASD Oral Care AI • Supervised by Dr. Nivrutti Reddy",
@@ -27,22 +25,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      signInFallbackRedirectUrl="/"
-      signUpFallbackRedirectUrl="/"
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} min-h-screen dark scroll-smooth`}
     >
-      <html
-        lang="en"
-        suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen dark scroll-smooth`}
+      <body 
+        suppressHydrationWarning 
+        className="min-h-screen bg-[#030712] text-slate-100 antialiased overflow-x-hidden"
       >
-        <body 
-          suppressHydrationWarning 
-          className="min-h-screen bg-[#030712] text-slate-100 antialiased overflow-x-hidden"
-        >
+        <AuthProvider>
           <AppLayoutClient>{children}</AppLayoutClient>
-        </body>
-      </html>
-    </ClerkProvider>
+        </AuthProvider>
+      </body>
+    </html>
   );
 }
