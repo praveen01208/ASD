@@ -7,7 +7,7 @@ import Link from "next/link";
 import { 
   Activity, 
   Flame, 
-  Shield, 
+  ShieldCheck, 
   ArrowUpRight, 
   ArrowDownRight, 
   Video, 
@@ -26,7 +26,11 @@ import {
   Star,
   Award,
   Stethoscope,
-  Brain
+  Brain,
+  Check,
+  Calendar,
+  Clock,
+  Sparkle
 } from "lucide-react";
 import DailyHygieneChecklist from "@/components/DailyHygieneChecklist";
 import { 
@@ -46,7 +50,34 @@ export default function Dashboard() {
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(true);
   const [isCheckingProfile, setIsCheckingProfile] = useState(true);
 
-  // If visitor is signed out, render LandingPage directly without any delay or sidebar
+  // Daily Checklist Tracking State
+  const todayKey = new Date().toISOString().split("T")[0];
+  const [isTodayLogged, setIsTodayLogged] = useState(false);
+  const [todayLogData, setTodayLogData] = useState<any>(null);
+
+  // Check if today's checklist has been completed
+  const checkTodayLog = (childId?: string) => {
+    if (typeof window === "undefined") return;
+    const cid = childId || activeChild?.id || "default";
+    const storageKey = `asd_daily_hygiene_log_${cid}_${todayKey}`;
+    const genericKey = `asd_daily_hygiene_log_${todayKey}`;
+    const saved = localStorage.getItem(storageKey) || localStorage.getItem(genericKey) || localStorage.getItem("asd_today_checklist");
+
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.date === todayKey || parsed.brushedMorning || parsed.brushedNight) {
+          setIsTodayLogged(true);
+          setTodayLogData(parsed);
+          return;
+        }
+      } catch (e) {
+        // Fallback
+      }
+    }
+    setIsTodayLogged(false);
+  };
+
   useEffect(() => {
     if (!isLoaded) return;
     if (!isSignedIn) {
@@ -57,6 +88,8 @@ export default function Dashboard() {
     const checkAndLoad = async () => {
       try {
         setIsCheckingProfile(true);
+        const userCompleted = hasUserCompletedOnboarding(user?.id);
+
         if (user?.id) {
           const serverProfile = await fetchUserProfileFromServer(user.id);
           const localProfile = getUserProfile(user.id);
@@ -65,15 +98,23 @@ export default function Dashboard() {
           if (resolved) {
             setActiveChild(resolved);
             setHasCompletedOnboarding(true);
+            checkTodayLog(resolved.id);
+          } else if (userCompleted) {
+            const fallback = getActiveAccount(user.id) || DEFAULT_ACCOUNTS[0];
+            setActiveChild(fallback);
+            setHasCompletedOnboarding(true);
+            checkTodayLog(fallback.id);
           } else {
-            // First time user: provide default account context & show setup questionnaire banner
             const fallback = getActiveAccount(user.id) || DEFAULT_ACCOUNTS[0];
             setActiveChild(fallback);
             setHasCompletedOnboarding(false);
+            checkTodayLog(fallback.id);
           }
         } else {
           const fallback = getActiveAccount() || DEFAULT_ACCOUNTS[0];
           setActiveChild(fallback);
+          setHasCompletedOnboarding(true);
+          checkTodayLog(fallback.id);
         }
       } catch (err) {
         console.error("Error loading profile:", err);
@@ -89,25 +130,36 @@ export default function Dashboard() {
     const handleAccountChange = () => {
       if (user?.id) {
         const updated = getUserProfile(user.id) || getActiveAccount(user.id) || DEFAULT_ACCOUNTS[0];
-        if (updated) setActiveChild(updated);
+        if (updated) {
+          setActiveChild(updated);
+          checkTodayLog(updated.id);
+        }
       }
     };
 
-    window.addEventListener("asd_account_changed", handleAccountChange);
-    return () => window.removeEventListener("asd_account_changed", handleAccountChange);
-  }, [isLoaded, isSignedIn, user?.id, router]);
+    const handleDailyLogUpdate = () => {
+      checkTodayLog();
+    };
 
-  // If auth is loaded and user is signed out, render the landing page directly
+    window.addEventListener("asd_account_changed", handleAccountChange);
+    window.addEventListener("asd_daily_log_updated", handleDailyLogUpdate);
+    return () => {
+      window.removeEventListener("asd_account_changed", handleAccountChange);
+      window.removeEventListener("asd_daily_log_updated", handleDailyLogUpdate);
+    };
+  }, [isLoaded, isSignedIn, user?.id]);
+
+  // If auth is loaded and user is signed out, render LandingPage directly
   if (isLoaded && !isSignedIn) {
     return <LandingPage />;
   }
 
-  // Brief loading spinner while checking user profile
+  // Loading state
   if (!isLoaded || isCheckingProfile) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-slate-300">
-        <div className="w-10 h-10 rounded-full border-2 border-teal-400 border-t-transparent animate-spin" />
-        <span className="text-xs font-semibold text-slate-400">Loading your child's care portal...</span>
+        <div className="w-8 h-8 rounded-full border-2 border-teal-500 border-t-transparent animate-spin" />
+        <span className="text-xs font-medium text-slate-400">Loading child oral health portal...</span>
       </div>
     );
   }
@@ -118,174 +170,209 @@ export default function Dashboard() {
   const asdLevel = activeChild?.asdLevel || "Registered ASD Profile";
   const latestAssessment = activeChild?.weeklyAssessments?.[0];
 
+  const formattedToday = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+
   return (
-    <div className="max-w-6xl mx-auto space-y-8 pb-24">
-      {/* =========================================================================
-          TAGLINE BANNER / VALUE PROPOSITION
-          ========================================================================= */}
-      <div className="liquid-glass-card rounded-3xl p-5 sm:p-6 border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-indigo-950/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div className="max-w-6xl mx-auto space-y-7 pb-24 animate-fade-in">
+      {/* ── Top Clinical Header Bar ── */}
+      <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
-          <div className="w-11 h-11 rounded-2xl bg-slate-900 border border-teal-400/40 p-1 flex items-center justify-center flex-shrink-0 shadow-lg shadow-teal-500/20">
+          <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 p-1 flex items-center justify-center flex-shrink-0">
             <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
           </div>
           <div>
-            <div className="text-teal-300 text-xs sm:text-sm font-black tracking-tight">
-              “Small steps, consistent routines, healthier smiles.”
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-teal-400">
+                ASD Pediatric Oral Care
+              </span>
+              <span className="text-slate-500">•</span>
+              <span className="text-xs text-slate-400">Dr. Nivrutti Reddy Clinical Protocol</span>
             </div>
-            <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5">
-              A simple, predictable digital space for parents and caregivers of children with ASD
+            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">
+              Care Portal for {childName}
+            </h1>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Profile: <span className="text-slate-300 font-mono">{childCode}</span> • {asdLevel} • Caregiver: {caregiverName}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2.5 flex-shrink-0">
           <Link
             href="/helpline"
-            className="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition-all flex items-center gap-1.5"
+            className="px-3.5 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/15 text-rose-300 border border-rose-500/25 text-xs font-semibold transition-all flex items-center gap-1.5"
           >
             <Phone className="w-3.5 h-3.5 text-rose-400" />
             <span>24/7 Helpline: 9284046972</span>
           </Link>
+          <Link
+            href="/consultants"
+            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition-all flex items-center gap-1.5"
+          >
+            <Stethoscope className="w-3.5 h-3.5 text-teal-400" />
+            <span>Consultants</span>
+          </Link>
         </div>
       </div>
 
-      {/* =========================================================================
-          FIRST-TIME LOGIN BANNER IF APPLICABLE
-          ========================================================================= */}
-      {!hasCompletedOnboarding && (
-        <div className="liquid-glass-card rounded-3xl p-6 sm:p-7 border border-teal-400/50 flex flex-col sm:flex-row items-center justify-between gap-5 bg-gradient-to-r from-teal-950/60 via-slate-900/80 to-indigo-950/60 shadow-2xl">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-teal-500/25 border border-teal-400/40 text-teal-300 flex items-center justify-center flex-shrink-0 shadow-lg">
-              <ClipboardList className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30">
-                  Initial Setup (5 Domains)
-                </span>
-              </div>
-              <h3 className="text-lg font-black text-white mt-1">Complete Child Baseline Questionnaire</h3>
-              <p className="text-xs text-slate-300 mt-1 max-w-xl">
-                Answer demographic details, brushing habits, dietary habits, medical history, and child behaviour to calibrate sensory desensitization.
-              </p>
-            </div>
-          </div>
-
-          <Link
-            href="/onboarding"
-            className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-gradient-to-r from-teal-400 to-cyan-300 hover:from-teal-300 hover:to-cyan-200 text-slate-950 text-xs font-black shadow-lg shadow-teal-500/30 transition-all hover:scale-105 whitespace-nowrap text-center"
-          >
-            Start Setup (3 Mins) →
-          </Link>
-        </div>
-      )}
-
-      {/* =========================================================================
-          DASHBOARD MAIN HEADER
-          ========================================================================= */}
-      <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-white/15 relative overflow-hidden shadow-2xl">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+      {/* ── DAILY CHECKLIST (ASKED ONCE DAILY) ── */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2 text-teal-400 text-xs font-extrabold uppercase tracking-widest mb-1.5">
-              <Sparkles className="w-4 h-4 text-teal-400" />
-              <span>Active Child Profile: {childName} ({childCode}) • {asdLevel}</span>
-            </div>
-            <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-              Good day, {caregiverName}
-            </h1>
-            <p className="text-slate-300 text-xs sm:text-sm mt-1 max-w-xl leading-relaxed">
-              Sensory desensitization schedule, weekly AI progress updates, and structured oral care routines.
+            <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-teal-400" />
+              Child&apos;s Daily Oral Hygiene Checklist
+            </h2>
+            <p className="text-xs text-slate-400">
+              {formattedToday} • Routine telemetry for active clinical monitoring
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
-            <Link
-              href="/helpline"
-              className="px-4 py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition-all flex items-center gap-2 shadow-md shadow-rose-500/10"
-            >
-              <Phone className="w-4 h-4" />
-              <span>Helpline: 9284046972</span>
-            </Link>
-
-            <Link
-              href="/consultants"
-              className="px-4 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition-all flex items-center gap-2 shadow-md shadow-emerald-500/10"
-            >
-              <Stethoscope className="w-4 h-4" />
-              <span>Consultants Panel</span>
-            </Link>
+          <div className="flex items-center gap-2">
+            {isTodayLogged ? (
+              <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center gap-1.5">
+                <CheckCircle2 className="w-3.5 h-3.5" /> Logged for Today
+              </span>
+            ) : (
+              <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5" /> Pending Today&apos;s Routine
+              </span>
+            )}
           </div>
         </div>
+
+        {/* If ALREADY logged today, show a clean, reassuring confirmation card */}
+        {isTodayLogged ? (
+          <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                  <Check className="w-5 h-5 stroke-[2.5]" />
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-bold text-white">
+                    Today&apos;s Checklist Successfully Logged
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Data recorded to clinical database and synced with Argus AI.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/monitoring"
+                  className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-all shadow-sm"
+                >
+                  <span>View Full Monitoring Timeline</span>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Quick Summary of Today's Log */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+                <span className="text-slate-400 block text-[11px]">Morning Brushing</span>
+                <span className="font-semibold text-emerald-400 mt-0.5 block">
+                  {todayLogData?.brushedMorning ? "✓ Completed" : "Not Logged"}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+                <span className="text-slate-400 block text-[11px]">Bedtime Brushing</span>
+                <span className="font-semibold text-emerald-400 mt-0.5 block">
+                  {todayLogData?.brushedNight ? "✓ Completed" : "Scheduled Tonight"}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+                <span className="text-slate-400 block text-[11px]">Dietary Balance</span>
+                <span className="font-semibold text-teal-300 mt-0.5 block">
+                  {todayLogData?.healthyBreakfast && todayLogData?.healthyLunch ? "Healthy Meals" : "Standard"}
+                </span>
+              </div>
+              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+                <span className="text-slate-400 block text-[11px]">Child Cooperation</span>
+                <span className="font-semibold text-sky-400 mt-0.5 block">
+                  {todayLogData?.cooperatedWithBrushing ? "Cooperative" : "Sensory Guided"}
+                </span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* If NOT yet logged today, render the 14-item checklist right here */
+          <DailyHygieneChecklist child={activeChild} />
+        )}
       </div>
 
-      {/* =========================================================================
-          WEEKLY AI ASSESSMENT & MOTIVATIONAL REINFORCEMENT
-          ========================================================================= */}
+      {/* ── WEEKLY AI ASSESSMENT & REINFORCEMENT ── */}
       {latestAssessment && (
-        <div className="liquid-glass-card rounded-3xl p-6 border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-indigo-950/40 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+        <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-amber-400/20 border border-amber-400/40 text-2xl flex items-center justify-center">
-                {latestAssessment.motivationBadge?.icon || "🌟"}
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xl flex items-center justify-center">
+                {latestAssessment.motivationBadge?.icon || "🏆"}
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300">
-                    Weekly AI Assessment • {latestAssessment.date}
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                    Weekly Assessment • {latestAssessment.date}
                   </span>
                 </div>
-                <h3 className="text-base sm:text-lg font-black text-white mt-0.5">
-                  {latestAssessment.motivationBadge?.title || "Sparkling Routine Hero"}
+                <h3 className="text-sm sm:text-base font-bold text-white mt-0.5">
+                  {latestAssessment.motivationBadge?.title || "Routine Consistency Champion"}
                 </h3>
               </div>
             </div>
 
             <Link
               href="/assessment"
-              className="px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-xs flex items-center gap-1.5 transition-all shadow-md shadow-teal-500/20 self-start sm:self-auto"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5 transition-all self-start sm:self-auto"
             >
-              <span>Weekly AI Details</span>
-              <ChevronRight className="w-4 h-4" />
+              <span>Weekly Telemetry & Certificate</span>
+              <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div className="p-3 rounded-xl liquid-glass border border-white/10 flex items-center justify-between">
-              <span className="text-slate-300">Oral Hygiene Score:</span>
-              <span className="text-base font-black text-teal-300">{latestAssessment.oralHygieneScore}%</span>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80 flex items-center justify-between">
+              <span className="text-slate-400">Oral Hygiene Index:</span>
+              <span className="text-sm font-bold text-teal-400">{latestAssessment.oralHygieneScore}%</span>
             </div>
-            <div className="p-3 rounded-xl liquid-glass border border-white/10 flex items-center justify-between">
-              <span className="text-slate-300">Enamel Dietary Risk:</span>
-              <span className="text-base font-black text-amber-300">{latestAssessment.dietaryRiskScore}%</span>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80 flex items-center justify-between">
+              <span className="text-slate-400">Enamel Dietary Risk:</span>
+              <span className="text-sm font-bold text-amber-400">{latestAssessment.dietaryRiskScore}%</span>
             </div>
-            <div className="p-3 rounded-xl liquid-glass border border-white/10 flex items-center justify-between">
-              <span className="text-slate-300">Sensory Comfort:</span>
-              <span className="text-base font-black text-emerald-300">{latestAssessment.sensoryComfortScore}%</span>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80 flex items-center justify-between">
+              <span className="text-slate-400">Sensory Comfort Index:</span>
+              <span className="text-sm font-bold text-emerald-400">{latestAssessment.sensoryComfortScore}%</span>
             </div>
           </div>
 
-          <p className="text-xs text-slate-300 italic">
+          <p className="text-xs text-slate-300 italic bg-[#0B1120]/60 p-3 rounded-xl border border-slate-800/50">
             “{latestAssessment.statusSummary}”
           </p>
         </div>
       )}
 
-      {/* =========================================================================
-          CATCHY ON-SITE ANIMATED VIDEOS PREVIEW ROW
-          ========================================================================= */}
-      <div className="space-y-4">
+      {/* ── ON-SITE VIDEO SUITE PREVIEW ── */}
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg sm:text-xl font-black text-white flex items-center gap-2">
-              <Play className="w-5 h-5 text-teal-400 fill-teal-400/20" />
-              On-Site Visual Learning & Catchy Video Stories
+            <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+              <Play className="w-4 h-4 text-teal-400" />
+              Visual Learning & Motivational Videos
             </h2>
-            <p className="text-xs text-slate-300">
-              Interactive video modules to motivate your child before and after daily routines
+            <p className="text-xs text-slate-400">
+              On-site video lessons stored directly on our servers (no external links)
             </p>
           </div>
 
-          <Link href="/learning" className="text-xs font-bold text-teal-300 hover:underline flex items-center gap-1">
+          <Link href="/learning" className="text-xs font-semibold text-teal-400 hover:underline flex items-center gap-1">
             Open Video Suite <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -293,131 +380,125 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
             href="/learning"
-            className="liquid-glass-card rounded-2xl p-5 border border-white/15 hover:border-teal-400/40 transition-all flex flex-col justify-between group"
+            className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center font-bold text-xl mb-3 group-hover:scale-110 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold text-lg mb-3">
                 🪥
               </div>
-              <h3 className="font-bold text-sm text-white group-hover:text-teal-300 transition-colors">
+              <h3 className="font-bold text-sm text-white group-hover:text-teal-400 transition-colors">
                 1. Step-by-Step Brushing
               </h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Cheerful child character demonstrating 2-minute brushing steps with joy and celebratory chimes.
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                Children happily demonstrating the 5 gentle steps to normalize sensations and build positive habits.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-white/10 text-xs font-bold text-teal-300 flex items-center gap-1">
-              <span>Play Interactive Video</span>
+            <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-teal-400 flex items-center gap-1">
+              <span>Watch Video</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
           </Link>
 
           <Link
             href="/learning"
-            className="liquid-glass-card rounded-2xl p-5 border border-white/15 hover:border-amber-400/40 transition-all flex flex-col justify-between group"
+            className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold text-xl mb-3 group-hover:scale-110 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-lg mb-3">
                 🍎
               </div>
-              <h3 className="font-bold text-sm text-white group-hover:text-amber-300 transition-colors">
-                2. Sparkle vs Sugar Bugs
+              <h3 className="font-bold text-sm text-white group-hover:text-amber-400 transition-colors">
+                2. Diet Motivation: Shiny vs. Bugs
               </h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Watch healthy food make teeth shiny while sugary chocolates feed bacteria until brushing saves the day!
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                Dr. Binocs explains how bacteria feast on chocolates and sodas, and how healthy food keeps teeth shiny.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-white/10 text-xs font-bold text-amber-300 flex items-center gap-1">
-              <span>Play Story Simulation</span>
+            <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-amber-400 flex items-center gap-1">
+              <span>Watch Video</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
           </Link>
 
           <Link
             href="/learning"
-            className="liquid-glass-card rounded-2xl p-5 border border-white/15 hover:border-indigo-400/40 transition-all flex flex-col justify-between group"
+            className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
           >
             <div>
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-bold text-xl mb-3 group-hover:scale-110 transition-transform">
+              <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-lg mb-3">
                 🌟
               </div>
-              <h3 className="font-bold text-sm text-white group-hover:text-indigo-300 transition-colors">
+              <h3 className="font-bold text-sm text-white group-hover:text-indigo-400 transition-colors">
                 3. God Blesses Joyful Brushers
               </h3>
-              <p className="text-xs text-slate-300 mt-1 leading-relaxed">
-                Heartwarming animated story showing how taking care of your teeth brings divine blessings, glowing health, and sweet dreams.
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                Cleanliness is Godliness moral story showing how caring for teeth brings divine blessings and peace.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-white/10 text-xs font-bold text-indigo-300 flex items-center gap-1">
-              <span>Play Motivational Video</span>
+            <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-indigo-400 flex items-center gap-1">
+              <span>Watch Video</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
           </Link>
         </div>
       </div>
 
-      {/* =========================================================================
-          5 STORED INTAKE DOMAINS SUMMARY CARD
-          ========================================================================= */}
+      {/* ── STORED CLINICAL BASELINE (5 DOMAINS) ── */}
       {activeChild && (
-        <div className="liquid-glass-card rounded-3xl p-6 sm:p-7 border border-white/15 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <div>
-              <h3 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-teal-400" />
-                Stored Clinical Baseline (5 Domains)
+              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-teal-400" />
+                Stored Clinical Baseline (Answered at Intake)
               </h3>
-              <p className="text-xs text-slate-300">
-                Calibrated against {activeChild.name}&apos;s profile on record
+              <p className="text-xs text-slate-400">
+                Calibrated against {activeChild.name}&apos;s profile on record • Never re-prompted
               </p>
             </div>
 
             <Link
-              href="/onboarding"
-              className="text-xs font-bold text-teal-300 hover:underline"
+              href="/profile"
+              className="text-xs font-semibold text-teal-400 hover:underline flex items-center gap-1"
             >
-              Update Baseline Form →
+              <span>View Full Clinical Profile</span>
+              <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
-            <div className="p-3 rounded-xl liquid-glass border border-white/10">
-              <span className="text-teal-300 font-bold block mb-1">1. Demographics</span>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+              <span className="text-teal-400 font-bold block mb-1">1. Demographics</span>
               <div className="text-slate-200">{activeChild.name}, {activeChild.age} yrs</div>
               <div className="text-[10px] text-slate-400 truncate">{activeChild.demographics?.communicationStyle}</div>
             </div>
 
-            <div className="p-3 rounded-xl liquid-glass border border-white/10">
-              <span className="text-teal-300 font-bold block mb-1">2. Brushing</span>
-              <div className="text-slate-200 truncate">{activeChild.brushingHabits?.frequency}</div>
-              <div className="text-[10px] text-slate-400 truncate">{activeChild.brushingHabits?.toothbrushType}</div>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+              <span className="text-teal-400 font-bold block mb-1">2. Brushing</span>
+              <div className="text-slate-200">{activeChild.brushingHabits?.toothbrushType || "Soft manual"}</div>
+              <div className="text-[10px] text-slate-400">{activeChild.brushingHabits?.frequency || "Twice daily"}</div>
             </div>
 
-            <div className="p-3 rounded-xl liquid-glass border border-white/10">
-              <span className="text-teal-300 font-bold block mb-1">3. Diet</span>
-              <div className="text-slate-200 truncate">{activeChild.dietaryHabits?.sugaryFoodFrequency}</div>
-              <div className="text-[10px] text-slate-400 truncate">Holding: {activeChild.dietaryHabits?.foodHoldingInMouth}</div>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+              <span className="text-teal-400 font-bold block mb-1">3. Diet</span>
+              <div className="text-slate-200">Sugar: {activeChild.dietaryHabits?.sugaryFoodFrequency || "Rarely"}</div>
+              <div className="text-[10px] text-slate-400">Snacks: {activeChild.dietaryHabits?.snackingFrequency || "1-2 times"}</div>
             </div>
 
-            <div className="p-3 rounded-xl liquid-glass border border-white/10">
-              <span className="text-teal-300 font-bold block mb-1">4. Medical</span>
-              <div className="text-slate-200 truncate">{activeChild.dentalMedicalHistory?.activeCavitiesOrPain}</div>
-              <div className="text-[10px] text-slate-400 truncate">Visit: {activeChild.dentalMedicalHistory?.lastDentalVisit}</div>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+              <span className="text-teal-400 font-bold block mb-1">4. Dental History</span>
+              <div className="text-slate-200">{activeChild.dentalMedicalHistory?.lastDentalVisit || "Regular"}</div>
+              <div className="text-[10px] text-slate-400">{activeChild.dentalMedicalHistory?.activeCavitiesOrPain || "None active"}</div>
             </div>
 
-            <div className="p-3 rounded-xl liquid-glass border border-white/10">
-              <span className="text-teal-300 font-bold block mb-1">5. Behaviour</span>
-              <div className="text-slate-200 truncate">{activeChild.childBehaviour?.mouthOpeningCooperation}</div>
-              <div className="text-[10px] text-slate-400 truncate">Triggers: {activeChild.childBehaviour?.sensoryAversionTriggers?.length || 0} active</div>
+            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
+              <span className="text-teal-400 font-bold block mb-1">5. Sensory/Behavior</span>
+              <div className="text-slate-200 truncate">{activeChild.childBehaviour?.sensoryAversionTriggers?.slice(0, 2).join(", ") || "Standard"}</div>
+              <div className="text-[10px] text-slate-400">{activeChild.childBehaviour?.mouthOpeningCooperation || "Cooperative"}</div>
             </div>
           </div>
         </div>
       )}
-
-      {/* =========================================================================
-          DAILY HYGIENE LOGGING
-          ========================================================================= */}
-      <DailyHygieneChecklist />
     </div>
   );
 }

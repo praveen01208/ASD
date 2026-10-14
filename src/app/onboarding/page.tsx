@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth, useUser } from "@/context/AuthContext";
 import {
@@ -354,6 +354,22 @@ export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
 
+  // Ensure 20 questionnaires are asked ONLY ONCE per user after first login
+  useEffect(() => {
+    if (!isAuthLoaded) return;
+    if (typeof window !== "undefined") {
+      const isCompleted =
+        localStorage.getItem("asd_onboarding_completed") === "true" ||
+        (user?.id && localStorage.getItem(`asd_onboarding_completed_${user.id}`) === "true");
+      const hasActiveProfile = localStorage.getItem("asd_current_user_profile");
+
+      if (isCompleted && hasActiveProfile) {
+        // User has already answered the 20 questions! Never ask again.
+        router.replace("/");
+      }
+    }
+  }, [isAuthLoaded, user?.id, router]);
+
   const set = (field: keyof FormData, value: string | string[] | boolean) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 
@@ -484,6 +500,9 @@ export default function OnboardingPage() {
       localStorage.setItem("asd_current_user_id", currentUserId);
       localStorage.setItem("asd_active_child_id", newAccount.id);
       localStorage.setItem("asd_onboarding_completed", "true");
+      if (currentUserId) {
+        localStorage.setItem(`asd_onboarding_completed_${currentUserId}`, "true");
+      }
       localStorage.setItem("asd_profile_" + currentUserId, JSON.stringify(newAccount));
       localStorage.setItem("asd_current_user_profile", JSON.stringify(newAccount));
     }

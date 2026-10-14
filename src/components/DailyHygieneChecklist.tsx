@@ -124,6 +124,17 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
     localStorage.setItem(storageKey, JSON.stringify(log));
     localStorage.setItem(genericKey, JSON.stringify(log));
     localStorage.setItem("asd_today_checklist", JSON.stringify(log));
+    localStorage.setItem("asd_checklist_completed_today", today);
+
+    try {
+      const historyRaw = localStorage.getItem("asd_daily_logs_history");
+      let history: any[] = historyRaw ? JSON.parse(historyRaw) : [];
+      history = history.filter((h: any) => h.date !== today);
+      history.unshift({ ...log, date: today });
+      localStorage.setItem("asd_daily_logs_history", JSON.stringify(history.slice(0, 30)));
+    } catch (e) {
+      // ignore
+    }
 
     // Dispatch event so Argus and other components react
     window.dispatchEvent(new CustomEvent("asd_daily_log_updated", { detail: log }));
@@ -182,34 +193,34 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
   const childDisplayName = activeChild?.name || "Your Child";
 
   return (
-    <div className="liquid-glass-card rounded-3xl border border-white/15 p-6 sm:p-7 shadow-2xl relative space-y-6">
+    <div className="bg-[#0F172A] rounded-2xl border border-slate-800 p-6 shadow-sm relative space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="p-2.5 bg-gradient-to-tr from-teal-500/20 to-cyan-500/20 text-teal-300 rounded-2xl border border-teal-500/30 shadow-md">
+            <div className="p-2 bg-teal-500/10 text-teal-400 rounded-xl border border-teal-500/20">
               <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg sm:text-xl font-black text-white tracking-tight">
+              <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
                 Child&apos;s Daily Oral Hygiene Checklist
               </h3>
-              <p className="text-xs text-slate-300 mt-0.5">
-                Daily clinical tracking calibrated for <span className="font-bold text-teal-300">{childDisplayName}</span> ({activeChild?.code || "ASD Profile"})
+              <p className="text-xs text-slate-400 mt-0.5">
+                Clinical telemetry for <span className="font-semibold text-teal-300">{childDisplayName}</span> ({activeChild?.code || "ASD Profile"})
               </p>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 bg-orange-500/15 text-orange-400 px-3.5 py-1.5 rounded-full text-xs font-extrabold border border-orange-500/30">
-            <Flame className="w-3.5 h-3.5 text-orange-400 fill-orange-400 animate-pulse" />
+          <div className="flex items-center gap-1.5 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-semibold border border-orange-500/20">
+            <Flame className="w-3.5 h-3.5 text-orange-400 fill-orange-400" />
             {streak} Day Streak
           </div>
 
-          <div className="flex items-center gap-1.5 bg-teal-500/15 text-teal-300 px-3.5 py-1.5 rounded-full text-xs font-extrabold border border-teal-500/30">
+          <div className="flex items-center gap-1.5 bg-teal-500/10 text-teal-300 px-3 py-1 rounded-full text-xs font-semibold border border-teal-500/20">
             <Sparkles className="w-3.5 h-3.5 text-teal-400" />
-            {score}% Hygiene Index
+            {score}% Today
           </div>
         </div>
       </div>
@@ -459,16 +470,16 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
       </div>
 
       {/* Footer Save Action Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10 pt-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800 pt-4">
         <div className="text-xs text-slate-400 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span>Saves to Supabase Database & activates personalized Argus AI guidance</span>
+          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>Saves to clinical database and updates daily monitoring telemetry</span>
         </div>
 
         <button
           type="button"
           onClick={handleSave}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-300 hover:to-cyan-300 text-slate-950 text-xs font-black rounded-xl shadow-lg shadow-teal-500/20 transition-all hover:scale-105"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
         >
           {isSaved ? (
             <>

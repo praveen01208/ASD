@@ -20,7 +20,8 @@ import {
   PlusCircle,
   Sparkles,
   LogOut,
-  Home
+  Home,
+  Baby
 } from "lucide-react";
 import { getUserProfile, fetchUserProfileFromServer, getActiveAccount, ChildAccount } from "@/lib/userStore";
 
@@ -110,11 +111,11 @@ export default function Sidebar() {
           </Link>
         ) : (
           <Link
-            href="/onboarding"
-            className="p-2.5 rounded-2xl bg-teal-500/20 border border-teal-400/40 hover:bg-teal-500/30 transition-all flex items-center gap-2 text-teal-300 text-xs font-bold"
+            href="/profile"
+            className="p-2.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all flex items-center gap-2 text-slate-300 text-xs font-semibold"
           >
-            <PlusCircle className="w-4 h-4 flex-shrink-0" />
-            <span className="truncate">Setup Child Intake</span>
+            <Baby className="w-4 h-4 flex-shrink-0 text-teal-400" />
+            <span className="truncate">Child Oral Profile</span>
           </Link>
         )}
       </div>

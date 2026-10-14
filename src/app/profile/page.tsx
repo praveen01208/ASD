@@ -51,12 +51,11 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        <Link
-          href="/onboarding"
-          className="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-teal-500/20 transition-all hover:scale-105"
-        >
-          <Edit3 className="w-3.5 h-3.5" /> Edit Baseline Questionnaire
-        </Link>
+        <div className="flex items-center gap-2 self-start sm:self-auto">
+          <span className="px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center gap-1.5">
+            <CheckCircle2 className="w-3.5 h-3.5" /> Baseline Intake Stored
+          </span>
+        </div>
       </div>
 
       {child && (
