@@ -9,28 +9,22 @@ import {
   Flame, 
   ShieldCheck, 
   ArrowUpRight, 
-  ArrowDownRight, 
-  Video, 
   Apple, 
   CheckCircle2, 
-  MessageSquareHeart, 
-  Sparkles, 
   Phone, 
   ChevronRight,
   Smile,
   AlertTriangle,
-  ClipboardList,
-  Users,
   Play,
   Heart,
-  Star,
   Award,
   Stethoscope,
   Brain,
   Check,
   Calendar,
   Clock,
-  Sparkle
+  Sparkle,
+  FileText
 } from "lucide-react";
 import DailyHygieneChecklist from "@/components/DailyHygieneChecklist";
 import { 
@@ -50,13 +44,13 @@ export default function Dashboard() {
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useState(true);
   const [isCheckingProfile, setIsCheckingProfile] = useState(true);
 
-  // Daily Checklist Tracking State
+  // Daily Checklist Tracking State (Today YYYY-MM-DD)
   const todayKey = new Date().toISOString().split("T")[0];
   const [isTodayLogged, setIsTodayLogged] = useState(false);
   const [todayLogData, setTodayLogData] = useState<any>(null);
 
-  // Check if today's checklist has been completed
-  const checkTodayLog = (childId?: string) => {
+  // Check if today's checklist has been completed from local & DB
+  const checkTodayLog = async (childId?: string) => {
     if (typeof window === "undefined") return;
     const cid = childId || activeChild?.id || "default";
     const storageKey = `asd_daily_hygiene_log_${cid}_${todayKey}`;
@@ -66,15 +60,33 @@ export default function Dashboard() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        if (parsed.date === todayKey || parsed.brushedMorning || parsed.brushedNight) {
+        if (parsed.date === todayKey || parsed.brushedMorning !== undefined) {
           setIsTodayLogged(true);
           setTodayLogData(parsed);
           return;
         }
       } catch (e) {
-        // Fallback
+        // Fallback to API check
       }
     }
+
+    // Secondary check from DB API
+    try {
+      const res = await fetch(`/api/daily-logs?childId=${encodeURIComponent(cid)}&userId=${encodeURIComponent(user?.id || "")}`);
+      if (res.ok) {
+        const data = await res.json();
+        const found = (data.logs || []).find((l: any) => l.date === todayKey);
+        if (found) {
+          setIsTodayLogged(true);
+          setTodayLogData(found);
+          localStorage.setItem(storageKey, JSON.stringify(found));
+          return;
+        }
+      }
+    } catch (err) {
+      // offline / local fallback
+    }
+
     setIsTodayLogged(false);
   };
 
@@ -105,10 +117,9 @@ export default function Dashboard() {
             setHasCompletedOnboarding(true);
             checkTodayLog(fallback.id);
           } else {
-            const fallback = getActiveAccount(user.id) || DEFAULT_ACCOUNTS[0];
-            setActiveChild(fallback);
-            setHasCompletedOnboarding(false);
-            checkTodayLog(fallback.id);
+            // First time login! Prompt the 20 questionnaire intake once and nowhere again
+            router.replace("/onboarding");
+            return;
           }
         } else {
           const fallback = getActiveAccount() || DEFAULT_ACCOUNTS[0];
@@ -137,8 +148,13 @@ export default function Dashboard() {
       }
     };
 
-    const handleDailyLogUpdate = () => {
-      checkTodayLog();
+    const handleDailyLogUpdate = (e: any) => {
+      if (e?.detail) {
+        setIsTodayLogged(true);
+        setTodayLogData(e.detail);
+      } else {
+        checkTodayLog();
+      }
     };
 
     window.addEventListener("asd_account_changed", handleAccountChange);
@@ -147,7 +163,7 @@ export default function Dashboard() {
       window.removeEventListener("asd_account_changed", handleAccountChange);
       window.removeEventListener("asd_daily_log_updated", handleDailyLogUpdate);
     };
-  }, [isLoaded, isSignedIn, user?.id]);
+  }, [isLoaded, isSignedIn, user?.id, router]);
 
   // If auth is loaded and user is signed out, render LandingPage directly
   if (isLoaded && !isSignedIn) {
@@ -246,7 +262,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* If ALREADY logged today, show a clean, reassuring confirmation card */}
+        {/* If ALREADY logged today, show a clean, reassuring confirmation card (NEVER re-prompt) */}
         {isTodayLogged ? (
           <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
@@ -256,10 +272,10 @@ export default function Dashboard() {
                 </div>
                 <div>
                   <h3 className="text-sm sm:text-base font-bold text-white">
-                    Today&apos;s Checklist Successfully Logged
+                    Today&apos;s Oral Hygiene Routine Successfully Logged
                   </h3>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Data recorded to clinical database and synced with Argus AI.
+                    Data recorded in database and synced with monitoring telemetry & Argus AI.
                   </p>
                 </div>
               </div>
@@ -304,8 +320,11 @@ export default function Dashboard() {
             </div>
           </div>
         ) : (
-          /* If NOT yet logged today, render the 14-item checklist right here */
-          <DailyHygieneChecklist child={activeChild} />
+          /* If NOT yet logged today, prompt the 14-item checklist right here */
+          <DailyHygieneChecklist 
+            child={activeChild} 
+            onSaveComplete={() => checkTodayLog(activeChild?.id)}
+          />
         )}
       </div>
 
@@ -314,8 +333,8 @@ export default function Dashboard() {
         <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xl flex items-center justify-center">
-                {latestAssessment.motivationBadge?.icon || "🏆"}
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+                <Award className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -383,11 +402,11 @@ export default function Dashboard() {
             className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
           >
             <div>
-              <div className="w-9 h-9 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold text-lg mb-3">
-                🪥
+              <div className="w-9 h-9 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold text-xs mb-3 border border-teal-500/20">
+                01
               </div>
               <h3 className="font-bold text-sm text-white group-hover:text-teal-400 transition-colors">
-                1. Step-by-Step Brushing
+                Step-by-Step Brushing
               </h3>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Children happily demonstrating the 5 gentle steps to normalize sensations and build positive habits.
@@ -404,11 +423,11 @@ export default function Dashboard() {
             className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
           >
             <div>
-              <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-lg mb-3">
-                🍎
+              <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xs mb-3 border border-amber-500/20">
+                02
               </div>
               <h3 className="font-bold text-sm text-white group-hover:text-amber-400 transition-colors">
-                2. Diet Motivation: Shiny vs. Bugs
+                Diet Motivation: Shiny vs. Bugs
               </h3>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Dr. Binocs explains how bacteria feast on chocolates and sodas, and how healthy food keeps teeth shiny.
@@ -425,11 +444,11 @@ export default function Dashboard() {
             className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
           >
             <div>
-              <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-lg mb-3">
-                🌟
+              <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-xs mb-3 border border-indigo-500/20">
+                03
               </div>
               <h3 className="font-bold text-sm text-white group-hover:text-indigo-400 transition-colors">
-                3. God Blesses Joyful Brushers
+                God Blesses Joyful Brushers
               </h3>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
                 Cleanliness is Godliness moral story showing how caring for teeth brings divine blessings and peace.

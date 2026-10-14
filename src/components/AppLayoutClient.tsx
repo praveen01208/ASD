@@ -25,16 +25,7 @@ export default function AppLayoutClient({
   // Render clean full-width layout without the regular user sidebar!
   if (!isSignedIn || isLandingPage || isAuthPage || isAdminPage || isOnboardingPage) {
     return (
-      <div className="relative min-h-screen w-full bg-[#030712] text-slate-100 overflow-x-hidden">
-        {/* Hardware-accelerated background lighting */}
-        <div 
-          className="fixed top-0 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-teal-500/10 rounded-full blur-[90px] sm:blur-[140px] pointer-events-none -z-10 will-change-transform" 
-          style={{ transform: "translateZ(0)" }}
-        />
-        <div 
-          className="fixed bottom-0 right-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-indigo-500/10 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none -z-10 will-change-transform" 
-          style={{ transform: "translateZ(0)" }}
-        />
+      <div className="relative min-h-screen w-full bg-[#080D1A] text-slate-100 overflow-x-hidden">
         <main className="w-full min-h-screen">{children}</main>
         {/* Argus chatbot is only shown when signed in and not on admin/onboarding */}
         {isSignedIn && !isLandingPage && !isAuthPage && !isAdminPage && !isOnboardingPage && (
@@ -45,16 +36,7 @@ export default function AppLayoutClient({
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#030712] text-slate-100 relative selection:bg-teal-500 selection:text-white flex flex-col md:flex-row">
-      {/* Background ambient lighting */}
-      <div 
-        className="fixed top-0 left-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-teal-500/10 rounded-full blur-[90px] sm:blur-[140px] pointer-events-none -z-10 will-change-transform" 
-        style={{ transform: "translateZ(0)" }}
-      />
-      <div 
-        className="fixed bottom-0 right-1/4 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-indigo-500/10 rounded-full blur-[100px] sm:blur-[160px] pointer-events-none -z-10 will-change-transform" 
-        style={{ transform: "translateZ(0)" }}
-      />
+    <div className="min-h-screen w-full bg-[#080D1A] text-slate-100 relative selection:bg-teal-600 selection:text-white flex flex-col md:flex-row">
 
       {/* Mobile Top Header with Hamburger & ASD Logo */}
       <div className="md:hidden sticky top-0 z-40 w-full px-4 py-2.5 liquid-glass flex items-center justify-between border-b border-white/10 bg-[#030712]/90 backdrop-blur-md">

@@ -17,7 +17,7 @@ import {
   ChevronRight,
   Check,
 } from "lucide-react";
-import { saveUserProfile, ChildAccount } from "@/lib/userStore";
+import { saveUserProfile, hasUserCompletedOnboarding, ChildAccount } from "@/lib/userStore";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
@@ -354,17 +354,20 @@ export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
 
-  // Ensure 20 questionnaires are asked ONLY ONCE per user after first login
+  // Ensure 20 questionnaires are asked ONLY ONCE per user after first login and nowhere again
   useEffect(() => {
     if (!isAuthLoaded) return;
     if (typeof window !== "undefined") {
       const isCompleted =
+        hasUserCompletedOnboarding(user?.id) ||
         localStorage.getItem("asd_onboarding_completed") === "true" ||
-        (user?.id && localStorage.getItem(`asd_onboarding_completed_${user.id}`) === "true");
-      const hasActiveProfile = localStorage.getItem("asd_current_user_profile");
+        (user?.id && localStorage.getItem(`asd_onboarding_completed_${user.id}`) === "true") ||
+        (user?.id && localStorage.getItem(`asd_onboarded_${user.id}`) === "true") ||
+        (user?.id && !!localStorage.getItem(`asd_profile_${user.id}`)) ||
+        !!localStorage.getItem("asd_current_user_profile");
 
-      if (isCompleted && hasActiveProfile) {
-        // User has already answered the 20 questions! Never ask again.
+      if (isCompleted) {
+        // User has already completed intake. Redirect directly to dashboard.
         router.replace("/");
       }
     }

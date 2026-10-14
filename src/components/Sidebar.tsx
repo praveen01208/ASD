@@ -131,13 +131,13 @@ export default function Sidebar() {
                 href={item.href}
                 className={`group flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-all ${
                   isActive
-                    ? "bg-teal-500/20 text-teal-300 border border-teal-500/30 shadow-[0_0_15px_rgba(45,212,191,0.2)]"
-                    : "text-slate-300 hover:bg-white/10 hover:text-white"
+                    ? "bg-teal-500/15 text-teal-300 border border-teal-500/30 font-semibold"
+                    : "text-slate-300 hover:bg-white/5 hover:text-white"
                 }`}
               >
                 <div className="flex items-center gap-x-2.5">
                   <item.icon
-                    className={`h-4 w-4 shrink-0 transition-transform group-hover:scale-110 ${
+                    className={`h-4 w-4 shrink-0 transition-transform group-hover:scale-105 ${
                       isActive ? "text-teal-400" : "text-slate-400 group-hover:text-teal-300"
                     }`}
                     aria-hidden="true"
@@ -160,7 +160,7 @@ export default function Sidebar() {
             <span className="text-[10px] font-bold uppercase tracking-wider text-rose-300 flex items-center gap-1">
               <Phone className="w-3 h-3" /> 24/7 Helpline
             </span>
-            <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+            <span className="w-2 h-2 rounded-full bg-rose-400"></span>
           </div>
           <div className="text-[11px] text-white font-mono font-bold mb-2">+91 9284046972</div>
           <Link
@@ -195,7 +195,7 @@ export default function Sidebar() {
           <Show when="signed-out">
             <div className="liquid-glass rounded-xl p-2.5 border border-white/10 space-y-2">
               <SignInButton mode="modal">
-                <button className="w-full text-center py-2 px-3 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 text-xs font-bold rounded-lg transition-all shadow-sm">
+                <button className="w-full text-center py-2 px-3 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-lg transition-all shadow-sm">
                   Sign In / Register
                 </button>
               </SignInButton>

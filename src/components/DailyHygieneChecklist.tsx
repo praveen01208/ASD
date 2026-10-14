@@ -8,15 +8,14 @@ import {
   CheckCircle2, 
   Smile, 
   Flame, 
-  Sparkles, 
   Save, 
   Check,
-  AlertTriangle,
+  AlertCircle,
   Droplets,
   Heart,
-  ShieldAlert,
-  Cookie,
-  UtensilsCrossed,
+  ShieldCheck,
+  Coffee,
+  Sparkles,
   Sparkle
 } from "lucide-react";
 import { getActiveAccount, ChildAccount } from "@/lib/userStore";
@@ -70,12 +69,21 @@ const defaultLog: DailyOralHygieneLog = {
   showResistanceOrCrying: false,
 };
 
-export default function DailyHygieneChecklist({ child }: { child?: ChildAccount | null }) {
+export default function DailyHygieneChecklist({ 
+  child,
+  onSaveComplete 
+}: { 
+  child?: ChildAccount | null;
+  onSaveComplete?: () => void;
+}) {
   const { user } = useAuth();
   const [activeChild, setActiveChild] = useState<ChildAccount | null>(child || null);
   const [log, setLog] = useState<DailyOralHygieneLog>(defaultLog);
+  const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [streak, setStreak] = useState(7);
+
+  const today = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     if (child) {
@@ -84,7 +92,6 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
       setActiveChild(getActiveAccount(user?.id));
     }
 
-    const today = new Date().toISOString().split("T")[0];
     const childId = child?.id || activeChild?.id || "default";
     const storageKey = `asd_daily_hygiene_log_${childId}_${today}`;
     const genericKey = `asd_daily_hygiene_log_${today}`;
@@ -104,7 +111,7 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
 
     window.addEventListener("asd_account_changed", handleChildChange);
     return () => window.removeEventListener("asd_account_changed", handleChildChange);
-  }, [child, user?.id]);
+  }, [child, user?.id, today]);
 
   const toggleField = (field: keyof Omit<DailyOralHygieneLog, "date" | "childId">) => {
     setLog((prev) => {
@@ -115,38 +122,51 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
   };
 
   const handleSave = async () => {
-    const today = log.date || new Date().toISOString().split("T")[0];
+    setIsSaving(true);
     const childId = activeChild?.id || "default";
     const storageKey = `asd_daily_hygiene_log_${childId}_${today}`;
     const genericKey = `asd_daily_hygiene_log_${today}`;
 
-    // 1. Save locally for instant reactivity and Argus context
-    localStorage.setItem(storageKey, JSON.stringify(log));
-    localStorage.setItem(genericKey, JSON.stringify(log));
-    localStorage.setItem("asd_today_checklist", JSON.stringify(log));
+    const currentRecord = { ...log, date: today, childId };
+
+    // 1. Save locally for instant UI responsiveness
+    localStorage.setItem(storageKey, JSON.stringify(currentRecord));
+    localStorage.setItem(genericKey, JSON.stringify(currentRecord));
+    localStorage.setItem("asd_today_checklist", JSON.stringify(currentRecord));
     localStorage.setItem("asd_checklist_completed_today", today);
 
     try {
       const historyRaw = localStorage.getItem("asd_daily_logs_history");
       let history: any[] = historyRaw ? JSON.parse(historyRaw) : [];
       history = history.filter((h: any) => h.date !== today);
-      history.unshift({ ...log, date: today });
+      history.unshift(currentRecord);
       localStorage.setItem("asd_daily_logs_history", JSON.stringify(history.slice(0, 30)));
     } catch (e) {
       // ignore
     }
 
-    // Dispatch event so Argus and other components react
-    window.dispatchEvent(new CustomEvent("asd_daily_log_updated", { detail: log }));
+    // 2. Persist to server database via API
+    try {
+      await fetch("/api/daily-logs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          childId,
+          userId: user?.id || null,
+          log: currentRecord,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to post daily log to /api/daily-logs:", err);
+    }
 
-    // 2. Sync to Supabase if configured
-    if (supabase && activeChild) {
+    // 3. Sync to Supabase directly if valid UUID
+    if (supabase && activeChild?.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(activeChild.id)) {
       try {
-        // Attempt to sync to Supabase daily_logs or daily_oral_hygiene_logs
         await supabase.from("daily_logs").upsert({
           child_id: activeChild.id,
           date: today,
-          brushed: log.brushedMorning || log.brushedNight,
+          brushed: Boolean(log.brushedMorning || log.brushedNight),
           fluoridated_toothpaste: true,
           assistance_level: log.brushesIndependently ? "independent" : "partial",
           tolerance: log.showResistanceOrCrying ? "poor" : "good",
@@ -157,12 +177,18 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
           water_intake: log.drankSufficientWater ? "good" : "poor",
         }, { onConflict: "child_id,date" });
       } catch (err) {
-        console.warn("Supabase daily log sync skipped:", err);
+        console.warn("Direct Supabase sync skipped:", err);
       }
     }
 
+    // Dispatch event so Dashboard, Monitoring, and Argus chatbot update immediately
+    window.dispatchEvent(new CustomEvent("asd_daily_log_updated", { detail: currentRecord }));
+
+    setIsSaving(false);
     setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 3000);
+    if (onSaveComplete) {
+      onSaveComplete();
+    }
   };
 
   // Calculate completion percentage
@@ -193,7 +219,7 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
   const childDisplayName = activeChild?.name || "Your Child";
 
   return (
-    <div className="bg-[#0F172A] rounded-2xl border border-slate-800 p-6 shadow-sm relative space-y-6">
+    <div className="bg-[#0F172A] rounded-2xl border border-slate-800 p-5 sm:p-7 shadow-sm space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
         <div>
@@ -206,21 +232,21 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
                 Child&apos;s Daily Oral Hygiene Checklist
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                Clinical telemetry for <span className="font-semibold text-teal-300">{childDisplayName}</span> ({activeChild?.code || "ASD Profile"})
+                Daily clinical tracking for <span className="font-semibold text-slate-200">{childDisplayName}</span> • Supervised by Dr. Nivrutti Reddy
               </p>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 bg-orange-500/10 text-orange-400 px-3 py-1 rounded-full text-xs font-semibold border border-orange-500/20">
-            <Flame className="w-3.5 h-3.5 text-orange-400 fill-orange-400" />
-            {streak} Day Streak
+        <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-1.5 bg-slate-800/80 text-amber-400 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700/80">
+            <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+            <span>{streak} Day Routine Streak</span>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-teal-500/10 text-teal-300 px-3 py-1 rounded-full text-xs font-semibold border border-teal-500/20">
-            <Sparkles className="w-3.5 h-3.5 text-teal-400" />
-            {score}% Today
+          <div className="flex items-center gap-1.5 bg-teal-500/10 text-teal-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-teal-500/20">
+            <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+            <span>Score: {score}%</span>
           </div>
         </div>
       </div>
@@ -231,11 +257,11 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
             DOMAIN 1: BRUSHING (4 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-1 border-b border-white/10">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
-              <Sun className="w-3.5 h-3.5 text-amber-400" /> Brushing Habits
+          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+            <span className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
+              <Sun className="w-3.5 h-3.5 text-amber-400" /> Brushing Routine
             </span>
-            <span className="text-[10px] font-mono text-slate-400 font-bold">4 Tasks</span>
+            <span className="text-[11px] font-mono text-slate-400">4 Items</span>
           </div>
 
           <div className="space-y-2">
@@ -261,8 +287,8 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
               {
                 id: "usedAdditionalAids" as const,
                 label: "Used additional aids (Floss, interdental brush)",
-                icon: Sparkles,
-                iconColor: "text-cyan-400",
+                icon: ShieldCheck,
+                iconColor: "text-sky-400",
               },
             ].map((item) => {
               const active = log[item.id];
@@ -271,10 +297,10 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
                 <div
                   key={item.id}
                   onClick={() => toggleField(item.id)}
-                  className={`p-3 rounded-2xl border cursor-pointer transition-all flex items-center justify-between group ${
+                  className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
-                      ? "bg-teal-500/15 border-teal-500/40 text-white shadow-sm"
-                      : "liquid-glass border-white/10 text-slate-300 hover:border-white/25 hover:text-white"
+                      ? "bg-teal-500/10 border-teal-500/30 text-white"
+                      : "bg-[#0B1120] border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0 pr-2">
@@ -282,10 +308,10 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
                     <span className="text-xs font-medium leading-snug">{item.label}</span>
                   </div>
                   <div
-                    className={`w-5 h-5 rounded-lg flex items-center justify-center border flex-shrink-0 transition-all ${
+                    className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
-                        ? "bg-teal-400 border-teal-300 text-slate-950 font-black shadow-sm"
-                        : "border-slate-700 bg-slate-900/60 group-hover:border-slate-500"
+                        ? "bg-teal-500 border-teal-400 text-white font-bold"
+                        : "border-slate-700 bg-slate-900 group-hover:border-slate-600"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -300,11 +326,11 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
             DOMAIN 2: DIET (7 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-1 border-b border-white/10">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
               <Apple className="w-3.5 h-3.5 text-emerald-400" /> Dietary Habits
             </span>
-            <span className="text-[10px] font-mono text-slate-400 font-bold">7 Tasks</span>
+            <span className="text-[11px] font-mono text-slate-400">7 Items</span>
           </div>
 
           <div className="space-y-2">
@@ -321,7 +347,7 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
               },
               {
                 id: "consumedSugarySnacksDrinks" as const,
-                label: "Consumed sugary snacks/ drinks",
+                label: "Consumed sugary snacks / drinks",
                 risk: true,
               },
               {
@@ -331,7 +357,7 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
               },
               {
                 id: "consumedStickyFood" as const,
-                label: "Consumed sticky food (chocolate)",
+                label: "Consumed sticky food (chocolate, etc.)",
                 risk: true,
               },
               {
@@ -341,7 +367,7 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
               },
               {
                 id: "healthyDinner" as const,
-                label: "Dinner: Healthy meal",
+                label: "Dinner: healthy meal",
                 risk: false,
               },
             ].map((item) => {
@@ -350,29 +376,29 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
                 <div
                   key={item.id}
                   onClick={() => toggleField(item.id)}
-                  className={`p-2.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between group ${
+                  className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
                       ? item.risk
-                        ? "bg-amber-500/15 border-amber-500/40 text-amber-200 shadow-sm"
-                        : "bg-emerald-500/15 border-emerald-500/40 text-white shadow-sm"
-                      : "liquid-glass border-white/10 text-slate-300 hover:border-white/25 hover:text-white"
+                        ? "bg-amber-500/10 border-amber-500/30 text-amber-200"
+                        : "bg-emerald-500/10 border-emerald-500/30 text-white"
+                      : "bg-[#0B1120] border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
                   }`}
                 >
                   <div className="flex items-center gap-2 min-w-0 pr-2">
                     {item.risk ? (
-                      <Cookie className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-amber-400" : "text-slate-400"}`} />
+                      <AlertCircle className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-amber-400" : "text-slate-500"}`} />
                     ) : (
-                      <Apple className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-emerald-400" : "text-slate-400"}`} />
+                      <Apple className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-emerald-400" : "text-slate-500"}`} />
                     )}
                     <span className="text-xs font-medium leading-snug">{item.label}</span>
                   </div>
                   <div
-                    className={`w-5 h-5 rounded-lg flex items-center justify-center border flex-shrink-0 transition-all ${
+                    className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
                         ? item.risk
-                          ? "bg-amber-400 border-amber-300 text-slate-950 font-black shadow-sm"
-                          : "bg-emerald-400 border-emerald-300 text-slate-950 font-black shadow-sm"
-                        : "border-slate-700 bg-slate-900/60 group-hover:border-slate-500"
+                          ? "bg-amber-500 border-amber-400 text-slate-950 font-bold"
+                          : "bg-emerald-500 border-emerald-400 text-white font-bold"
+                        : "border-slate-700 bg-slate-900 group-hover:border-slate-600"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -387,11 +413,11 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
             DOMAIN 3: BEHAVIOR (3 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-1 border-b border-white/10">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
-              <Smile className="w-3.5 h-3.5 text-purple-400" /> Child Behavior
+          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
+            <span className="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
+              <Smile className="w-3.5 h-3.5 text-purple-400" /> Behavioral Response
             </span>
-            <span className="text-[10px] font-mono text-slate-400 font-bold">3 Tasks</span>
+            <span className="text-[11px] font-mono text-slate-400">3 Items</span>
           </div>
 
           <div className="space-y-2">
@@ -412,9 +438,9 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
               },
               {
                 id: "showResistanceOrCrying" as const,
-                label: "Show Resistance/crying while brushing",
+                label: "Show Resistance / crying while brushing",
                 risk: true,
-                icon: AlertTriangle,
+                icon: AlertCircle,
                 iconColor: "text-rose-400",
               },
             ].map((item) => {
@@ -424,12 +450,12 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
                 <div
                   key={item.id}
                   onClick={() => toggleField(item.id)}
-                  className={`p-3 rounded-2xl border cursor-pointer transition-all flex items-center justify-between group ${
+                  className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
                       ? item.risk
-                        ? "bg-rose-500/15 border-rose-500/40 text-rose-200 shadow-sm"
-                        : "bg-purple-500/15 border-purple-500/40 text-purple-100 shadow-sm"
-                      : "liquid-glass border-white/10 text-slate-300 hover:border-white/25 hover:text-white"
+                        ? "bg-rose-500/10 border-rose-500/30 text-rose-200"
+                        : "bg-purple-500/10 border-purple-500/30 text-white"
+                      : "bg-[#0B1120] border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0 pr-2">
@@ -437,12 +463,12 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
                     <span className="text-xs font-medium leading-snug">{item.label}</span>
                   </div>
                   <div
-                    className={`w-5 h-5 rounded-lg flex items-center justify-center border flex-shrink-0 transition-all ${
+                    className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
                         ? item.risk
-                          ? "bg-rose-500 border-rose-400 text-white font-black shadow-sm"
-                          : "bg-purple-400 border-purple-300 text-slate-950 font-black shadow-sm"
-                        : "border-slate-700 bg-slate-900/60 group-hover:border-slate-500"
+                          ? "bg-rose-500 border-rose-400 text-white font-bold"
+                          : "bg-purple-500 border-purple-400 text-white font-bold"
+                        : "border-slate-700 bg-slate-900 group-hover:border-slate-600"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -452,18 +478,18 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
             })}
           </div>
 
-          {/* Real-time AI Tip based on Today's Logs */}
-          <div className="p-3.5 rounded-2xl bg-teal-500/10 border border-teal-500/25 mt-4 text-xs space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-teal-300">
-              <Sparkles className="w-3.5 h-3.5" />
-              Argus AI Real-time Calibration
+          {/* Clinical Telemetry Insight Box */}
+          <div className="p-3.5 rounded-xl bg-[#0B1120] border border-slate-800 mt-4 text-xs space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-teal-400">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Argus AI Telemetry Calibration
             </div>
-            <p className="text-[11px] text-slate-300 leading-relaxed">
+            <p className="text-[11px] text-slate-400 leading-relaxed">
               {log.showResistanceOrCrying
-                ? `Sensory resistance logged today for ${childDisplayName}. Argus will emphasize non-verbal reassurance and 30-second pacing.`
+                ? `Sensory resistance logged for ${childDisplayName}. Argus adjusts pacing and provides non-verbal reassurance guidance.`
                 : log.consumedStickyFood
-                ? "Sticky foods logged. Argus recommends a post-snack warm water rinse."
-                : `Great routine today for ${childDisplayName}! Brushing cooperation strengthens the 7-day milestone badge.`}
+                ? "Sticky foods noted on record. Argus recommends a 30-second warm water swirl."
+                : `Consistent oral routine recorded for ${childDisplayName}. Positively impacts weekly clinical score.`}
             </p>
           </div>
         </div>
@@ -472,22 +498,25 @@ export default function DailyHygieneChecklist({ child }: { child?: ChildAccount 
       {/* Footer Save Action Bar */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800 pt-4">
         <div className="text-xs text-slate-400 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>Saves to clinical database and updates daily monitoring telemetry</span>
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+          <span>Stores in database & dynamically updates monitoring telemetry</span>
         </div>
 
         <button
           type="button"
+          disabled={isSaving}
           onClick={handleSave}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl shadow-sm transition-all"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm disabled:opacity-50"
         >
-          {isSaved ? (
+          {isSaving ? (
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          ) : isSaved ? (
             <>
               <Check className="w-4 h-4 stroke-[3]" /> Saved Today&apos;s Checklist!
             </>
           ) : (
             <>
-              <Save className="w-4 h-4" /> Save Today&apos;s Checklist
+              <Save className="w-4 h-4" /> Submit Today&apos;s Checklist
             </>
           )}
         </button>

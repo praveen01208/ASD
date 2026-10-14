@@ -1,0 +1,24 @@
+{
+  "test-child": [
+    {
+      "date": "2026-10-14",
+      "brushedMorning": true,
+      "brushedNight": true,
+      "healthyBreakfast": true,
+      "childId": "test-child",
+      "userId": null,
+      "savedAt": "2026-10-14T10:02:22.386Z"
+    }
+  ],
+  "default": [
+    {
+      "date": "2026-10-14",
+      "brushedMorning": true,
+      "brushedNight": true,
+      "healthyBreakfast": true,
+      "childId": "test-child",
+      "userId": null,
+      "savedAt": "2026-10-14T10:02:22.386Z"
+    }
+  ]
+}

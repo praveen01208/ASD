@@ -1,75 +1,54 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
-  Sparkles,
   Activity,
   ShieldCheck,
-  Smile,
-  Video,
   Phone,
   ArrowRight,
   CheckCircle2,
   HeartHandshake,
   Play,
   ChevronRight,
-  ExternalLink,
   MessageCircle,
   Stethoscope,
   Award,
   Menu,
   X,
-  Star,
   Brain,
   Users,
-  Headphones,
-  Apple
+  Calendar,
+  FileText,
+  Clock,
+  Sparkle
 } from "lucide-react";
 import { Show, SignInButton, SignUpButton, UserButton } from "@/components/AuthComponents";
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const consultantWhatsAppNumber = "7758022942";
   const helplineCallingNumber = "9284046972";
 
-  const consultantWhatsAppUrl =
-    `https://wa.me/91${consultantWhatsAppNumber}?text=` +
-    encodeURIComponent(
-      "Hello, I am reaching out through the ASD Oral Care platform to consult your specialized clinical panel."
-    );
-
   return (
-    <div className="relative min-h-screen w-full bg-[#030712] text-slate-100 overflow-x-hidden selection:bg-teal-500 selection:text-white">
-      {/* ── OPTIMIZED BACKGROUND AMBIENT ─────────────────────────────────────── */}
-      <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          className="hidden sm:block absolute inset-0 w-full h-full object-cover will-change-transform"
-          style={{ opacity: 0.22, transform: "translateZ(0)" }}
-          src="/bg.mp4"
-        />
-        {/* Strong overlay for maximum contrast & zero mobile lag */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030712]/90 via-[#030712]/75 to-[#030712]/98" />
-        {/* Ambient glow orbs */}
-        <div className="absolute top-0 left-0 w-[260px] sm:w-[450px] h-[260px] sm:h-[450px] bg-teal-500/10 rounded-full blur-[80px] sm:blur-[140px]" />
-        <div className="absolute bottom-0 right-0 w-[260px] sm:w-[450px] h-[260px] sm:h-[450px] bg-indigo-500/10 rounded-full blur-[80px] sm:blur-[160px]" />
+    <div className="relative min-h-screen w-full bg-[#080D1A] text-slate-100 overflow-x-hidden selection:bg-teal-600 selection:text-white">
+      {/* ── TOP ANNOUNCEMENT & HELPLINE BAR ─────────────────────────────── */}
+      <div className="bg-[#0B1120] border-b border-slate-800/80 px-4 py-2 text-center text-xs text-slate-300 flex items-center justify-center gap-2">
+        <span className="text-teal-400 font-semibold">Dr. Nivrutti Reddy Clinical Protocol:</span>
+        <span>Dedicated Pediatric Autism Oral Health System</span>
+        <span className="hidden sm:inline text-slate-500">•</span>
+        <a href="tel:9284046972" className="hidden sm:inline font-bold text-rose-300 hover:text-rose-200">
+          24/7 Helpline: +91 9284046972
+        </a>
       </div>
 
       {/* ── NAVBAR ───────────────────────────────────────────────────────── */}
-      <nav className="sticky top-0 z-40 w-full px-4 sm:px-6 py-3">
-        <div className="max-w-7xl mx-auto liquid-glass rounded-2xl px-4 sm:px-6 py-2.5 flex items-center justify-between border border-white/15 shadow-2xl">
+      <nav className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 bg-[#080D1A]/90 backdrop-blur-md border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Brand with ASD Logo */}
           <Link href="/landing" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl overflow-hidden bg-slate-900 border border-teal-400/40 flex items-center justify-center p-1 shadow-lg shadow-teal-500/20 group-hover:scale-105 transition-transform flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#0F172A] border border-slate-700 flex items-center justify-center p-1.5 flex-shrink-0">
               <img
                 src="/asd-logo.png"
                 alt="ASD Oral Care Logo"
@@ -77,95 +56,93 @@ export default function LandingPage() {
               />
             </div>
             <div className="min-w-0">
-              <div className="font-black text-sm sm:text-base tracking-tight text-white truncate">
+              <div className="font-bold text-base tracking-tight text-white truncate">
                 ASD Oral Care AI
               </div>
-              <div className="text-[9px] sm:text-[10px] text-teal-300 font-bold tracking-wider uppercase flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse flex-shrink-0" />
+              <div className="text-[10px] text-teal-400 font-semibold tracking-wide uppercase">
                 Pediatric Autism Oral Health
               </div>
             </div>
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1 text-xs font-semibold text-slate-200">
-            <a href="#features" className="px-3 py-1.5 rounded-full hover:text-teal-300 hover:bg-white/5 transition-all">
-              Features
+          <div className="hidden md:flex items-center gap-6 text-xs font-medium text-slate-300">
+            <a href="#intake" className="hover:text-white transition-colors">
+              Intake Protocol
             </a>
-            <a href="#stories" className="px-3 py-1.5 rounded-full hover:text-teal-300 hover:bg-white/5 transition-all">
-              Visual Learning
+            <a href="#daily-monitoring" className="hover:text-white transition-colors">
+              Daily Monitoring
             </a>
-            <Link href="/helpline" className="px-3 py-1.5 rounded-full text-rose-300 hover:text-rose-200 hover:bg-rose-500/10 transition-all font-bold flex items-center gap-1">
-              <Phone className="w-3.5 h-3.5" /> Helpline: {helplineCallingNumber}
+            <a href="#visual-learning" className="hover:text-white transition-colors">
+              Visual Learning Suite
+            </a>
+            <a href="#consultants" className="hover:text-white transition-colors">
+              Consultants Panel
+            </a>
+            <Link href="/helpline" className="text-rose-300 hover:text-rose-200 font-semibold flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5" /> 9284046972
             </Link>
-            <a href="#consultants" className="px-3 py-1.5 rounded-full text-emerald-300 hover:text-emerald-200 hover:bg-emerald-500/10 transition-all font-bold flex items-center gap-1">
-              <Stethoscope className="w-3.5 h-3.5" /> Consultants
-            </a>
           </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-2">
-            <Link
-              href="/helpline"
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-xs font-bold transition-all"
-            >
-              <Phone className="w-3 h-3" />
-              Call: {helplineCallingNumber}
-            </Link>
-
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2.5">
             <Show when="signed-in">
               <Link
                 href="/"
-                className="px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-400 hover:from-teal-400 hover:to-cyan-300 text-slate-950 text-xs font-extrabold shadow-md transition-all flex items-center gap-1"
+                className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5"
               >
-                Dashboard <ArrowRight className="w-3 h-3" />
+                <span>Child Dashboard</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <UserButton />
             </Show>
 
             <Show when="signed-out">
-              <SignInButton mode="modal">
-                <button className="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-200 hover:text-white hover:bg-white/10 transition-all hidden sm:block">
+              <SignInButton mode="redirect">
+                <button className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-all hidden sm:block">
                   Sign In
                 </button>
               </SignInButton>
-              <SignUpButton mode="modal">
-                <button className="px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-400 hover:from-teal-400 hover:to-cyan-300 text-slate-950 text-xs font-extrabold shadow-lg shadow-teal-500/30 transition-all whitespace-nowrap">
-                  Get Started
+              <SignUpButton mode="redirect">
+                <button className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold shadow-sm transition-all whitespace-nowrap">
+                  Register Caregiver Account
                 </button>
               </SignUpButton>
             </Show>
 
-            {/* Mobile hamburger */}
+            {/* Mobile Hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl bg-white/10 text-slate-200 hover:text-white flex-shrink-0"
-              aria-label="Toggle menu"
+              className="md:hidden p-2 rounded-xl bg-slate-800 text-slate-200 hover:text-white flex-shrink-0"
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile dropdown */}
+        {/* Mobile menu dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden mt-2 p-4 liquid-glass rounded-2xl border border-white/20 flex flex-col gap-2 text-xs font-bold animate-in fade-in">
-            <a href="#features" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-3 text-slate-200 rounded-xl hover:bg-white/5">
-              Features
+          <div className="md:hidden mt-3 p-4 bg-[#0F172A] rounded-2xl border border-slate-800 flex flex-col gap-2 text-xs font-medium animate-in fade-in">
+            <a href="#intake" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-slate-200 rounded-lg hover:bg-slate-800">
+              5-Domain Clinical Intake
             </a>
-            <a href="#stories" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-3 text-slate-200 rounded-xl hover:bg-white/5">
-              Visual Learning & Videos
+            <a href="#daily-monitoring" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-slate-200 rounded-lg hover:bg-slate-800">
+              Daily Routine Monitoring
             </a>
-            <Link href="/helpline" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-3 text-rose-300 rounded-xl hover:bg-rose-500/10 flex items-center gap-2">
-              <Phone className="w-4 h-4" /> Helpline: {helplineCallingNumber}
+            <a href="#visual-learning" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-slate-200 rounded-lg hover:bg-slate-800">
+              On-Site Visual Learning
+            </a>
+            <a href="#consultants" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-slate-200 rounded-lg hover:bg-slate-800">
+              Specialized Consultants
+            </a>
+            <Link href="/helpline" onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 text-rose-300 rounded-lg hover:bg-slate-800 flex items-center gap-2 font-semibold">
+              <Phone className="w-3.5 h-3.5" /> 24/7 Helpline: {helplineCallingNumber}
             </Link>
-            <a href="#consultants" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-3 text-emerald-400 rounded-xl hover:bg-emerald-500/10 flex items-center gap-2">
-              <Stethoscope className="w-4 h-4" /> Specialized Consultants
-            </a>
             <Show when="signed-out">
-              <SignInButton mode="modal">
-                <button className="py-2.5 px-3 text-left text-slate-200 rounded-xl hover:bg-white/5 w-full">
-                  Sign In / Register
+              <SignInButton mode="redirect">
+                <button className="py-2 px-3 text-left text-slate-200 rounded-lg hover:bg-slate-800 w-full">
+                  Sign In
                 </button>
               </SignInButton>
             </Show>
@@ -174,32 +151,32 @@ export default function LandingPage() {
       </nav>
 
       {/* ── HERO SECTION ─────────────────────────────────────────────────── */}
-      <section className="relative z-10 max-w-5xl mx-auto px-4 sm:px-8 pt-8 sm:pt-14 pb-14 sm:pb-20 text-center">
+      <section className="relative max-w-5xl mx-auto px-4 sm:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24 text-center">
         {/* Core Tagline Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass border border-teal-400/40 text-xs sm:text-sm font-extrabold text-teal-300 mb-6 shadow-lg shadow-teal-500/10">
-          <Sparkles className="w-4 h-4 text-teal-400" />
-          “Small steps, consistent routines, healthier smiles.”
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-800/80 border border-slate-700/80 text-xs font-semibold text-teal-300 mb-6">
+          <HeartHandshake className="w-3.5 h-3.5 text-teal-400" />
+          <span>“Small steps, consistent routines, healthier smiles.”</span>
         </div>
 
         {/* Main Title */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.15] max-w-4xl mx-auto text-white">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.18] max-w-4xl mx-auto">
           A Simple, Predictable Digital Space for{" "}
-          <span className="bg-gradient-to-r from-teal-300 via-cyan-300 to-indigo-300 bg-clip-text text-transparent">
+          <span className="text-teal-400">
             Parents & Caregivers of Children with ASD
           </span>
         </h1>
 
-        <p className="mt-5 text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          Sensory-calibrated brushing desensitization, weekly AI assessments, interactive diet stories, and direct helpline support to make daily oral hygiene joyful and stress-free.
+        <p className="mt-5 text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          Sensory-calibrated brushing desensitization, daily oral telemetry, weekly clinical progress tracking, and direct consultant support designed specifically for children on the autism spectrum.
         </p>
 
         {/* CTAs */}
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
           <Show when="signed-out">
-            <SignUpButton mode="modal">
-              <button className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-teal-400 to-cyan-300 hover:from-teal-300 hover:to-cyan-200 text-slate-950 font-black text-sm shadow-[0_0_35px_rgba(45,212,191,0.4)] transition-all hover:scale-105 flex items-center justify-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                Create Free Account & Start
+            <SignUpButton mode="redirect">
+              <button className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center gap-2">
+                <span>Register & Complete Baseline Intake</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </SignUpButton>
           </Show>
@@ -207,246 +184,299 @@ export default function LandingPage() {
           <Show when="signed-in">
             <Link
               href="/"
-              className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-teal-400 to-cyan-300 hover:from-teal-300 hover:to-cyan-200 text-slate-950 font-black text-sm shadow-[0_0_35px_rgba(45,212,191,0.4)] transition-all hover:scale-105 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs sm:text-sm shadow-sm transition-all flex items-center justify-center gap-2"
             >
+              <span>Go to Child Dashboard</span>
               <ArrowRight className="w-4 h-4" />
-              Go to Child Dashboard
             </Link>
           </Show>
 
           <Link
             href="/helpline"
-            className="w-full sm:w-auto px-7 py-4 rounded-2xl liquid-glass hover:bg-rose-500/15 text-rose-300 font-bold text-sm flex items-center justify-center gap-2 border border-rose-400/30 transition-all hover:scale-105"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#0F172A] hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all"
           >
-            <Phone className="w-4 h-4" />
-            24/7 Helpline ({helplineCallingNumber})
+            <Phone className="w-4 h-4 text-rose-400" />
+            <span>24/7 Helpline (+91 {helplineCallingNumber})</span>
           </Link>
         </div>
 
-        {/* Clinical trust pill badges */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-[11px] text-slate-400 font-semibold">
-          <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-teal-400" /> 5-Domain Clinical Intake</span>
-          <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-teal-400" /> Weekly AI Progress Tracker</span>
-          <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-teal-400" /> Admin & Multi-Account Access</span>
+        {/* Clinical Trust Checkpoints */}
+        <div className="mt-10 pt-8 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
+          <span className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-teal-400" /> 20-Question Intake Answered Once Post-Registration
+          </span>
+          <span className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-teal-400" /> Daily-Once Oral Telemetry Checklist
+          </span>
+          <span className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-teal-400" /> Supervised by Dr. Nivrutti Reddy
+          </span>
         </div>
       </section>
 
       {/* ── 5 CLINICAL INTAKE DOMAINS SECTION ────────────────────────────── */}
-      <section className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-12">
+      <section id="intake" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
         <div className="text-center mb-10">
-          <span className="text-[11px] font-extrabold uppercase tracking-widest text-teal-400">
-            Comprehensive Assessment
+          <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
+            Intake Protocol
           </span>
-          <h2 className="text-2xl sm:text-4xl font-black text-white mt-1">
-            5 Key Domains Answered Post-Registration
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+            5 Key Domains Answered Once Post-Registration
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl mx-auto">
-            All submitted baseline information is securely stored to calibrate sensory desensitization routines and weekly AI progress.
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
+            Your responses are stored securely in the clinical database to customize Argus AI and calibrate sensory routines. Never prompted again.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {[
             {
-              step: "1",
-              title: "Demographic Details",
-              desc: "Child's name, age, communication level, primary caregiver & sensory sensitivities.",
-              accent: "teal",
+              step: "01",
+              title: "Demographics",
+              desc: "Child's name, age, communication style, caregiver contact, and core sensory sensitivities.",
             },
             {
-              step: "2",
+              step: "02",
               title: "Brushing Habits",
-              desc: "Daily frequency, duration, toothbrush type, paste preference & assistance level.",
-              accent: "cyan",
+              desc: "Frequency, duration, brush type (collis / manual / sonic), paste tolerance, and assistance level.",
             },
             {
-              step: "3",
+              step: "03",
               title: "Dietary Habits",
-              desc: "Sugary food frequency, fruits, food holding in cheeks & night feeding/bottle.",
-              accent: "amber",
+              desc: "Sugar frequency, healthy meals, food holding in cheeks, and nighttime bottle/milk routines.",
             },
             {
-              step: "4",
+              step: "04",
               title: "Dental & Medical",
-              desc: "Past visits, cavities, tooth pain, bleeding gums, allergies & medications.",
-              accent: "indigo",
+              desc: "Past visits, active cavities or tooth pain, bleeding gums, medical conditions, and medications.",
             },
             {
-              step: "5",
-              title: "Child Behaviour",
-              desc: "Mouth opening tolerance, meltdown triggers, routine adherence & motivators.",
-              accent: "emerald",
+              step: "05",
+              title: "Sensory & Behavior",
+              desc: "Mouth opening cooperation, sensory aversion triggers, meltdown factors, and effective motivators.",
             },
           ].map((d) => (
             <div
               key={d.title}
-              className="liquid-glass-card rounded-2xl p-5 border border-white/10 flex flex-col justify-between"
+              className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 flex flex-col justify-between"
             >
               <div>
-                <div className="w-8 h-8 rounded-xl bg-teal-500/20 text-teal-300 font-black text-xs flex items-center justify-center mb-3">
+                <div className="w-8 h-8 rounded-xl bg-teal-500/10 text-teal-400 font-mono font-bold text-xs flex items-center justify-center mb-3 border border-teal-500/20">
                   {d.step}
                 </div>
                 <h3 className="text-sm font-bold text-white mb-1.5">{d.title}</h3>
-                <p className="text-[11px] text-slate-300 leading-relaxed">{d.desc}</p>
+                <p className="text-xs text-slate-400 leading-relaxed">{d.desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── CATCHY VISUAL STORIES & VIDEOS SECTION ──────────────────────── */}
-      <section id="stories" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-12">
-        <div className="liquid-glass-card rounded-3xl p-6 sm:p-10 border border-teal-500/30 bg-gradient-to-r from-teal-950/40 via-slate-900 to-indigo-950/40">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+      {/* ── DAILY MONITORING CHECKLIST OVERVIEW ──────────────────────────── */}
+      <section id="daily-monitoring" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
+        <div className="bg-[#0F172A] rounded-2xl p-6 sm:p-10 border border-slate-800 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+          <div className="max-w-xl space-y-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
+              <Calendar className="w-3.5 h-3.5" /> Daily Once Routine Tracking
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              Child&apos;s Daily Oral Hygiene Checklist
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Asked once daily on the dashboard. Records morning and bedtime brushing, dietary sugar/snack balance, and behavioral cooperation. All submissions store directly in the database and feed live telemetry for parent and doctor monitoring.
+            </p>
+            <div className="pt-2 flex flex-wrap gap-4 text-xs text-slate-400">
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-teal-400" /> Morning & Night Tracking</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-teal-400" /> Sugar & Sticky Food Risk</span>
+              <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-teal-400" /> Sensory Resistance Detection</span>
+            </div>
+          </div>
+
+          <div className="flex-shrink-0 w-full sm:w-auto">
+            <Link
+              href="/"
+              className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
+            >
+              <span>View Daily Monitoring Protocol</span>
+              <ChevronRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ON-SITE STORED VISUAL LEARNING SUITE ─────────────────────────── */}
+      <section id="visual-learning" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
+              Visual Desensitization
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+              On-Site Visual Learning Videos
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
+              Stored directly on the website with zero external links or distractions. Tailored for children on the autism spectrum.
+            </p>
+          </div>
+
+          <Link
+            href="/learning"
+            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5 transition-all self-start md:self-auto"
+          >
+            <Play className="w-3.5 h-3.5 text-teal-400" />
+            <span>Open Video Suite</span>
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          <div className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 flex flex-col justify-between">
             <div>
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-teal-400">
-                Stored On-Site • No Broken Links
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-                Catchy Interactive Visual Stories & Videos
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
-                Fun, motivating animations that explain healthy enamel vs sugar bugs and teach joyful step-by-step routines.
+              <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center text-sm font-bold mb-3">
+                01
+              </div>
+              <h3 className="text-sm font-bold text-white mb-1.5">Step-by-Step Brushing</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Children demonstrating gentle brushing steps to help normalize sensations and build predictable morning and bedtime routines.
               </p>
             </div>
-
-            <Link
-              href="/learning"
-              className="px-5 py-3 rounded-2xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-teal-500/20 whitespace-nowrap transition-all hover:scale-105"
-            >
-              <Play className="w-4 h-4 fill-slate-950" /> Play Interactive Stories
+            <Link href="/learning" className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-teal-400 hover:underline flex items-center gap-1">
+              <span>Watch Video</span> <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="liquid-glass rounded-2xl p-5 border border-white/15">
-              <div className="text-2xl mb-2">🪥✨</div>
-              <h3 className="font-bold text-sm text-white">Step-by-Step Brushing</h3>
-              <p className="text-xs text-slate-300 mt-1">
-                A cheerful child demonstrates joyful brushing steps with 2-minute visual sequencing and star rewards.
+          <div className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-sm font-bold mb-3">
+                02
+              </div>
+              <h3 className="text-sm font-bold text-white mb-1.5">Diet Motivation: Shiny vs. Bugs</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Dr. Binocs explains how bacteria feed on chocolates and soda, and how crunchy healthy fruits keep tooth enamel bright and strong.
               </p>
             </div>
+            <Link href="/learning" className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-amber-400 hover:underline flex items-center gap-1">
+              <span>Watch Video</span> <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
 
-            <div className="liquid-glass rounded-2xl p-5 border border-white/15">
-              <div className="text-2xl mb-2">🍎👾</div>
-              <h3 className="font-bold text-sm text-white">Diet Motivation: Sparkle vs Sugar Bugs</h3>
-              <p className="text-xs text-slate-300 mt-1">
-                Healthy crunchy foods make teeth diamond shiny; sugary chocolates invite sugar bugs until you brush them away!
+          <div className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 flex flex-col justify-between">
+            <div>
+              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-sm font-bold mb-3">
+                03
+              </div>
+              <h3 className="text-sm font-bold text-white mb-1.5">God Blessings & Cleanliness</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                An uplifting moral story demonstrating how caring for teeth brings peace, self-respect, and divine blessings for the whole family.
               </p>
             </div>
-
-            <div className="liquid-glass rounded-2xl p-5 border border-white/15">
-              <div className="text-2xl mb-2">🌟🙏</div>
-              <h3 className="font-bold text-sm text-white">The Blessing of Bright Smiles</h3>
-              <p className="text-xs text-slate-300 mt-1">
-                Heartwarming affirmations explaining how caring for teeth brings divine blessings, good health, and proud families.
-              </p>
-            </div>
+            <Link href="/learning" className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-indigo-400 hover:underline flex items-center gap-1">
+              <span>Watch Video</span> <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* ── CONSULTANTS PANEL SECTION ───────────────────────────────────── */}
-      <section id="consultants" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-14">
+      <section id="consultants" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
         <div className="text-center mb-10">
-          <span className="text-[11px] font-extrabold uppercase tracking-widest text-emerald-400">
-            Multidisciplinary Clinical Care
+          <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
+            Multidisciplinary Care
           </span>
-          <h2 className="text-2xl sm:text-4xl font-black text-white mt-1">
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mt-1">
             Specialized ASD Consultant Panel
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl mx-auto">
-            Direct clinical WhatsApp access is exclusively dedicated to consulting our 3 specialized practitioners.
+          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
+            Direct clinical WhatsApp access is exclusively dedicated to consulting our 3 specialized clinical practitioners.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {/* 1. ASD Therapist */}
-          <div className="liquid-glass-card rounded-3xl p-6 border border-teal-500/30 flex flex-col justify-between">
+          <div className="bg-[#0F172A] rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-teal-500/20 text-teal-300 flex items-center justify-center font-bold mb-4">
-                <Brain className="w-6 h-6" />
+              <div className="w-11 h-11 rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center mb-4">
+                <Brain className="w-5 h-5" />
               </div>
-              <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/20">
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20">
                 Behavior & Sensory
               </span>
-              <h3 className="text-lg font-black text-white mt-2">ASD Therapist</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Oral-motor tactile desensitization, sensory trigger reduction, visual schedule conditioning, and behavioral positive reinforcement.
+              <h3 className="text-base font-bold text-white mt-2">ASD Therapist</h3>
+              <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                Tactile oral-motor desensitization, sensory trigger reduction, visual scheduling, and positive reinforcement strategies.
               </p>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-white/10">
+            <div className="mt-6 pt-4 border-t border-slate-800">
               <a
                 href={`https://wa.me/91${consultantWhatsAppNumber}?text=${encodeURIComponent(
                   "Hello, I would like to consult the ASD Therapist regarding sensory desensitization routines."
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-teal-500/20"
+                className="w-full py-2.5 px-4 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
               >
-                <MessageCircle className="w-4 h-4 fill-slate-950" />
-                WhatsApp ASD Therapist
+                <MessageCircle className="w-4 h-4" />
+                <span>Consult ASD Therapist</span>
               </a>
             </div>
           </div>
 
           {/* 2. Pediatric Dentist */}
-          <div className="liquid-glass-card rounded-3xl p-6 border border-cyan-500/30 flex flex-col justify-between">
+          <div className="bg-[#0F172A] rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center font-bold mb-4">
-                <Stethoscope className="w-6 h-6" />
+              <div className="w-11 h-11 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center mb-4">
+                <Stethoscope className="w-5 h-5" />
               </div>
-              <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
-                Special Needs Clinical Care
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                Clinical Caries Care
               </span>
-              <h3 className="text-lg font-black text-white mt-2">Pediatric Dentist</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Clinical caries assessment, non-foaming fluoride protocols, gentle sensory-adapted mock checkups, and enamel remineralization.
+              <h3 className="text-base font-bold text-white mt-2">Pediatric Dentist</h3>
+              <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                Supervised by Dr. Nivrutti Reddy. Non-foaming fluoride protocols, sensory-adapted mock checkups, and enamel remineralization.
               </p>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-white/10">
+            <div className="mt-6 pt-4 border-t border-slate-800">
               <a
                 href={`https://wa.me/91${consultantWhatsAppNumber}?text=${encodeURIComponent(
                   "Hello, I would like to consult the Pediatric Dentist regarding clinical exams and enamel care."
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl bg-cyan-400 hover:bg-cyan-300 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-cyan-500/20"
+                className="w-full py-2.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
               >
-                <MessageCircle className="w-4 h-4 fill-slate-950" />
-                WhatsApp Pediatric Dentist
+                <MessageCircle className="w-4 h-4" />
+                <span>Consult Pediatric Dentist</span>
               </a>
             </div>
           </div>
 
           {/* 3. Public Health Dentist */}
-          <div className="liquid-glass-card rounded-3xl p-6 border border-emerald-500/30 flex flex-col justify-between">
+          <div className="bg-[#0F172A] rounded-2xl p-6 border border-slate-800 flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-bold mb-4">
-                <Users className="w-6 h-6" />
+              <div className="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mb-4">
+                <Users className="w-5 h-5" />
               </div>
-              <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-                Prevention & Nutrition
+              <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                Prevention & Diet
               </span>
-              <h3 className="text-lg font-black text-white mt-2">Public Health Dentist</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+              <h3 className="text-base font-bold text-white mt-2">Public Health Dentist</h3>
+              <p className="text-xs text-slate-400 mt-2 leading-relaxed">
                 Preventive oral health guidelines, dietary sugar reduction strategies, caregiver coaching, and evidence-based home protocols.
               </p>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-white/10">
+            <div className="mt-6 pt-4 border-t border-slate-800">
               <a
                 href={`https://wa.me/91${consultantWhatsAppNumber}?text=${encodeURIComponent(
                   "Hello, I would like to consult the Public Health Dentist regarding preventive oral care guidelines."
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-emerald-500/20"
+                className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-sm"
               >
-                <MessageCircle className="w-4 h-4 fill-slate-950" />
-                WhatsApp Public Health Dentist
+                <MessageCircle className="w-4 h-4" />
+                <span>Consult Public Health Dentist</span>
               </a>
             </div>
           </div>
@@ -454,19 +484,21 @@ export default function LandingPage() {
       </section>
 
       {/* ── FOOTER ───────────────────────────────────────────────────────── */}
-      <footer className="relative z-10 border-t border-white/10 px-4 sm:px-8 py-8">
+      <footer className="border-t border-slate-800 px-4 sm:px-8 py-8 bg-[#0B1120]">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-3">
-            <img src="/asd-logo.png" alt="ASD Logo" className="w-6 h-6 object-contain" />
-            <span>© 2026 ASD Oral Care AI Platform • Helpline: {helplineCallingNumber}</span>
+            <div className="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 p-0.5 flex items-center justify-center">
+              <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
+            </div>
+            <span>© 2026 ASD Oral Care Platform • Dr. Nivrutti Reddy • 24/7 Helpline: {helplineCallingNumber}</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 font-semibold">
+          <div className="flex flex-wrap items-center gap-4 font-medium">
             <Link href="/helpline" className="text-rose-300 hover:underline">24/7 Helpline</Link>
-            <Link href="/consultants" className="text-emerald-300 hover:underline">Consultants Panel</Link>
-            <Link href="/admin" className="text-amber-300 hover:underline">Admin Portal</Link>
+            <Link href="/consultants" className="text-teal-300 hover:underline">Consultants Panel</Link>
+            <Link href="/admin" className="text-slate-400 hover:text-white">Admin Portal</Link>
             <Show when="signed-in">
-              <Link href="/" className="hover:text-white">Dashboard</Link>
+              <Link href="/" className="text-slate-300 hover:text-white">Dashboard</Link>
             </Show>
           </div>
         </div>

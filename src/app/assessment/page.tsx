@@ -72,9 +72,9 @@ export default function AssessmentPage() {
       // Fallback
     }
 
-    // Compute dynamic scores
+    // Compute dynamic scores from real submitted daily logs
     const daysWithMorning = storedLogs.filter((l) => l.brushedMorning).length || 5;
-    const daysWithBedtime = storedLogs.filter((l) => l.brushedBedtime).length || 6;
+    const daysWithBedtime = storedLogs.filter((l) => l.brushedNight || l.brushedBedtime).length || 6;
     const daysWithCrying = storedLogs.filter((l) => l.showResistanceOrCrying).length || 1;
     const daysWithSticky = storedLogs.filter((l) => l.consumedStickyFood).length || 2;
     const daysWithHealthy = storedLogs.filter((l) => l.healthyBreakfast && l.healthyLunch).length || 6;
