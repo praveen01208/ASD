@@ -1,0 +1,445 @@
+{
+  "seed-001": {
+    "userId": "seed-001",
+    "userEmail": "priya.sharma@example.com",
+    "updatedAt": "2026-10-09T10:00:00.000Z",
+    "profile": {
+      "id": "child-001",
+      "code": "ASD-001",
+      "name": "Leo",
+      "age": 7,
+      "gender": "Male",
+      "dob": "2019-04-12",
+      "caregiverName": "Priya Sharma",
+      "caregiverPhone": "9876543210",
+      "relationship": "Mother",
+      "asdLevel": "Level 1 (Mild Support Needed)",
+      "communicationLevel": "Verbal with Visual Cues",
+      "sensorySensitivities": [
+        "Mint flavor burning sensation",
+        "Electric brush vibration",
+        "Foam buildup"
+      ],
+      "demographics": {
+        "childName": "Leo",
+        "age": 7,
+        "dob": "2019-04-12",
+        "gender": "Male",
+        "caregiverName": "Priya Sharma",
+        "relationship": "Mother",
+        "contactPhone": "9876543210",
+        "communicationStyle": "Verbal with Visual Schedule",
+        "sensoryTriggers": [
+          "Strong mint",
+          "Loud buzzing",
+          "Foaming paste"
+        ]
+      },
+      "brushingHabits": {
+        "frequency": "Twice daily (Morning & Bedtime)",
+        "duration": "1 to 2 minutes with timer",
+        "toothbrushType": "Triple-headed U-contour soft brush",
+        "toothpaste": "Mild Strawberry Non-foaming Enamel Paste",
+        "surfacesCovered": "Front & Chewing surfaces (Back molars need supervision)",
+        "assistanceNeeded": "Guided (Caregiver supports posterior reach)",
+        "toleranceLevel": "Mild initial protest, calms with visual song"
+      },
+      "dietaryHabits": {
+        "sugaryFoodFrequency": "1 time per day (Post-lunch treat)",
+        "healthyFoodFrequency": "Daily (Crunchy apples, cucumbers)",
+        "foodHoldingInMouth": "Sometimes (Pools soft rice in lower cheek)",
+        "snackingFrequency": "2 structured snacks between meals",
+        "nightFeedingOrBottle": "No (Rinses with water before bed)",
+        "waterIntake": "Adequate (approx 1.2L daily)"
+      },
+      "dentalMedicalHistory": {
+        "lastDentalVisit": "6 months ago (Checkup)",
+        "pastDentalExperience": "Mild sensory anxiety with dental chair light",
+        "activeCavitiesOrPain": "No active pain; mild white-spot lesion on upper molar",
+        "gumBleeding": "Occasional mild margin redness",
+        "regularMedications": "Multivitamin chewable (sugar-free)",
+        "medicalDiagnoses": [
+          "ASD (Level 1)",
+          "Mild Sensory Processing Sensitivity"
+        ]
+      },
+      "childBehaviour": {
+        "mouthOpeningCooperation": "Opens well when counting to 10 with caregiver",
+        "sensoryAversionTriggers": [
+          "Foaming sensation",
+          "Cold water rinse"
+        ],
+        "routineReaction": "Thrives on predictable step-by-step visual timer",
+        "effectiveMotivators": [
+          "Star sticker reward",
+          "Catchy brushing melody",
+          "High five praise"
+        ],
+        "meltdownTriggers": "Sudden rushing without warning"
+      },
+      "weeklyAssessments": [
+        {
+          "week": 4,
+          "date": "Current Week (Week 4)",
+          "oralHygieneScore": 84,
+          "dietaryRiskScore": 28,
+          "sensoryComfortScore": 88,
+          "routineStreakDays": 14,
+          "statusSummary": "Outstanding progress in sensory tolerance with the 3-sided soft brush and visual routine!",
+          "motivationBadge": {
+            "title": "Sparkling Routine Hero",
+            "icon": "🌟",
+            "description": "14 consecutive days of happy, completed brushing sessions!"
+          },
+          "aiRecommendations": [
+            "Continue the non-foaming strawberry paste; sensory distress reduced by 60%.",
+            "Encourage gentle water swirling after eating rice to prevent food pocketing in cheeks.",
+            "Introduce the interactive 'Sugar Bug' story video before weekend meals."
+          ]
+        }
+      ]
+    }
+  },
+  "99999999-9999-9999-9999-999999999999": {
+    "userId": "99999999-9999-9999-9999-999999999999",
+    "userEmail": "verified-parent@test.com",
+    "updatedAt": "2026-10-14T08:28:35.380Z",
+    "profile": {
+      "id": "child-test-1",
+      "code": "ASD-999",
+      "name": "Maya",
+      "age": 7,
+      "caregiverName": "Pooja",
+      "asdLevel": "Level 1",
+      "communicationLevel": "Verbal with visuals",
+      "brushingHabits": {
+        "toothbrushType": "Triple-headed U-contour",
+        "frequency": "Twice daily"
+      },
+      "dietaryHabits": {
+        "foodHoldingInMouth": "Sometimes"
+      },
+      "childBehaviour": {
+        "sensoryAversionTriggers": [
+          "Vibration",
+          "Foam"
+        ]
+      },
+      "userId": "99999999-9999-9999-9999-999999999999"
+    }
+  },
+  "user-1791967178317": {
+    "userId": "user-1791967178317",
+    "userEmail": "",
+    "updatedAt": "2026-10-14T08:39:38.433Z",
+    "profile": {
+      "id": "child-1791967178317",
+      "code": "ASD-243",
+      "name": "Sanket",
+      "age": 6,
+      "gender": "Male",
+      "dob": "2020-10-21",
+      "caregiverName": "sanku",
+      "caregiverPhone": "8792946625",
+      "relationship": "Mother",
+      "asdLevel": "Level 1 (Mild support needed)",
+      "communicationLevel": "Verbal with Visual Cues",
+      "sensorySensitivities": [
+        "Sensitive to toothbrush texture or pressure"
+      ],
+      "demographics": {
+        "childName": "Sanket",
+        "age": 6,
+        "dob": "2020-10-21",
+        "gender": "Male",
+        "caregiverName": "sanku",
+        "relationship": "Mother",
+        "contactPhone": "8792946625",
+        "communicationStyle": "Verbal with Visual Cues",
+        "sensoryTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ]
+      },
+      "brushingHabits": {
+        "frequency": "Once daily",
+        "duration": "1–2 minutes",
+        "toothbrushType": "Manual toothbrush",
+        "toothpaste": "colgate",
+        "surfacesCovered": "Only front teeth",
+        "assistanceNeeded": "Yes, with full assistance",
+        "toleranceLevel": "Yes, worsened recently",
+        "difficulties": [
+          "Crying or screaming",
+          "Biting the toothbrush"
+        ],
+        "helpStrategy": "Music or songs (e.g., brushing timer songs)"
+      },
+      "dietaryHabits": {
+        "sugaryFoodFrequency": "Once a week",
+        "healthyFoodFrequency": "",
+        "foodHoldingInMouth": "Sometimes",
+        "snackingFrequency": "",
+        "nightFeedingOrBottle": "Yes, with milk",
+        "waterIntake": "Not specified",
+        "sugaryDrinks": "Once a week"
+      },
+      "dentalMedicalHistory": {
+        "lastDentalVisit": "6–12 months ago",
+        "pastDentalExperience": "Toothache or pain",
+        "activeCavitiesOrPain": "Yes",
+        "gumBleeding": "No",
+        "regularMedications": "ADHD",
+        "medicalDiagnoses": [
+          "Level 1 (Mild support needed)",
+          "ADHD"
+        ],
+        "neverVisitedDentist": false,
+        "dentalProblems": [
+          "Toothache or pain"
+        ],
+        "dentalOther": "",
+        "medicalConditions": [
+          "ADHD"
+        ],
+        "medicalOther": ""
+      },
+      "childBehaviour": {
+        "mouthOpeningCooperation": "Mildly resistant — needs coaxing but complies",
+        "sensoryAversionTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ],
+        "routineReaction": "Mildly resistant — needs coaxing but complies",
+        "effectiveMotivators": [],
+        "meltdownTriggers": "Sensitive to toothbrush texture or pressure",
+        "motorSkills": "Moderate — brushes but with limited effectiveness",
+        "oralHygieneAttitude": "Mildly resistant — needs coaxing but complies"
+      },
+      "rawQuestionnaire": {
+        "childName": "Sanket ",
+        "childAge": "6",
+        "dateOfBirth": "2020-10-21",
+        "gender": "Male",
+        "caregiverName": "sanku",
+        "relationship": "Mother",
+        "contactPhone": "8792946625",
+        "asdLevel": "Level 1 (Mild support needed)",
+        "communicationLevel": "Verbal with Visual Cues",
+        "q1_brushFrequency": "Once daily",
+        "q2_brushDuration": "1–2 minutes",
+        "q3_toothbrushType": "Manual toothbrush",
+        "q3_toothbrushOther": "",
+        "q4_toothpaste": "colgate",
+        "q5_surfacesCovered": "Only front teeth",
+        "q6_assistance": "Yes, with full assistance",
+        "q7_brushingDifficulties": [
+          "Crying or screaming",
+          "Biting the toothbrush"
+        ],
+        "q8_helpStrategy": "Music or songs (e.g., brushing timer songs)",
+        "q9_brushingChanges": "Yes, worsened recently",
+        "q10_sugaryDrinks": "Once a week",
+        "q11_sugarySnacks": "Once a week",
+        "q12_mealFrequency": "",
+        "q13_foodHolding": "Sometimes",
+        "q14_nightFeeding": "Yes, with milk",
+        "q15_lastDentalVisit": "6–12 months ago",
+        "q15_neverVisited": false,
+        "q16_dentalProblems": [
+          "Toothache or pain"
+        ],
+        "q16_dentalOther": "",
+        "q17_medicalConditions": [
+          "ADHD"
+        ],
+        "q17_medicalOther": "",
+        "q18_oralHygieneAttitude": "Mildly resistant — needs coaxing but complies",
+        "q19_motorSkills": "Moderate — brushes but with limited effectiveness",
+        "q20_sensoryTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ],
+        "q20_sensoryOther": "",
+        "allSensoryTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ]
+      },
+      "weeklyAssessments": [
+        {
+          "week": 1,
+          "date": "Baseline — Week 1",
+          "oralHygieneScore": 75,
+          "dietaryRiskScore": 40,
+          "sensoryComfortScore": 70,
+          "routineStreakDays": 1,
+          "statusSummary": "Baseline recorded for Sanket . AI routine calibration complete across all 4 clinical domains.",
+          "motivationBadge": {
+            "title": "Journey Champion",
+            "icon": "🌱",
+            "description": "Completed the Child Oral Health Assessment Questionnaire!"
+          },
+          "aiRecommendations": [
+            "Use non-foaming toothpaste to address texture sensitivity.",
+            "Introduce a visual step-by-step brushing video before the evening routine.",
+            "Schedule post-meal water swirling to reduce food pooling risk."
+          ]
+        }
+      ],
+      "userId": "user-1791967178317"
+    }
+  },
+  "f0c64486-df1c-4f03-919a-cd243956d75a": {
+    "userId": "f0c64486-df1c-4f03-919a-cd243956d75a",
+    "userEmail": "praveenmpatil2004@gmail.com",
+    "updatedAt": "2026-10-14T09:01:00.294Z",
+    "profile": {
+      "id": "child-1791968460277",
+      "code": "ASD-561",
+      "name": "praveen",
+      "age": 6,
+      "gender": "Male",
+      "dob": "2026-10-14",
+      "caregiverName": "MOM",
+      "caregiverPhone": "8792946625",
+      "relationship": "Mother",
+      "asdLevel": "Level 1 (Mild support needed)",
+      "communicationLevel": "Fluent Verbal",
+      "sensorySensitivities": [
+        "Sensitive to toothbrush texture or pressure"
+      ],
+      "demographics": {
+        "childName": "praveen",
+        "age": 6,
+        "dob": "2026-10-14",
+        "gender": "Male",
+        "caregiverName": "MOM",
+        "relationship": "Mother",
+        "contactPhone": "8792946625",
+        "communicationStyle": "Fluent Verbal",
+        "sensoryTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ]
+      },
+      "brushingHabits": {
+        "frequency": "Once daily",
+        "duration": "1–2 minutes",
+        "toothbrushType": "Manual toothbrush",
+        "toothpaste": "sensodine",
+        "surfacesCovered": "Yes, all surfaces",
+        "assistanceNeeded": "Yes, with full assistance",
+        "toleranceLevel": "Yes, worsened recently",
+        "difficulties": [
+          "Crying or screaming"
+        ],
+        "helpStrategy": "Music or songs (e.g., brushing timer songs)"
+      },
+      "dietaryHabits": {
+        "sugaryFoodFrequency": "Once a week",
+        "healthyFoodFrequency": "2 meals",
+        "foodHoldingInMouth": "Sometimes",
+        "snackingFrequency": "2 meals",
+        "nightFeedingOrBottle": "Yes, with milk",
+        "waterIntake": "Not specified",
+        "sugaryDrinks": "Once a week"
+      },
+      "dentalMedicalHistory": {
+        "lastDentalVisit": "6–12 months ago",
+        "pastDentalExperience": "Tooth decay / cavities",
+        "activeCavitiesOrPain": "No",
+        "gumBleeding": "No",
+        "regularMedications": "Intellectual disability",
+        "medicalDiagnoses": [
+          "Level 1 (Mild support needed)",
+          "Intellectual disability"
+        ],
+        "neverVisitedDentist": false,
+        "dentalProblems": [
+          "Tooth decay / cavities"
+        ],
+        "dentalOther": "",
+        "medicalConditions": [
+          "Intellectual disability"
+        ],
+        "medicalOther": ""
+      },
+      "childBehaviour": {
+        "mouthOpeningCooperation": "Mildly resistant — needs coaxing but complies",
+        "sensoryAversionTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ],
+        "routineReaction": "Mildly resistant — needs coaxing but complies",
+        "effectiveMotivators": [],
+        "meltdownTriggers": "Sensitive to toothbrush texture or pressure",
+        "motorSkills": "Moderate — brushes but with limited effectiveness",
+        "oralHygieneAttitude": "Mildly resistant — needs coaxing but complies"
+      },
+      "rawQuestionnaire": {
+        "childName": "praveen",
+        "childAge": "6",
+        "dateOfBirth": "2026-10-14",
+        "gender": "Male",
+        "caregiverName": "MOM",
+        "relationship": "Mother",
+        "contactPhone": "8792946625",
+        "asdLevel": "Level 1 (Mild support needed)",
+        "communicationLevel": "Fluent Verbal",
+        "q1_brushFrequency": "Once daily",
+        "q2_brushDuration": "1–2 minutes",
+        "q3_toothbrushType": "Manual toothbrush",
+        "q3_toothbrushOther": "",
+        "q4_toothpaste": "sensodine",
+        "q5_surfacesCovered": "Yes, all surfaces",
+        "q6_assistance": "Yes, with full assistance",
+        "q7_brushingDifficulties": [
+          "Crying or screaming"
+        ],
+        "q8_helpStrategy": "Music or songs (e.g., brushing timer songs)",
+        "q9_brushingChanges": "Yes, worsened recently",
+        "q10_sugaryDrinks": "Once a week",
+        "q11_sugarySnacks": "Once a week",
+        "q12_mealFrequency": "2 meals",
+        "q13_foodHolding": "Sometimes",
+        "q14_nightFeeding": "Yes, with milk",
+        "q15_lastDentalVisit": "6–12 months ago",
+        "q15_neverVisited": false,
+        "q16_dentalProblems": [
+          "Tooth decay / cavities"
+        ],
+        "q16_dentalOther": "",
+        "q17_medicalConditions": [
+          "Intellectual disability"
+        ],
+        "q17_medicalOther": "",
+        "q18_oralHygieneAttitude": "Mildly resistant — needs coaxing but complies",
+        "q19_motorSkills": "Moderate — brushes but with limited effectiveness",
+        "q20_sensoryTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ],
+        "q20_sensoryOther": "",
+        "allSensoryTriggers": [
+          "Sensitive to toothbrush texture or pressure"
+        ]
+      },
+      "weeklyAssessments": [
+        {
+          "week": 1,
+          "date": "Baseline — Week 1",
+          "oralHygieneScore": 75,
+          "dietaryRiskScore": 40,
+          "sensoryComfortScore": 70,
+          "routineStreakDays": 1,
+          "statusSummary": "Baseline recorded for praveen. AI routine calibration complete across all 4 clinical domains.",
+          "motivationBadge": {
+            "title": "Journey Champion",
+            "icon": "🌱",
+            "description": "Completed the Child Oral Health Assessment Questionnaire!"
+          },
+          "aiRecommendations": [
+            "Use non-foaming toothpaste to address texture sensitivity.",
+            "Introduce a visual step-by-step brushing video before the evening routine.",
+            "Schedule post-meal water swirling to reduce food pooling risk."
+          ]
+        }
+      ],
+      "userId": "f0c64486-df1c-4f03-919a-cd243956d75a"
+    }
+  }
+}

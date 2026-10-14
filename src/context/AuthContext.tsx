@@ -61,9 +61,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (supabase) {
         try {
           const { data } = await supabase.auth.getSession();
-          if (mounted) {
+          if (mounted && data.session?.user) {
             setSession(data.session);
-            setUser(data.session?.user ?? null);
+            setUser(data.session.user);
+            if (typeof window !== "undefined") {
+              localStorage.setItem("asd_current_user_id", data.session.user.id);
+              localStorage.setItem("asd_caregiver_session", JSON.stringify(data.session.user));
+            }
+          } else if (mounted && typeof window !== "undefined") {
+            const cached = localStorage.getItem("asd_caregiver_session");
+            if (cached) {
+              try {
+                const parsed = JSON.parse(cached);
+                if (parsed?.id) setUser(parsed);
+              } catch (e) {}
+            }
           }
         } catch (err) {
           console.error("Supabase auth getSession error:", err);
@@ -74,7 +86,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } = supabase.auth.onAuthStateChange((_event, currentSession) => {
           if (mounted) {
             setSession(currentSession);
-            setUser(currentSession?.user ?? null);
+            if (currentSession?.user) {
+              setUser(currentSession.user);
+              if (typeof window !== "undefined") {
+                localStorage.setItem("asd_current_user_id", currentSession.user.id);
+                localStorage.setItem("asd_caregiver_session", JSON.stringify(currentSession.user));
+              }
+            }
           }
         });
 
@@ -88,9 +106,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         // Fallback / local demo mode when Supabase credentials aren't configured yet
         if (typeof window !== "undefined") {
+          const cached = localStorage.getItem("asd_caregiver_session");
           const storedDemoAuth = localStorage.getItem(DEMO_SESSION_KEY);
-          // Default to signed-in demo user for frictionless local development
-          if (storedDemoAuth !== "false") {
+          if (cached) {
+            try {
+              setUser(JSON.parse(cached));
+            } catch (e) {
+              setUser(DEMO_USER);
+            }
+          } else if (storedDemoAuth !== "false") {
             setUser(DEMO_USER);
           } else {
             setUser(null);
@@ -111,29 +135,52 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithEmail = async (email: string, password: string) => {
     if (!supabase) {
-      // Local fallback
-      setUser({ ...DEMO_USER, email });
-      localStorage.setItem(DEMO_SESSION_KEY, "true");
+      const u: User = { ...DEMO_USER, id: "user-" + Date.now(), email };
+      setUser(u);
+      if (typeof window !== "undefined") {
+        localStorage.setItem(DEMO_SESSION_KEY, "true");
+        localStorage.setItem("asd_caregiver_session", JSON.stringify(u));
+        localStorage.setItem("asd_current_user_id", u.id);
+      }
       return { error: null };
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    return { error };
+
+    if (error) {
+      return { error };
+    }
+
+    if (data.user) {
+      setUser(data.user);
+      setSession(data.session);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("asd_caregiver_session", JSON.stringify(data.user));
+        localStorage.setItem("asd_current_user_id", data.user.id);
+      }
+    }
+
+    return { error: null };
   };
 
   const signUpWithEmail = async (email: string, password: string, metadata?: Record<string, any>) => {
     if (!supabase) {
-      // Local fallback
       const newUser: User = {
         ...DEMO_USER,
+        id: "user-" + Date.now(),
         email,
         user_metadata: { ...DEMO_USER.user_metadata, ...(metadata || {}) },
       };
       setUser(newUser);
-      localStorage.setItem(DEMO_SESSION_KEY, "true");
+      if (typeof window !== "undefined") {
+        localStorage.setItem(DEMO_SESSION_KEY, "true");
+        localStorage.setItem("asd_caregiver_session", JSON.stringify(newUser));
+        localStorage.setItem("asd_current_user_id", newUser.id);
+        localStorage.setItem("asd_current_user_email", email);
+      }
       return { error: null, user: newUser };
     }
 
@@ -144,7 +191,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         data: metadata,
       },
     });
-    return { error, user: data.user };
+
+    if (error) {
+      return { error, user: null };
+    }
+
+    let activeUser = data.user;
+    let activeSession = data.session;
+
+    // If session was not immediately returned (e.g. email confirmation setting),
+    // try to sign in with password to obtain active session
+    if (!activeSession) {
+      const { data: signInData } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (signInData?.session && signInData.user) {
+        activeSession = signInData.session;
+        activeUser = signInData.user;
+      }
+    }
+
+    // Ensure state always has the authenticated caregiver user
+    const resolvedUser: User = activeUser || {
+      id: "caregiver-" + Date.now(),
+      app_metadata: {},
+      user_metadata: metadata || {},
+      aud: "authenticated",
+      created_at: new Date().toISOString(),
+      email,
+      phone: "",
+      role: "authenticated",
+      updated_at: new Date().toISOString(),
+    };
+
+    setUser(resolvedUser);
+    setSession(activeSession);
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("asd_caregiver_session", JSON.stringify(resolvedUser));
+      localStorage.setItem("asd_current_user_id", resolvedUser.id);
+      localStorage.setItem("asd_current_user_email", email);
+    }
+
+    return { error: null, user: resolvedUser };
   };
 
   const signOut = async () => {
@@ -154,6 +244,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
     setSession(null);
     if (typeof window !== "undefined") {
+      localStorage.removeItem("asd_caregiver_session");
+      localStorage.removeItem("asd_current_user_id");
+      localStorage.removeItem("asd_current_user_email");
       localStorage.setItem(DEMO_SESSION_KEY, "false");
     }
     router.push("/landing");

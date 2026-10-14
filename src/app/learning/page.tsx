@@ -1,429 +1,598 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Play,
-  PlaySquare,
-  ShieldCheck,
-  Clock,
-  ExternalLink,
-  BookOpen,
+  Pause,
+  RotateCcw,
+  Sparkles,
+  Heart,
   Smile,
-  Stethoscope,
-  Brain,
+  ShieldCheck,
+  Award,
+  Apple,
+  Candy,
+  Flame,
+  Volume2,
+  VolumeX,
+  ChevronRight,
+  CheckCircle2,
+  Sun,
+  Star,
+  Activity,
+  Maximize2,
+  Download,
+  Film,
+  Check,
+  Zap,
+  Info
 } from "lucide-react";
 
-type Category = "brushing" | "dentist" | "sensory" | "nutrition";
+export default function LearningPage() {
+  const [activeTab, setActiveTab] = useState<"brushing" | "diet" | "blessing">("brushing");
+  const [activeBlessingVideo, setActiveBlessingVideo] = useState<"cleanliness" | "magic">("cleanliness");
 
-interface VideoItem {
-  id: string;
-  title: string;
-  creator: string;
-  subtitle: string;
-  duration: string;
-  category: Category;
-  description: string;
-  clinicalRationale: string;
-  accent: string;
-}
+  // Video Refs
+  const brushingVideoRef = useRef<HTMLVideoElement>(null);
+  const dietVideoRef = useRef<HTMLVideoElement>(null);
+  const blessingVideoRef = useRef<HTMLVideoElement>(null);
 
-const videos: VideoItem[] = [
-  // ── Brushing & Social Stories ──────────────────────────────────────────────
-  {
-    id: "vcNAhUqH9U0",
-    title: "How to Brush Your Teeth – Step-by-Step for Kids",
-    creator: "Smile and Learn – Educational",
-    subtitle: "Visual Step-by-Step Technique & Hygiene Routine",
-    duration: "3:45",
-    category: "brushing",
-    description:
-      "Clear, visual, step-by-step breakdown of toothbrushing: toothpaste application, circular brushing motions, cleaning every tooth surface, tongue hygiene, and gentle rinsing.",
-    clinicalRationale:
-      "Task sequencing and predictable visual instructions prevent cognitive overload in neurodivergent children.",
-    accent: "from-teal-600/40 to-cyan-600/40",
-  },
-  {
-    id: "gT5-hWf3H4I",
-    title: "Toothbrushing Tips That Actually Work for Kids with Autism",
-    creator: "Dr. Mary Barbera – Autism Mom & BCBA",
-    subtitle: "Behavioral & Sensory Desensitization Protocol",
-    duration: "6:20",
-    category: "brushing",
-    description:
-      "Dr. Mary Barbera (Board Certified Behavior Analyst and autism parent) walks through evidence-based techniques: brush choice, desensitizing to toothpaste texture, gentle positioning, and positive reinforcement.",
-    clinicalRationale:
-      "Addresses oral tactile hypersensitivity through graduated exposure — the most clinically validated approach for resolving sensory-based brushing refusal.",
-    accent: "from-emerald-600/40 to-teal-600/40",
-  },
-  {
-    id: "UvNhNfRJx6k",
-    title: "Sesame Street: Healthy Teeth, Healthy Me (Brushy Brush)",
-    creator: "Sesame Street & Elmo",
-    subtitle: "2-Minute Rhythm & Song for Routine Timing",
-    duration: "2:10",
-    category: "brushing",
-    description:
-      "Beloved Sesame Street characters guide children through 2 full minutes of brushing with catchy rhythm and clear visual prompts for front, back, and chewing surfaces.",
-    clinicalRationale:
-      "Music and familiar characters serve as an external auditory pacemaker, maintaining attention and routine completion without anxiety.",
-    accent: "from-amber-600/40 to-orange-600/40",
-  },
-  {
-    id: "R-i2lWc9v3Q",
-    title: "Brush Your Teeth with ToothRex",
-    creator: "Colgate Bright Smiles",
-    subtitle: "Gamified Brushing Guide with Dino Visuals",
-    duration: "2:30",
-    category: "brushing",
-    description:
-      "Fun, musical brushing guide featuring ToothRex that guides children through the 2-minute oral hygiene routine with clear visual timing cues.",
-    clinicalRationale:
-      "Visual mimicry engages reluctant brushers through playful character modelling.",
-    accent: "from-blue-600/40 to-indigo-600/40",
-  },
+  // Playback states
+  const [isBrushingPlaying, setIsBrushingPlaying] = useState(false);
+  const [isDietPlaying, setIsDietPlaying] = useState(false);
+  const [isBlessingPlaying, setIsBlessingPlaying] = useState(false);
 
-  // ── Dentist Prep ──────────────────────────────────────────────────────────
-  {
-    id: "9xYlZ5lC1nQ",
-    title: "How to Improve Dental Visits for Children with Autism",
-    creator: "Dr. Mary Barbera – Autism Mom & BCBA",
-    subtitle: "Clinical Strategies for Stress-Free Checkups",
-    duration: "7:15",
-    category: "dentist",
-    description:
-      "Practical strategies for parents to prepare autistic children for clinic visits: pre-visit mock rehearsals, communicating sensory triggers with the dentist, and using systematic reinforcement.",
-    clinicalRationale:
-      "Pre-visit familiarization and parent-dentist collaboration drastically reduces anticipatory anxiety and fight-or-flight responses.",
-    accent: "from-indigo-600/40 to-purple-600/40",
-  },
-  {
-    id: "DNkCF7H8ghw",
-    title: "Daniel Tiger: Going to the Dentist",
-    creator: "PBS KIDS / Daniel Tiger",
-    subtitle: "Step-by-Step Social Story & Tool Familiarization",
-    duration: "4:30",
-    category: "dentist",
-    description:
-      "Follows Daniel Tiger visiting Dr. Plat: riding up in the special chair, counting teeth, the shiny mirror, the tickly polisher, and receiving a reward sticker.",
-    clinicalRationale:
-      "Tell-Show-Do social storytelling removes the fear of unknown dental instruments and procedural steps.",
-    accent: "from-cyan-600/40 to-blue-600/40",
-  },
-  {
-    id: "39BfmKyYnVI",
-    title: "Visiting the Dentist! – What Happens at a Checkup",
-    creator: "SciShow Kids",
-    subtitle: "Demystifying Dental Tools, Sounds & Sensations",
-    duration: "4:12",
-    category: "dentist",
-    description:
-      "Join Jessi as she walks through exactly what dental hygienists and dentists do: counting teeth, the little mirror, cleaning tools, and protective fluoride treatments.",
-    clinicalRationale:
-      "Explaining sensory expectations (sounds, lights, tastes) in advance prevents sensory startle response.",
-    accent: "from-violet-600/40 to-indigo-600/40",
-  },
+  // Mute states
+  const [isBrushingMuted, setIsBrushingMuted] = useState(false);
+  const [isDietMuted, setIsDietMuted] = useState(false);
+  const [isBlessingMuted, setIsBlessingMuted] = useState(false);
 
-  // ── Sensory & Nutrition ───────────────────────────────────────────────────
-  {
-    id: "aG0K06J7H8Q",
-    title: "Teeth Grinding (Bruxism) & Oral Sensory Aversion in Autism",
-    creator: "Dr. Mary Barbera – BCBA",
-    subtitle: "Causes, Sensory Triggers & Management Strategies",
-    duration: "8:05",
-    category: "sensory",
-    description:
-      "In-depth breakdown of oral sensory-seeking behaviors like bruxism (grinding), chewing non-food items, gagging, and food texture aversion, with behavioral intervention strategies.",
-    clinicalRationale:
-      "Understanding sensory processing differences helps caregivers differentiate between sensory overload and behavioral opposition.",
-    accent: "from-rose-600/40 to-pink-600/40",
-  },
-  {
-    id: "aOebfGGcjVw",
-    title: "Why Do We Brush Our Teeth? – Enamel, Plaque & Cavities",
-    creator: "SciShow Kids",
-    subtitle: "Visual Science: Tooth Anatomy, Sugar & Bacteria",
-    duration: "4:20",
-    category: "nutrition",
-    description:
-      "Engaging animated explanation of what happens when sugar contacts tooth enamel, how bacteria produce acid, and how fluoride and daily brushing keep teeth strong.",
-    clinicalRationale:
-      "Logical cause-and-effect science explanations provide autistic children with clear internal motivation to maintain oral habits.",
-    accent: "from-green-600/40 to-emerald-600/40",
-  },
-];
+  const togglePlay = (ref: React.RefObject<HTMLVideoElement | null>, stateSetter: (val: boolean) => void, currentState: boolean) => {
+    if (!ref.current) return;
+    if (currentState) {
+      ref.current.pause();
+      stateSetter(false);
+    } else {
+      ref.current.play();
+      stateSetter(true);
+    }
+  };
 
-const CATEGORIES: { key: Category; label: string; icon: React.ReactNode }[] = [
-  { key: "brushing", label: "Brushing & Social Stories", icon: <Smile className="w-4 h-4" /> },
-  { key: "dentist", label: "Dentist Preparation", icon: <Stethoscope className="w-4 h-4" /> },
-  { key: "sensory", label: "Sensory & Behaviour", icon: <Brain className="w-4 h-4" /> },
-  { key: "nutrition", label: "Nutrition & Diet", icon: <BookOpen className="w-4 h-4" /> },
-];
+  const restartVideo = (ref: React.RefObject<HTMLVideoElement | null>, stateSetter: (val: boolean) => void) => {
+    if (!ref.current) return;
+    ref.current.currentTime = 0;
+    ref.current.play();
+    stateSetter(true);
+  };
 
-export default function VisualLearningPage() {
-  const [activeTab, setActiveTab] = useState<Category>("brushing");
-  const [currentVideo, setCurrentVideo] = useState<VideoItem>(videos[0]);
+  const toggleMute = (ref: React.RefObject<HTMLVideoElement | null>, stateSetter: (val: boolean) => void, currentState: boolean) => {
+    if (!ref.current) return;
+    ref.current.muted = !currentState;
+    stateSetter(!currentState);
+  };
 
-  const filteredVideos = videos.filter((v) => v.category === activeTab);
-  const tabFirstVideo = (tab: Category) => videos.find((v) => v.category === tab) ?? videos[0];
+  const toggleFullscreen = (ref: React.RefObject<HTMLVideoElement | null>) => {
+    if (!ref.current) return;
+    if (ref.current.requestFullscreen) {
+      ref.current.requestFullscreen();
+    }
+  };
+
+  const brushSteps = [
+    {
+      step: 1,
+      title: "Step 1: Soft Brush & Gentle Paste",
+      time: "0:15",
+      description: "Apply a small pea-sized dot of mild paste on soft bristles with a joyful smile.",
+    },
+    {
+      step: 2,
+      title: "Step 2: Gentle Circles on Front Teeth",
+      time: "0:45",
+      description: "Brush front smiling surfaces using round, gentle circular motions.",
+    },
+    {
+      step: 3,
+      title: "Step 3: Chewing Surfaces (Choo-Choo Train!)",
+      time: "1:15",
+      description: "Move back and forth like a train across top and bottom chewing molars.",
+    },
+    {
+      step: 4,
+      title: "Step 4: Inside Surfaces & Tongue Cleaning",
+      time: "1:45",
+      description: "Tilt the brush to reach inside surfaces and gently sweep the tongue.",
+    },
+    {
+      step: 5,
+      title: "Step 5: Swirl Water & Celebrate Clean Smile",
+      time: "2:10",
+      description: "Swirl fresh water, spit into the sink, and celebrate sparkling diamond teeth!",
+    },
+  ];
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 pb-16">
+    <div className="max-w-6xl mx-auto space-y-8 pb-20 animate-in fade-in duration-300">
       {/* Page Header */}
-      <div>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold text-teal-300 bg-teal-500/10 border border-teal-500/20 mb-3">
-          <PlaySquare className="w-3.5 h-3.5 text-teal-400" />
-          Evidence-Based Video Modules · Curated for ASD Oral Care
-        </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Visual Learning Library
-        </h1>
-        <p className="text-slate-300 mt-2 text-sm sm:text-base max-w-2xl">
-          Clinically curated videos covering brushing routines, dentist preparation, sensory desensitization, and nutrition — each selected for effectiveness with ASD children.
-        </p>
-      </div>
-
-      {/* Featured Video Theater */}
-      <div className="liquid-glass-card rounded-3xl border border-teal-500/25 overflow-hidden shadow-2xl p-5 sm:p-7">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
-          {/* YouTube Embed */}
-          <div className="w-full lg:w-[58%] rounded-2xl overflow-hidden aspect-video bg-black border border-white/10 shadow-xl">
-            <iframe
-              key={currentVideo.id}
-              className="w-full h-full"
-              src={`https://www.youtube-nocookie.com/embed/${currentVideo.id}?rel=0&modestbranding=1`}
-              title={currentVideo.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+      <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-teal-500/30 bg-gradient-to-r from-teal-950/50 via-slate-900/90 to-indigo-950/50 shadow-2xl relative overflow-hidden">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-300 text-xs font-extrabold mb-3">
+              <Film className="w-3.5 h-3.5 text-teal-400" />
+              100% On-Site Catchy Video Modules (Saved Locally)
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+              Visual Learning & Motivational Videos
+            </h1>
+            <p className="text-slate-300 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
+              Real high-definition video lessons stored directly on our servers. Designed to engage neurodivergent children with joy, clarity, dietary awareness, and heartwarming motivation. No external links or redirects.
+            </p>
           </div>
 
-          {/* Metadata Panel */}
-          <div className="w-full lg:w-[42%] flex flex-col justify-between space-y-4 min-h-full">
-            {/* Category badge + creator */}
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-teal-500/20 text-teal-300 border border-teal-500/30 uppercase tracking-wider">
-                {CATEGORIES.find((c) => c.key === currentVideo.category)?.label}
-              </span>
-              <span className="flex items-center gap-1 text-[11px] text-slate-400">
-                <Clock className="w-3 h-3" />
-                {currentVideo.duration}
-              </span>
-            </div>
-
-            <div>
-              <p className="text-[11px] font-mono font-semibold text-teal-400 mb-1">
-                {currentVideo.creator}
-              </p>
-              <h2 className="text-xl sm:text-2xl font-black text-white leading-tight">
-                {currentVideo.title}
-              </h2>
-              <p className="text-xs font-semibold text-slate-400 mt-0.5">{currentVideo.subtitle}</p>
-              <p className="text-xs sm:text-sm text-slate-200 mt-3 leading-relaxed">
-                {currentVideo.description}
-              </p>
-            </div>
-
-            {/* Clinical Rationale Box */}
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-teal-500/20 space-y-1.5">
-              <div className="flex items-center gap-1.5 text-[10px] font-bold text-teal-300 uppercase tracking-wider">
-                <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
-                Clinical Rationale
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {currentVideo.clinicalRationale}
-              </p>
-            </div>
-
-            {/* Footer links */}
-            <div className="flex items-center justify-between pt-1">
-              <a
-                href={`https://www.youtube.com/watch?v=${currentVideo.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs font-bold text-teal-300 hover:text-white flex items-center gap-1.5 transition-colors"
-              >
-                Watch on YouTube <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-              <span className="text-[10px] font-mono text-slate-500">
-                ASD Clinically Verified
-              </span>
-            </div>
+          <div className="flex items-center gap-2">
+            <span className="px-3 py-1.5 rounded-xl bg-teal-500/20 border border-teal-500/30 text-teal-300 text-xs font-mono font-bold flex items-center gap-1.5">
+              <Check className="w-3.5 h-3.5" /> High-Definition Stored Media
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Category Tabs */}
-      <div className="flex flex-wrap gap-3">
-        {CATEGORIES.map((cat) => {
-          const count = videos.filter((v) => v.category === cat.key).length;
-          const isActive = activeTab === cat.key;
-          return (
-            <button
-              key={cat.key}
-              onClick={() => {
-                setActiveTab(cat.key);
-                setCurrentVideo(tabFirstVideo(cat.key));
-              }}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all ${
-                isActive
-                  ? "bg-gradient-to-r from-teal-400 to-cyan-400 text-slate-950 shadow-lg shadow-teal-500/20"
-                  : "liquid-glass text-slate-300 hover:text-white border border-white/10 hover:border-white/20"
-              }`}
-            >
-              {cat.icon}
-              {cat.label}
-              <span
-                className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full ${
-                  isActive ? "bg-slate-950/20 text-slate-950" : "bg-white/10 text-slate-400"
-                }`}
-              >
-                {count}
-              </span>
-            </button>
-          );
-        })}
+      {/* Video Category Navigation Tabs */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <button
+          onClick={() => setActiveTab("brushing")}
+          className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 ${
+            activeTab === "brushing"
+              ? "bg-teal-500/20 border-teal-400/50 shadow-lg shadow-teal-500/20 text-white"
+              : "liquid-glass border-white/10 hover:border-white/20 text-slate-300"
+          }`}
+        >
+          <div className="w-11 h-11 rounded-xl bg-teal-400/20 text-teal-300 flex items-center justify-center font-black text-xl">
+            🪥
+          </div>
+          <div>
+            <div className="font-extrabold text-xs sm:text-sm">1. Step-by-Step Brushing</div>
+            <p className="text-[11px] text-slate-400">Child showing brushing steps with joy</p>
+          </div>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("diet")}
+          className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 ${
+            activeTab === "diet"
+              ? "bg-amber-500/20 border-amber-400/50 shadow-lg shadow-amber-500/20 text-white"
+              : "liquid-glass border-white/10 hover:border-white/20 text-slate-300"
+          }`}
+        >
+          <div className="w-11 h-11 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center font-black text-xl">
+            🍎
+          </div>
+          <div>
+            <div className="font-extrabold text-xs sm:text-sm">2. Diet Motivation: Shiny vs Bugs</div>
+            <p className="text-[11px] text-slate-400">Healthy shiny teeth vs bacteria feast</p>
+          </div>
+        </button>
+
+        <button
+          onClick={() => setActiveTab("blessing")}
+          className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 ${
+            activeTab === "blessing"
+              ? "bg-indigo-500/20 border-indigo-400/50 shadow-lg shadow-indigo-500/20 text-white"
+              : "liquid-glass border-white/10 hover:border-white/20 text-slate-300"
+          }`}
+        >
+          <div className="w-11 h-11 rounded-xl bg-indigo-400/20 text-indigo-300 flex items-center justify-center font-black text-xl">
+            🌟
+          </div>
+          <div>
+            <div className="font-extrabold text-xs sm:text-sm">3. God Blesses Joyful Brushers</div>
+            <p className="text-[11px] text-slate-400">Cleanliness is Godliness moral story</p>
+          </div>
+        </button>
       </div>
 
-      {/* Video Grid */}
-      {filteredVideos.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-          {filteredVideos.map((video) => {
-            const isSelected = currentVideo.id === video.id;
-            return (
-              <div
-                key={video.id}
-                onClick={() => {
-                  setCurrentVideo(video);
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className={`liquid-glass-card rounded-2xl border overflow-hidden flex flex-col group cursor-pointer transition-all duration-300 ${
-                  isSelected
-                    ? "border-teal-400 shadow-[0_0_30px_rgba(45,212,191,0.2)] ring-1 ring-teal-400/40"
-                    : "border-white/10 hover:border-teal-400/40 hover:shadow-lg"
-                }`}
-              >
-                {/* YouTube Thumbnail */}
-                <div className="h-44 w-full bg-slate-950 relative overflow-hidden border-b border-white/10">
-                  <img
-                    src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
-                    alt={video.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
-                    loading="lazy"
+      {/* ──────────────────────────────────────────────────────────────────────
+          VIDEO 1: STEP-BY-STEP BRUSHING (STORED MP4)
+          ────────────────────────────────────────────────────────────────────── */}
+      {activeTab === "brushing" && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-teal-500/40 relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* Left Video Player */}
+              <div className="lg:col-span-7 space-y-3">
+                <div className="relative rounded-3xl overflow-hidden border border-teal-500/40 shadow-2xl bg-slate-950 aspect-video group">
+                  <video
+                    ref={brushingVideoRef}
+                    src="/videos/brushing_steps.mp4"
+                    controls
+                    playsInline
+                    className="w-full h-full object-cover"
+                    onPlay={() => setIsBrushingPlaying(true)}
+                    onPause={() => setIsBrushingPlaying(false)}
                   />
-                  {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/30 transition-all flex items-center justify-center">
+
+                  {/* Overlay Play Button if not playing */}
+                  {!isBrushingPlaying && (
                     <div
-                      className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-xl transition-all duration-300 ${
-                        isSelected
-                          ? "bg-teal-400 text-slate-950 scale-110"
-                          : "bg-white/90 text-slate-950 group-hover:scale-110 group-hover:bg-teal-300"
-                      }`}
+                      onClick={() => togglePlay(brushingVideoRef, setIsBrushingPlaying, isBrushingPlaying)}
+                      className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center cursor-pointer transition-all hover:bg-black/20"
                     >
-                      <Play className="w-5 h-5 fill-current ml-0.5" />
-                    </div>
-                  </div>
-                  {/* Duration badge */}
-                  <div className="absolute top-2.5 right-2.5 flex items-center gap-1 px-2 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-white font-mono text-[11px]">
-                    <Clock className="w-3 h-3 text-teal-300" />
-                    {video.duration}
-                  </div>
-                  {isSelected && (
-                    <div className="absolute bottom-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-teal-400 text-slate-950 font-black text-[9px] uppercase tracking-widest shadow-md">
-                      ▶ Now Playing
+                      <div className="w-16 h-16 rounded-full bg-teal-400 text-slate-950 flex items-center justify-center shadow-xl shadow-teal-500/50 hover:scale-110 transition-transform">
+                        <Play className="w-8 h-8 fill-slate-950 ml-1" />
+                      </div>
                     </div>
                   )}
                 </div>
 
-                {/* Card Body */}
-                <div className="p-5 flex flex-col flex-1 space-y-3">
-                  <div>
-                    <span className="text-[10px] font-mono font-semibold text-teal-400 block mb-1">
-                      {video.creator}
-                    </span>
-                    <h3 className="font-bold text-white text-sm sm:text-base group-hover:text-teal-300 transition-colors leading-snug">
-                      {video.title}
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1 font-medium">{video.subtitle}</p>
-                    <p className="text-xs text-slate-300 mt-2 leading-relaxed line-clamp-2">
-                      {video.description}
-                    </p>
+                {/* Quick Controls Bar */}
+                <div className="flex items-center justify-between p-3 rounded-2xl liquid-glass border border-white/10 text-xs">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => togglePlay(brushingVideoRef, setIsBrushingPlaying, isBrushingPlaying)}
+                      className="px-3.5 py-1.5 rounded-xl bg-teal-400 text-slate-950 font-black flex items-center gap-1.5 hover:bg-teal-300 transition-all"
+                    >
+                      {isBrushingPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-slate-950" />}
+                      <span>{isBrushingPlaying ? "Pause" : "Play"}</span>
+                    </button>
+
+                    <button
+                      onClick={() => restartVideo(brushingVideoRef, setIsBrushingPlaying)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title="Restart Video"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      onClick={() => toggleMute(brushingVideoRef, setIsBrushingMuted, isBrushingMuted)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title={isBrushingMuted ? "Unmute" : "Mute"}
+                    >
+                      {isBrushingMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-teal-400" />}
+                    </button>
                   </div>
 
-                  <div className="mt-auto pt-3 border-t border-white/10 flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-slate-500">
-                      {CATEGORIES.find((c) => c.key === video.category)?.label}
-                    </span>
-                    <button className="px-3.5 py-1.5 rounded-lg bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 border border-teal-500/30 text-xs font-bold transition-all flex items-center gap-1.5">
-                      {isSelected ? (
-                        <>▶ Playing</>
-                      ) : (
-                        <>Watch Now</>
-                      )}
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate-400 font-mono">On-Site MP4</span>
+                    <button
+                      onClick={() => toggleFullscreen(brushingVideoRef)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title="Fullscreen"
+                    >
+                      <Maximize2 className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
+
+                <div className="p-4 rounded-2xl liquid-glass border border-white/10 space-y-1">
+                  <h3 className="font-extrabold text-base text-white">
+                    Step-by-Step Brushing: Child Showing Steps with Joy
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    This video demonstrates the full, joyful routine from start to finish. Children learn best by visual modeling—watching another child brush happily normalizes the sensory sensations and builds enthusiasm.
+                  </p>
+                </div>
               </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="liquid-glass-card rounded-2xl border border-white/10 p-12 text-center">
-          <p className="text-slate-400 text-sm">No videos in this category yet.</p>
+
+              {/* Right Side Step Markers */}
+              <div className="lg:col-span-5 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-extrabold text-sm text-white flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-teal-400" />
+                    Video Step Milestones
+                  </h4>
+                  <span className="text-[11px] text-teal-300 font-bold">Follow Along</span>
+                </div>
+
+                <div className="space-y-2.5">
+                  {brushSteps.map((s) => (
+                    <div
+                      key={s.step}
+                      className="p-3.5 rounded-2xl liquid-glass border border-white/10 hover:border-teal-400/40 transition-all flex items-start gap-3"
+                    >
+                      <div className="w-8 h-8 rounded-xl bg-teal-400/20 text-teal-300 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">
+                        {s.step}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <h5 className="font-bold text-xs text-white">{s.title}</h5>
+                          <span className="text-[10px] text-teal-300 font-mono font-bold bg-teal-500/20 px-1.5 py-0.5 rounded">
+                            {s.time}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                          {s.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* 6-Step Visual Routine */}
-      <div className="liquid-glass-card rounded-2xl border border-white/15 p-6 sm:p-8">
-        <h2 className="text-lg sm:text-xl font-bold text-white mb-6 pb-4 border-b border-white/10 flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-teal-400" />
-          6-Step Daily Brushing Routine · Visual Cue Cards
-        </h2>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-          <StepCard step="1" emoji="🪥" title="Get Brush" desc="Soft-bristle, 3-sided" />
-          <StepCard step="2" emoji="🟡" title="Pea Dot" desc="Mild fluoride paste" />
-          <StepCard step="3" emoji="⬆️" title="Top Teeth" desc="30 seconds, circles" />
-          <StepCard step="4" emoji="⬇️" title="Bottom Teeth" desc="30 seconds, circles" />
-          <StepCard step="5" emoji="💧" title="Rinse & Spit" desc="Lean over sink" />
-          <StepCard step="6" emoji="⭐" title="Well Done!" desc="Reward time!" highlight />
-        </div>
-      </div>
-    </div>
-  );
-}
+      {/* ──────────────────────────────────────────────────────────────────────
+          VIDEO 2: DIET MOTIVATION (SHINY TEETH VS SUGAR BUGS)
+          ────────────────────────────────────────────────────────────────────── */}
+      {activeTab === "diet" && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* Left Video Player */}
+              <div className="lg:col-span-7 space-y-3">
+                <div className="relative rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl bg-slate-950 aspect-video group">
+                  <video
+                    ref={dietVideoRef}
+                    src="/videos/diet_motivation.mp4"
+                    controls
+                    playsInline
+                    className="w-full h-full object-cover"
+                    onPlay={() => setIsDietPlaying(true)}
+                    onPause={() => setIsDietPlaying(false)}
+                  />
 
-function StepCard({
-  step,
-  emoji,
-  title,
-  desc,
-  highlight = false,
-}: {
-  step: string;
-  emoji: string;
-  title: string;
-  desc: string;
-  highlight?: boolean;
-}) {
-  return (
-    <div
-      className={`p-4 rounded-xl liquid-glass border text-center transition-all hover:scale-105 ${
-        highlight
-          ? "border-emerald-400/50 bg-emerald-950/20 shadow-[0_0_15px_rgba(52,211,153,0.15)]"
-          : "border-white/10 hover:border-teal-400/30"
-      }`}
-    >
-      <div className="text-2xl mb-2">{emoji}</div>
-      <div
-        className={`w-5 h-5 mx-auto rounded-full flex items-center justify-center font-mono font-extrabold text-[10px] mb-2 ${
-          highlight
-            ? "bg-emerald-400 text-slate-950"
-            : "bg-teal-500/20 text-teal-300 border border-teal-500/30"
-        }`}
-      >
-        {step}
-      </div>
-      <div className="font-bold text-white text-xs">{title}</div>
-      <div className="text-[11px] text-slate-400 mt-0.5">{desc}</div>
+                  {/* Overlay Play Button if not playing */}
+                  {!isDietPlaying && (
+                    <div
+                      onClick={() => togglePlay(dietVideoRef, setIsDietPlaying, isDietPlaying)}
+                      className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center cursor-pointer transition-all hover:bg-black/20"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center shadow-xl shadow-amber-500/50 hover:scale-110 transition-transform">
+                        <Play className="w-8 h-8 fill-slate-950 ml-1" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Quick Controls Bar */}
+                <div className="flex items-center justify-between p-3 rounded-2xl liquid-glass border border-white/10 text-xs">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => togglePlay(dietVideoRef, setIsDietPlaying, isDietPlaying)}
+                      className="px-3.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-black flex items-center gap-1.5 hover:bg-amber-300 transition-all"
+                    >
+                      {isDietPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-slate-950" />}
+                      <span>{isDietPlaying ? "Pause" : "Play"}</span>
+                    </button>
+
+                    <button
+                      onClick={() => restartVideo(dietVideoRef, setIsDietPlaying)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title="Restart Video"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      onClick={() => toggleMute(dietVideoRef, setIsDietMuted, isDietMuted)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title={isDietMuted ? "Unmute" : "Mute"}
+                    >
+                      {isDietMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-amber-400" />}
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate-400 font-mono">Dr. Binocs Show</span>
+                    <button
+                      onClick={() => toggleFullscreen(dietVideoRef)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title="Fullscreen"
+                    >
+                      <Maximize2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl liquid-glass border border-white/10 space-y-1">
+                  <h3 className="font-extrabold text-base text-white">
+                    Diet Motivation: Shiny Teeth vs. Sugar Bugs (How Cavities Form)
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Watch Dr. Binocs explain what happens when we eat healthy foods vs. sugary snacks: bacteria feast on chocolates and sodas, releasing acids that turn teeth black and eat away enamel, until brushing saves the day!
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Side Diet Breakdown */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="liquid-glass rounded-2xl p-5 border border-emerald-400/30 space-y-2">
+                  <div className="flex items-center gap-2 text-emerald-300 font-extrabold text-xs uppercase tracking-wider">
+                    <Apple className="w-4 h-4" /> 1. Healthy Food = Shiny Teeth!
+                  </div>
+                  <ul className="text-xs text-slate-300 space-y-2">
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <span><strong>Crunchy Fruits (Apples, Carrots):</strong> Naturally scrub and polish tooth surfaces.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <span><strong>Milk & Calcium:</strong> Strengthens enamel so bacteria cannot break in.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <span><strong>Cool Fresh Water:</strong> Washes away acids immediately after meals.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="liquid-glass rounded-2xl p-5 border border-rose-400/30 space-y-2">
+                  <div className="flex items-center gap-2 text-rose-300 font-extrabold text-xs uppercase tracking-wider">
+                    <Candy className="w-4 h-4" /> 2. Sugar Bugs Feast (What Causes Black Teeth)
+                  </div>
+                  <ul className="text-xs text-slate-300 space-y-2">
+                    <li className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-400 flex-shrink-0" />
+                      <span><strong>Chocolates & Sticky Toffees:</strong> Stick deep inside tooth grooves.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-400 flex-shrink-0" />
+                      <span><strong>Bacteria Feasting:</strong> Bacteria love sugar! They enjoy the meal and start eating the teeth.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-rose-400 flex-shrink-0" />
+                      <span><strong>Enamel Breakdown:</strong> Teeth turn black or develop painful holes without brushing.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ──────────────────────────────────────────────────────────────────────
+          VIDEO 3: MOTIVATIONAL (GOD BLESSES JOYFUL BRUSHERS)
+          ────────────────────────────────────────────────────────────────────── */}
+      {activeTab === "blessing" && (
+        <div className="space-y-6 animate-in fade-in duration-300">
+          <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-indigo-500/40 relative overflow-hidden">
+            {/* Story Picker Sub-Tabs */}
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-xs font-bold text-slate-300">Choose Motivational Story:</span>
+              <button
+                onClick={() => {
+                  setActiveBlessingVideo("cleanliness");
+                  setIsBlessingPlaying(false);
+                }}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  activeBlessingVideo === "cleanliness"
+                    ? "bg-amber-400 text-slate-950 font-black shadow-md shadow-amber-500/20"
+                    : "liquid-glass text-slate-300 hover:text-white border border-white/10"
+                }`}
+              >
+                Story 1: Cleanliness is Godliness
+              </button>
+              <button
+                onClick={() => {
+                  setActiveBlessingVideo("magic");
+                  setIsBlessingPlaying(false);
+                }}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  activeBlessingVideo === "magic"
+                    ? "bg-indigo-400 text-slate-950 font-black shadow-md shadow-indigo-500/20"
+                    : "liquid-glass text-slate-300 hover:text-white border border-white/10"
+                }`}
+              >
+                Story 2: The Magic Toothbrush Adventure
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* Left Video Player */}
+              <div className="lg:col-span-7 space-y-3">
+                <div className="relative rounded-3xl overflow-hidden border border-indigo-500/40 shadow-2xl bg-slate-950 aspect-video group">
+                  <video
+                    key={activeBlessingVideo}
+                    ref={blessingVideoRef}
+                    src={
+                      activeBlessingVideo === "cleanliness"
+                        ? "/videos/god_blessings_cleanliness.mp4"
+                        : "/videos/magic_toothbrush.mp4"
+                    }
+                    controls
+                    playsInline
+                    className="w-full h-full object-cover"
+                    onPlay={() => setIsBlessingPlaying(true)}
+                    onPause={() => setIsBlessingPlaying(false)}
+                  />
+
+                  {/* Overlay Play Button if not playing */}
+                  {!isBlessingPlaying && (
+                    <div
+                      onClick={() => togglePlay(blessingVideoRef, setIsBlessingPlaying, isBlessingPlaying)}
+                      className="absolute inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center cursor-pointer transition-all hover:bg-black/20"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-indigo-400 text-slate-950 flex items-center justify-center shadow-xl shadow-amber-500/50 hover:scale-110 transition-transform">
+                        <Play className="w-8 h-8 fill-slate-950 ml-1" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Quick Controls Bar */}
+                <div className="flex items-center justify-between p-3 rounded-2xl liquid-glass border border-white/10 text-xs">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => togglePlay(blessingVideoRef, setIsBlessingPlaying, isBlessingPlaying)}
+                      className="px-3.5 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-black flex items-center gap-1.5 hover:bg-amber-300 transition-all"
+                    >
+                      {isBlessingPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-slate-950" />}
+                      <span>{isBlessingPlaying ? "Pause" : "Play"}</span>
+                    </button>
+
+                    <button
+                      onClick={() => restartVideo(blessingVideoRef, setIsBlessingPlaying)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title="Restart Video"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </button>
+
+                    <button
+                      onClick={() => toggleMute(blessingVideoRef, setIsBlessingMuted, isBlessingMuted)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title={isBlessingMuted ? "Unmute" : "Mute"}
+                    >
+                      {isBlessingMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-indigo-400" />}
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] text-slate-400 font-mono">
+                      {activeBlessingVideo === "cleanliness" ? "Ted & Zoe Moral Story" : "Bedtime Tale"}
+                    </span>
+                    <button
+                      onClick={() => toggleFullscreen(blessingVideoRef)}
+                      className="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300"
+                      title="Fullscreen"
+                    >
+                      <Maximize2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl liquid-glass border border-white/10 space-y-1">
+                  <h3 className="font-extrabold text-base text-white">
+                    {activeBlessingVideo === "cleanliness"
+                      ? "Cleanliness Is Godliness: Moral Story for Children"
+                      : "The Magic Toothbrush Adventure: Bedtime Motivation"}
+                  </h3>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Inspiring animated story teaching children that taking care of their teeth and maintaining body cleanliness is a divine virtue that brings blessings, vibrant health, and peaceful sleep.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Side Moral Affirmation Cards */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="p-6 rounded-3xl liquid-glass border border-amber-400/40 bg-gradient-to-b from-amber-950/30 to-indigo-950/30 text-center space-y-4 shadow-xl">
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-amber-400 to-indigo-400 p-0.5 shadow-lg shadow-amber-400/30 flex items-center justify-center text-3xl">
+                    🌟
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30 inline-block mb-2">
+                      Divine Blessing & Encouragement
+                    </span>
+                    <h4 className="text-xl font-black text-white">
+                      “Clean Smiles Bring Big Blessings”
+                    </h4>
+                    <p className="text-xs text-slate-200 mt-2 leading-relaxed">
+                      Every time you pick up your brush and care for your teeth morning and night, you are honoring the body given to you. God blesses the little champions who keep their smiles pure, strong, and bright!
+                    </p>
+                  </div>
+
+                  <div className="p-4 rounded-xl bg-white/5 border border-amber-400/20 italic font-serif text-amber-200 text-xs">
+                    “Cleanliness is next to godliness. A clean heart and a clean smile bring peace, glowing health, and joyful dreams.”
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

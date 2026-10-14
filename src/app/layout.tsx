@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ASD Oral Care AI • Supervised by Dr. Nivrutti Reddy",
-  description: "Advanced pediatric oral care, visual desensitization, and AI caregiver assistance for children with ASD.",
+  title: "ASD Oral Care AI • Small steps, consistent routines, healthier smiles",
+  description: "A simple, predictable digital space for parents and caregivers of children with ASD. Supervised by Dr. Nivrutti Reddy.",
+  icons: {
+    icon: "/asd-logo.png",
+  },
 };
 
 export default function RootLayout({

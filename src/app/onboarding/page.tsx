@@ -1,742 +1,1092 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { 
-  Sparkles, 
-  User, 
-  Baby, 
-  Smile, 
-  Utensils, 
-  Stethoscope, 
-  HeartHandshake, 
-  CheckCircle2, 
-  ArrowRight, 
+import { useAuth, useUser } from "@/context/AuthContext";
+import {
+  Sparkles,
+  Baby,
+  Smile,
+  Utensils,
+  Stethoscope,
+  HeartHandshake,
+  CheckCircle2,
+  ArrowRight,
   ArrowLeft,
-  ShieldCheck,
   Award,
   ChevronRight,
-  Info,
-  Phone,
-  MessageCircle
+  Check,
 } from "lucide-react";
+import { saveUserProfile, ChildAccount } from "@/lib/userStore";
+
+// ─── Types ─────────────────────────────────────────────────────────────────
 
 interface FormData {
-  guardianName: string;
-  relationship: string;
-  phone: string;
-  preferredContact: string;
-
+  // Domain 0 — Demographics
   childName: string;
   childAge: string;
   dateOfBirth: string;
+  gender: string;
+  caregiverName: string;
+  relationship: string;
+  contactPhone: string;
   asdLevel: string;
-  sensorySensitivities: string[];
+  communicationLevel: string;
 
-  // Brushing Habits (Q1-Q5)
-  brushFrequency: string;
-  brushDuration: string;
-  toothbrushType: string;
-  toothbrushOther: string;
-  toothpaste: string;
-  brushesAllSurfaces: string;
+  // Domain 1 — Brushing Habits (Q1–Q9)
+  q1_brushFrequency: string;
+  q2_brushDuration: string;
+  q3_toothbrushType: string;
+  q3_toothbrushOther: string;
+  q4_toothpaste: string;
+  q5_surfacesCovered: string;
+  q6_assistance: string;
+  q7_brushingDifficulties: string[];
+  q8_helpStrategy: string;
+  q9_brushingChanges: string;
 
-  // Dietary Habits (Q6-Q10)
-  sugaryFoodFrequency: string;
-  healthyFoodFrequency: string;
-  preferredFood: string;
-  keepsFoodInMouth: string;
-  frequentlyAsksForFood: string;
+  // Domain 2 — Dietary Habits (Q10–Q14)
+  q10_sugaryDrinks: string;
+  q11_sugarySnacks: string;
+  q12_mealFrequency: string;
+  q13_foodHolding: string;
+  q14_nightFeeding: string;
 
-  // Medical & Dental History (Q11-Q15)
-  regularMedication: string;
-  medicationDetails: string;
-  gumBleeding: string;
-  toothSpotsOrCavities: string;
-  badBreath: string;
-  lastDentalVisit: string;
+  // Domain 3 — Medical & Dental History (Q15–Q17)
+  q15_lastDentalVisit: string;
+  q15_neverVisited: boolean;
+  q16_dentalProblems: string[];
+  q16_dentalOther: string;
+  q17_medicalConditions: string[];
+  q17_medicalOther: string;
 
-  // Behavioral & Sensory-Motor Skills (Q16-Q20)
-  newSituationResponse: string;
-  allowsCaregiverBrushing: string;
-  difficultyOpeningMouth: string;
-  toothbrushSensoryDislike: string;
-  cooperationMethod: string;
-  cooperationOther: string;
+  // Domain 4 — Behavioral & Sensory-Motor Skills (Q18–Q20)
+  q18_oralHygieneAttitude: string;
+  q19_motorSkills: string;
+  q20_sensoryTriggers: string[];
+  q20_sensoryOther: string;
 }
 
-const initialFormData: FormData = {
-  guardianName: "",
-  relationship: "Mother",
-  phone: "",
-  preferredContact: "email",
-
+const INITIAL_FORM: FormData = {
   childName: "",
   childAge: "6",
-  dateOfBirth: "2020-04-15",
+  dateOfBirth: "",
+  gender: "Male",
+  caregiverName: "",
+  relationship: "Mother",
+  contactPhone: "",
   asdLevel: "Level 1 (Mild support needed)",
-  sensorySensitivities: ["Toothpaste foam / strong mint flavour", "Bristle vibrations"],
+  communicationLevel: "Verbal with Visual Cues",
 
-  brushFrequency: "once_daily",
-  brushDuration: "less_than_1_min",
-  toothbrushType: "manual",
-  toothbrushOther: "",
-  toothpaste: "Mild strawberry non-foaming",
-  brushesAllSurfaces: "no",
+  q1_brushFrequency: "",
+  q2_brushDuration: "",
+  q3_toothbrushType: "",
+  q3_toothbrushOther: "",
+  q4_toothpaste: "",
+  q5_surfacesCovered: "",
+  q6_assistance: "",
+  q7_brushingDifficulties: [],
+  q8_helpStrategy: "",
+  q9_brushingChanges: "",
 
-  sugaryFoodFrequency: "1_to_2_daily",
-  healthyFoodFrequency: "3_to_4_weekly",
-  preferredFood: "sweet",
-  keepsFoodInMouth: "sometimes",
-  frequentlyAsksForFood: "yes",
+  q10_sugaryDrinks: "",
+  q11_sugarySnacks: "",
+  q12_mealFrequency: "",
+  q13_foodHolding: "",
+  q14_nightFeeding: "",
 
-  regularMedication: "no",
-  medicationDetails: "",
-  gumBleeding: "yes",
-  toothSpotsOrCavities: "no",
-  badBreath: "no",
-  lastDentalVisit: "6_to_12_months",
+  q15_lastDentalVisit: "",
+  q15_neverVisited: false,
+  q16_dentalProblems: [],
+  q16_dentalOther: "",
+  q17_medicalConditions: [],
+  q17_medicalOther: "",
 
-  newSituationResponse: "needs_reassurance",
-  allowsCaregiverBrushing: "yes",
-  difficultyOpeningMouth: "no",
-  toothbrushSensoryDislike: "yes",
-  cooperationMethod: "pictures_video",
-  cooperationOther: "",
+  q18_oralHygieneAttitude: "",
+  q19_motorSkills: "",
+  q20_sensoryTriggers: [],
+  q20_sensoryOther: "",
 };
 
-const STEPS = [
-  { id: 1, title: "Welcome", icon: Sparkles, desc: "Overview" },
-  { id: 2, title: "Caregiver", icon: User, desc: "Details" },
-  { id: 3, title: "Child", icon: Baby, desc: "Profile" },
-  { id: 4, title: "Brushing", icon: Smile, desc: "Q1-5" },
-  { id: 5, title: "Diet", icon: Utensils, desc: "Q6-10" },
-  { id: 6, title: "Medical", icon: Stethoscope, desc: "Q11-15" },
-  { id: 7, title: "Sensory", icon: HeartHandshake, desc: "Q16-20" },
-  { id: 8, title: "Review", icon: ShieldCheck, desc: "Analysis" },
-  { id: 9, title: "Complete", icon: Award, desc: "Plan" },
-];
+// ─── Helper Components ───────────────────────────────────────────────────────
 
-export default function OnboardingPage() {
-  const router = useRouter();
-  const [currentStep, setCurrentStep] = useState(1);
-  const [formData, setFormData] = useState<FormData>(initialFormData);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+function SectionHeader({ domain, total, title, subtitle }: { domain: number; total: number; title: string; subtitle?: string }) {
+  return (
+    <div className="pb-4 border-b border-white/10 mb-5">
+      <span
+        className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-full mb-2"
+        style={{ background: "rgba(20,184,166,0.15)", border: "1px solid rgba(20,184,166,0.3)", color: "#2dd4bf" }}
+      >
+        Domain {domain} of {total}
+      </span>
+      <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">{title}</h2>
+      {subtitle && <p className="text-xs text-slate-400 mt-1">{subtitle}</p>}
+    </div>
+  );
+}
 
-  useEffect(() => {
-    const saved = localStorage.getItem("asd_onboarding_draft");
-    if (saved) {
-      try {
-        setFormData(JSON.parse(saved));
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, []);
-
-  const updateFormData = (fields: Partial<FormData>) => {
-    setFormData((prev) => {
-      const next = { ...prev, ...fields };
-      localStorage.setItem("asd_onboarding_draft", JSON.stringify(next));
-      return next;
-    });
-  };
-
-  const handleNext = () => {
-    if (currentStep < 9) {
-      setCurrentStep((prev) => prev + 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  const handleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep((prev) => prev - 1);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      localStorage.setItem("asd_onboarding_completed", "true");
-      localStorage.setItem("asd_onboarding_data", JSON.stringify(formData));
-      setIsSubmitting(false);
-      setCurrentStep(9);
-    }, 1200);
-  };
-
-  const calculateRiskEstimate = () => {
-    let risk = 0;
-    if (formData.brushFrequency === "never") risk += 25;
-    if (formData.brushFrequency === "once_daily") risk += 10;
-    if (formData.sugaryFoodFrequency === "more_than_2_daily") risk += 25;
-    if (formData.sugaryFoodFrequency === "1_to_2_daily") risk += 15;
-    if (formData.gumBleeding === "yes") risk += 20;
-    if (formData.toothSpotsOrCavities === "yes") risk += 20;
-    if (formData.toothbrushSensoryDislike === "yes") risk += 10;
-    return Math.min(risk, 95);
-  };
-
-  const renderOptionButtons = (
-    field: keyof FormData,
-    options: Array<{ value: string; label: string }>
-  ) => {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+function RadioGroup({
+  label,
+  qNum,
+  name,
+  options,
+  value,
+  onChange,
+  other,
+  otherValue,
+  onOtherChange,
+}: {
+  label: string;
+  qNum?: string;
+  name: string;
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+  other?: boolean;
+  otherValue?: string;
+  onOtherChange?: (v: string) => void;
+}) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-xs font-bold text-slate-200 leading-relaxed">
+        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+        {label}
+      </label>
+      <div className="space-y-1.5">
         {options.map((opt) => {
-          const isSelected = formData[field] === opt.value;
+          const selected = value === opt;
           return (
             <button
-              key={opt.value}
+              key={opt}
               type="button"
-              onClick={() => updateFormData({ [field]: opt.value } as any)}
-              className={`p-3.5 rounded-2xl text-xs font-semibold text-left transition-all border ${
-                isSelected
-                  ? "bg-teal-500/25 border-teal-400 text-teal-200 shadow-[0_0_20px_rgba(45,212,191,0.2)]"
-                  : "bg-slate-900/60 border-white/10 text-slate-300 hover:border-white/20 hover:bg-slate-800/60"
-              }`}
+              onClick={() => onChange(opt)}
+              className="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs transition-all"
+              style={{
+                background: selected ? "rgba(20,184,166,0.18)" : "rgba(255,255,255,0.04)",
+                border: selected ? "1px solid rgba(20,184,166,0.5)" : "1px solid rgba(255,255,255,0.1)",
+                color: selected ? "#f0fdfa" : "#94a3b8",
+              }}
             >
-              {opt.label}
+              <span
+                className="w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
+                style={{
+                  borderColor: selected ? "#14b8a6" : "rgba(255,255,255,0.2)",
+                  background: selected ? "#14b8a6" : "transparent",
+                }}
+              >
+                {selected && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+              </span>
+              {opt}
+            </button>
+          );
+        })}
+        {other && (
+          <div className="flex items-center gap-2 mt-1">
+            <button
+              type="button"
+              onClick={() => onChange("Other")}
+              className="w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
+              style={{
+                borderColor: value === "Other" ? "#14b8a6" : "rgba(255,255,255,0.2)",
+                background: value === "Other" ? "#14b8a6" : "transparent",
+              }}
+            >
+              {value === "Other" && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+            </button>
+            <input
+              type="text"
+              placeholder="Other (please specify)"
+              value={otherValue || ""}
+              onChange={(e) => { onChange("Other"); onOtherChange?.(e.target.value); }}
+              className="flex-1 liquid-glass-input rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CheckboxGroup({
+  label,
+  qNum,
+  options,
+  values,
+  onChange,
+  other,
+  otherValue,
+  onOtherChange,
+}: {
+  label: string;
+  qNum?: string;
+  options: string[];
+  values: string[];
+  onChange: (vals: string[]) => void;
+  other?: boolean;
+  otherValue?: string;
+  onOtherChange?: (v: string) => void;
+}) {
+  const toggle = (opt: string) => {
+    onChange(values.includes(opt) ? values.filter((v) => v !== opt) : [...values, opt]);
+  };
+
+  return (
+    <div className="space-y-2">
+      <label className="block text-xs font-bold text-slate-200 leading-relaxed">
+        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+        {label}
+        <span className="ml-1.5 text-[10px] font-normal text-slate-500">(Select all that apply)</span>
+      </label>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+        {options.map((opt) => {
+          const checked = values.includes(opt);
+          return (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => toggle(opt)}
+              className="text-left flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs transition-all"
+              style={{
+                background: checked ? "rgba(20,184,166,0.18)" : "rgba(255,255,255,0.04)",
+                border: checked ? "1px solid rgba(20,184,166,0.5)" : "1px solid rgba(255,255,255,0.1)",
+                color: checked ? "#f0fdfa" : "#94a3b8",
+              }}
+            >
+              <span
+                className="w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center"
+                style={{
+                  borderColor: checked ? "#14b8a6" : "rgba(255,255,255,0.2)",
+                  background: checked ? "#14b8a6" : "transparent",
+                }}
+              >
+                {checked && <Check className="w-2.5 h-2.5 text-slate-950" />}
+              </span>
+              {opt}
             </button>
           );
         })}
       </div>
-    );
+      {other && (
+        <input
+          type="text"
+          placeholder="Other (please specify)"
+          value={otherValue || ""}
+          onChange={(e) => onOtherChange?.(e.target.value)}
+          className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 mt-1"
+        />
+      )}
+    </div>
+  );
+}
+
+function StyledInput({
+  label,
+  qNum,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  label: string;
+  qNum?: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-xs font-bold text-slate-200">
+        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+        {label}
+      </label>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500"
+      />
+    </div>
+  );
+}
+
+function StyledSelect({
+  label,
+  qNum,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  qNum?: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: string[];
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label className="block text-xs font-bold text-slate-200">
+        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+        {label}
+      </label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white"
+      >
+        <option value="">— Select —</option>
+        {options.map((o) => (
+          <option key={o} value={o}>{o}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+// ─── Main Component ──────────────────────────────────────────────────────────
+
+export default function OnboardingPage() {
+  const router = useRouter();
+  const { isLoaded: isAuthLoaded, isSignedIn } = useAuth();
+  const { user } = useUser();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
+
+  const set = (field: keyof FormData, value: string | string[] | boolean) =>
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
+  const steps = [
+    { id: 1, title: "Welcome", icon: Sparkles },
+    { id: 2, title: "Demographics", icon: Baby },
+    { id: 3, title: "Brushing", icon: Smile },
+    { id: 4, title: "Diet", icon: Utensils },
+    { id: 5, title: "Medical", icon: Stethoscope },
+    { id: 6, title: "Behaviour", icon: HeartHandshake },
+    { id: 7, title: "Review", icon: Award },
+  ];
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const childId = "child-" + Date.now();
+    const childCode = "ASD-" + Math.floor(100 + Math.random() * 900);
+
+    const allSensoryTriggers = [
+      ...formData.q20_sensoryTriggers,
+      ...(formData.q20_sensoryOther ? [formData.q20_sensoryOther] : []),
+    ];
+
+    const newAccount: ChildAccount = {
+      id: childId,
+      code: childCode,
+      name: formData.childName.trim() || (user?.user_metadata?.name ? `${user.user_metadata.name}'s Child` : "Child"),
+      age: parseInt(formData.childAge) || 6,
+      gender: formData.gender,
+      dob: formData.dateOfBirth,
+      caregiverName: formData.caregiverName.trim() || user?.user_metadata?.full_name || user?.user_metadata?.name || "Caregiver",
+      caregiverPhone: formData.contactPhone.trim() || "",
+      relationship: formData.relationship,
+      asdLevel: formData.asdLevel,
+      communicationLevel: formData.communicationLevel,
+      sensorySensitivities: allSensoryTriggers,
+
+      demographics: {
+        childName: formData.childName.trim() || (user?.user_metadata?.name ? `${user.user_metadata.name}'s Child` : "Child"),
+        age: parseInt(formData.childAge) || 6,
+        dob: formData.dateOfBirth,
+        gender: formData.gender,
+        caregiverName: formData.caregiverName.trim() || user?.user_metadata?.full_name || user?.user_metadata?.name || "Caregiver",
+        relationship: formData.relationship,
+        contactPhone: formData.contactPhone.trim() || "",
+        communicationStyle: formData.communicationLevel,
+        sensoryTriggers: allSensoryTriggers,
+      },
+
+      brushingHabits: {
+        frequency: formData.q1_brushFrequency,
+        duration: formData.q2_brushDuration,
+        toothbrushType: formData.q3_toothbrushType === "Other" ? formData.q3_toothbrushOther : formData.q3_toothbrushType,
+        toothpaste: formData.q4_toothpaste,
+        surfacesCovered: formData.q5_surfacesCovered,
+        assistanceNeeded: formData.q6_assistance,
+        toleranceLevel: formData.q9_brushingChanges,
+        difficulties: formData.q7_brushingDifficulties,
+        helpStrategy: formData.q8_helpStrategy,
+      },
+
+      dietaryHabits: {
+        sugaryFoodFrequency: formData.q11_sugarySnacks,
+        healthyFoodFrequency: formData.q12_mealFrequency,
+        foodHoldingInMouth: formData.q13_foodHolding,
+        snackingFrequency: formData.q12_mealFrequency,
+        nightFeedingOrBottle: formData.q14_nightFeeding,
+        waterIntake: "Not specified",
+        sugaryDrinks: formData.q10_sugaryDrinks,
+      },
+
+      dentalMedicalHistory: {
+        lastDentalVisit: formData.q15_neverVisited ? "Never" : formData.q15_lastDentalVisit,
+        pastDentalExperience: formData.q16_dentalProblems.join(", "),
+        activeCavitiesOrPain: formData.q16_dentalProblems.includes("Toothache or pain") ? "Yes" : "No",
+        gumBleeding: formData.q16_dentalProblems.includes("Bleeding gums") ? "Yes" : "No",
+        regularMedications: formData.q17_medicalConditions.join(", "),
+        medicalDiagnoses: [formData.asdLevel, ...formData.q17_medicalConditions],
+        neverVisitedDentist: formData.q15_neverVisited,
+        dentalProblems: formData.q16_dentalProblems,
+        dentalOther: formData.q16_dentalOther,
+        medicalConditions: formData.q17_medicalConditions,
+        medicalOther: formData.q17_medicalOther,
+      },
+
+      childBehaviour: {
+        mouthOpeningCooperation: formData.q18_oralHygieneAttitude,
+        sensoryAversionTriggers: allSensoryTriggers,
+        routineReaction: formData.q18_oralHygieneAttitude,
+        effectiveMotivators: [],
+        meltdownTriggers: formData.q20_sensoryTriggers.join(", "),
+        motorSkills: formData.q19_motorSkills,
+        oralHygieneAttitude: formData.q18_oralHygieneAttitude,
+      },
+
+      rawQuestionnaire: {
+        ...formData,
+        allSensoryTriggers,
+      },
+
+      weeklyAssessments: [
+        {
+          week: 1,
+          date: "Baseline — Week 1",
+          oralHygieneScore: 75,
+          dietaryRiskScore: 40,
+          sensoryComfortScore: 70,
+          routineStreakDays: 1,
+          statusSummary: `Baseline recorded for ${formData.childName || "child"}. AI routine calibration complete across all 4 clinical domains.`,
+          motivationBadge: {
+            title: "Journey Champion",
+            icon: "🌱",
+            description: "Completed the Child Oral Health Assessment Questionnaire!",
+          },
+          aiRecommendations: [
+            "Use non-foaming toothpaste to address texture sensitivity.",
+            "Introduce a visual step-by-step brushing video before the evening routine.",
+            "Schedule post-meal water swirling to reduce food pooling risk.",
+          ],
+        },
+      ],
+    };
+
+    const currentUserId = user?.id || (typeof window !== "undefined" ? localStorage.getItem("asd_current_user_id") || "user-" + Date.now() : "user-default");
+    const currentUserEmail = user?.email || (typeof window !== "undefined" ? localStorage.getItem("asd_current_user_email") || "" : "");
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem("asd_current_user_id", currentUserId);
+      localStorage.setItem("asd_active_child_id", newAccount.id);
+      localStorage.setItem("asd_onboarding_completed", "true");
+      localStorage.setItem("asd_profile_" + currentUserId, JSON.stringify(newAccount));
+      localStorage.setItem("asd_current_user_profile", JSON.stringify(newAccount));
+    }
+
+    // Save profile to server DB (data/profiles.json & Supabase) and localStorage
+    await saveUserProfile(currentUserId, currentUserEmail, newAccount);
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      router.push("/");
+    }, 400);
   };
 
+  const goNext = () => setCurrentStep((s) => Math.min(steps.length, s + 1));
+  const goPrev = () => setCurrentStep((s) => Math.max(1, s - 1));
+
   return (
-    <div className="max-w-4xl mx-auto pb-20">
-      {/* Top Header / Progress */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <span className="text-[11px] font-extrabold uppercase tracking-widest text-teal-400">
-              Child Oral Health Onboarding
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-black text-white mt-1">
-              {STEPS[currentStep - 1].title}
-            </h1>
-          </div>
-          <span className="text-xs font-bold text-teal-300 glass-pill px-3.5 py-1.5 rounded-full border border-teal-500/30">
-            Step {currentStep} of {STEPS.length}
-          </span>
-        </div>
-
-        {/* Progress bar */}
-        <div className="w-full bg-slate-900/80 h-2 rounded-full overflow-hidden border border-white/10">
-          <div 
-            className="bg-gradient-to-r from-teal-500 via-teal-400 to-cyan-400 h-full transition-all duration-300 ease-out rounded-full shadow-[0_0_15px_rgba(45,212,191,0.5)]"
-            style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
-          />
-        </div>
-
-        {/* Step indicators */}
-        <div className="hidden md:flex justify-between mt-4">
-          {STEPS.map((s) => {
-            const Icon = s.icon;
-            const isDone = s.id < currentStep;
-            const isCurrent = s.id === currentStep;
-            return (
-              <button
-                key={s.id}
-                onClick={() => s.id <= currentStep && setCurrentStep(s.id)}
-                disabled={s.id > currentStep}
-                className={`flex flex-col items-center text-[11px] transition-all ${
-                  isCurrent 
-                    ? "text-teal-300 font-bold" 
-                    : isDone 
-                    ? "text-slate-400 hover:text-teal-300" 
-                    : "text-slate-600 cursor-not-allowed"
-                }`}
+    <div className="max-w-3xl mx-auto space-y-5 pb-20 px-4 sm:px-0 pt-6">
+      {/* ── Top Header Card ── */}
+      <div
+        className="rounded-3xl p-5 sm:p-7 relative overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, rgba(15,118,110,0.3) 0%, rgba(8,20,40,0.95) 60%, rgba(30,27,75,0.4) 100%)",
+          border: "1px solid rgba(20,184,166,0.35)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(20,184,166,0.1)",
+        }}
+      >
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div
+              className="w-11 h-11 rounded-2xl p-1.5 flex items-center justify-center flex-shrink-0"
+              style={{ background: "rgba(15,25,50,0.9)", border: "1px solid rgba(20,184,166,0.4)", boxShadow: "0 0 20px rgba(20,184,166,0.2)" }}
+            >
+              <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
+            </div>
+            <div>
+              <span
+                className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full"
+                style={{ background: "rgba(20,184,166,0.15)", border: "1px solid rgba(20,184,166,0.3)", color: "#2dd4bf" }}
               >
-                <div 
-                  className={`w-8 h-8 rounded-xl flex items-center justify-center mb-1 transition-all ${
-                    isCurrent
-                      ? "bg-teal-500 text-slate-950 font-bold shadow-[0_0_15px_rgba(45,212,191,0.4)]"
-                      : isDone
-                      ? "bg-teal-500/20 text-teal-300 border border-teal-500/30"
-                      : "bg-slate-900/60 text-slate-600 border border-white/5"
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                </div>
-                <span>{s.title}</span>
-              </button>
-            );
-          })}
+                Child Oral Health Assessment
+              </span>
+              <h1 className="text-lg sm:text-xl font-black text-white mt-1 tracking-tight">
+                Child Oral Health Assessment Questionnaire
+              </h1>
+            </div>
+          </div>
+          <div className="text-right flex-shrink-0">
+            <span className="text-xs font-mono text-teal-300 font-bold block">
+              Step {currentStep}/{steps.length}
+            </span>
+            <div className="w-24 h-1.5 rounded-full mt-1.5 overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${(currentStep / steps.length) * 100}%`,
+                  background: "linear-gradient(90deg, #14b8a6, #06b6d4)",
+                }}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Step Content Card */}
-      <div className="glass-panel rounded-3xl border border-white/10 shadow-2xl p-6 sm:p-10 mb-8 relative">
-        {/* Step 1: Welcome */}
+      {/* ── Step Tabs ── */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+        {steps.map((s) => {
+          const Icon = s.icon;
+          const isCurrent = currentStep === s.id;
+          const isDone = currentStep > s.id;
+          return (
+            <button
+              key={s.id}
+              onClick={() => setCurrentStep(s.id)}
+              className="px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap flex-shrink-0"
+              style={
+                isCurrent
+                  ? { background: "linear-gradient(135deg, #14b8a6, #06b6d4)", color: "#0f172a" }
+                  : isDone
+                  ? { background: "rgba(20,184,166,0.12)", border: "1px solid rgba(20,184,166,0.35)", color: "#2dd4bf" }
+                  : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#64748b" }
+              }
+            >
+              {isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Icon className="w-3.5 h-3.5" />}
+              {s.title}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── Form Card ── */}
+      <div
+        className="rounded-3xl p-6 sm:p-8"
+        style={{
+          background: "linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
+          border: "1px solid rgba(255,255,255,0.12)",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15)",
+          backdropFilter: "blur(24px)",
+        }}
+      >
+
+        {/* ── STEP 1: WELCOME ── */}
         {currentStep === 1 && (
-          <div className="space-y-6 text-center max-w-xl mx-auto py-6">
-            <div className="w-16 h-16 bg-teal-500/20 text-teal-400 border border-teal-500/30 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-[0_0_25px_rgba(45,212,191,0.2)]">
-              <Sparkles className="w-8 h-8" />
+          <div className="space-y-7 text-center max-w-lg mx-auto py-4">
+            <div
+              className="w-20 h-20 mx-auto rounded-3xl flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.25), rgba(6,182,212,0.15))", border: "1px solid rgba(20,184,166,0.4)", boxShadow: "0 0 40px rgba(20,184,166,0.2)" }}
+            >
+              <Sparkles className="w-9 h-9 text-teal-300" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white">
-              Baseline Pediatric ASD Assessment
-            </h2>
-            <p className="text-slate-300 text-sm leading-relaxed">
-              20 clinical markers to tailor visual brushing desensitization, plaque reduction strategies, and sensory-friendly oral routines for your child.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left pt-4">
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-white/10">
-                <div className="font-bold text-white text-xs mb-1">⏱️ 5 Minutes</div>
-                <div className="text-[11px] text-slate-200">Quick 20-question baseline</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-white/10">
-                <div className="font-bold text-teal-300 text-xs mb-1">🤖 ASD Bot</div>
-                <div className="text-[11px] text-slate-200">Personalized sensory plan</div>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-white/10">
-                <div className="font-bold text-emerald-300 text-xs mb-1">🔒 Supervised</div>
-                <div className="text-[11px] text-slate-200">Dr. Nivrutti Reddy guidance</div>
-              </div>
+            <div>
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                "Small steps, consistent routines, healthier smiles."
+              </h2>
+              <p className="text-sm text-slate-300 mt-3 leading-relaxed">
+                This questionnaire covers <strong className="text-white">4 clinical domains</strong> to calibrate your child's personalised oral care routine. Your answers feed directly into <strong className="text-teal-300">Argus</strong>, your AI oral health guide.
+              </p>
             </div>
+
+            <div className="grid grid-cols-2 gap-3 text-left text-xs">
+              {[
+                { icon: "🪥", title: "Brushing Habits", desc: "9 targeted questions" },
+                { icon: "🍎", title: "Dietary Habits", desc: "5 key questions" },
+                { icon: "🦷", title: "Medical & Dental", desc: "3 history questions" },
+                { icon: "🧠", title: "Behaviour & Sensory", desc: "3 sensory questions" },
+              ].map((card) => (
+                <div
+                  key={card.title}
+                  className="p-3.5 rounded-2xl"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                >
+                  <div className="text-lg mb-1">{card.icon}</div>
+                  <div className="font-bold text-white">{card.title}</div>
+                  <div className="text-slate-400 text-[10px] mt-0.5">{card.desc}</div>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={goNext}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl font-black text-sm text-slate-950 transition-all hover:scale-105 shadow-lg"
+              style={{ background: "linear-gradient(135deg, #14b8a6, #06b6d4)", boxShadow: "0 8px 30px rgba(20,184,166,0.4)" }}
+            >
+              Begin Assessment <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         )}
 
-        {/* Step 2: Guardian Info */}
+        {/* ── STEP 2: DEMOGRAPHICS ── */}
         {currentStep === 2 && (
-          <div className="space-y-6">
-            <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-              <User className="w-4 h-4 text-teal-400" /> Caregiver / Guardian Information
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Your Full Name</label>
-                <input
-                  type="text"
-                  value={formData.guardianName}
-                  onChange={(e) => updateFormData({ guardianName: e.target.value })}
-                  placeholder="e.g., Sarah Johnson"
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm"
+          <div className="space-y-5">
+            <SectionHeader domain={0} total={4} title="Demographic Details" subtitle="Basic information about the child and caregiver" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <StyledInput label="Child's Full Name *" value={formData.childName} onChange={(v) => set("childName", v)} placeholder="e.g. Arjun Sharma" />
+              <StyledInput label="Child's Age *" value={formData.childAge} onChange={(v) => set("childAge", v)} type="number" placeholder="6" />
+              <StyledInput label="Date of Birth" value={formData.dateOfBirth} onChange={(v) => set("dateOfBirth", v)} type="date" />
+              <StyledSelect
+                label="Gender"
+                value={formData.gender}
+                onChange={(v) => set("gender", v)}
+                options={["Male", "Female", "Other / Prefer not to say"]}
+              />
+              <StyledInput label="Primary Caregiver Name *" value={formData.caregiverName} onChange={(v) => set("caregiverName", v)} placeholder="e.g. Priya Sharma" />
+              <StyledSelect
+                label="Relationship to Child"
+                value={formData.relationship}
+                onChange={(v) => set("relationship", v)}
+                options={["Mother", "Father", "Guardian", "Therapist / Care Worker", "Other"]}
+              />
+              <StyledInput label="Contact Phone Number" value={formData.contactPhone} onChange={(v) => set("contactPhone", v)} type="tel" placeholder="e.g. 9876543210" />
+              <StyledSelect
+                label="ASD Support Level"
+                value={formData.asdLevel}
+                onChange={(v) => set("asdLevel", v)}
+                options={["Level 1 (Mild support needed)", "Level 2 (Substantial support needed)", "Level 3 (Very substantial support needed)"]}
+              />
+              <div className="sm:col-span-2">
+                <StyledSelect
+                  label="Child's Communication Style"
+                  value={formData.communicationLevel}
+                  onChange={(v) => set("communicationLevel", v)}
+                  options={[
+                    "Verbal with Visual Cues",
+                    "Fluent Verbal",
+                    "Non-verbal (Uses PECS & Picture Cards)",
+                    "Non-verbal (Gestures & Vocalizations)",
+                    "Augmentative & Alternative Communication (AAC)",
+                  ]}
                 />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Relationship to Child</label>
-                <select
-                  value={formData.relationship}
-                  onChange={(e) => updateFormData({ relationship: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm bg-slate-900"
-                >
-                  <option value="Mother">Mother</option>
-                  <option value="Father">Father</option>
-                  <option value="Legal Guardian">Legal Guardian</option>
-                  <option value="Special Educator">Special Educator / Therapist</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Phone Number</label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => updateFormData({ phone: e.target.value })}
-                  placeholder="e.g., +91 98765 43210"
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Preferred Contact Method</label>
-                <select
-                  value={formData.preferredContact}
-                  onChange={(e) => updateFormData({ preferredContact: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm bg-slate-900"
-                >
-                  <option value="whatsapp">WhatsApp</option>
-                  <option value="email">Email</option>
-                  <option value="phone">Phone Call</option>
-                  <option value="sms">SMS Text</option>
-                </select>
               </div>
             </div>
           </div>
         )}
 
-        {/* Step 3: Child Info */}
+        {/* ── STEP 3: BRUSHING HABITS (Q1–Q9) ── */}
         {currentStep === 3 && (
           <div className="space-y-6">
-            <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-              <Baby className="w-4 h-4 text-teal-400" /> Child Profile & ASD Baseline
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Child Identifier / Name</label>
-                <input
-                  type="text"
-                  value={formData.childName}
-                  onChange={(e) => updateFormData({ childName: e.target.value })}
-                  placeholder="e.g., Leo or ASD-001"
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm"
-                />
-              </div>
+            <SectionHeader domain={1} total={4} title="Brushing Habits" subtitle="Questions 1–9 about your child's daily brushing routine" />
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">Date of Birth</label>
-                <input
-                  type="date"
-                  value={formData.dateOfBirth}
-                  onChange={(e) => updateFormData({ dateOfBirth: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm"
-                />
-              </div>
+            <RadioGroup
+              qNum="1" label="How often does your child brush their teeth each day (with or without parent assistance)?"
+              name="q1" value={formData.q1_brushFrequency}
+              onChange={(v) => set("q1_brushFrequency", v)}
+              options={["Never", "Once daily", "Twice daily"]}
+            />
 
-              <div className="sm:col-span-2">
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">ASD Profile Support Level</label>
-                <select
-                  value={formData.asdLevel}
-                  onChange={(e) => updateFormData({ asdLevel: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl glass-input text-sm bg-slate-900"
-                >
-                  <option value="Level 1 (Mild support needed)">Level 1 (Mild support needed)</option>
-                  <option value="Level 2 (Substantial support needed)">Level 2 (Substantial support needed)</option>
-                  <option value="Level 3 (Very substantial support needed)">Level 3 (Very substantial support needed)</option>
-                  <option value="Under clinical evaluation">Under clinical evaluation</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        )}
+            <RadioGroup
+              qNum="2" label="How long does your child typically brush their teeth?"
+              name="q2" value={formData.q2_brushDuration}
+              onChange={(v) => set("q2_brushDuration", v)}
+              options={["Less than 1 minute", "1–2 minutes", "3 minutes"]}
+            />
 
-        {/* Step 4: Brushing Habits (Q1-Q5) */}
-        {currentStep === 4 && (
-          <div className="space-y-6">
-            <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-              <Smile className="w-4 h-4 text-teal-400" /> Section 1: Brushing Habits (Q1 - Q5)
-            </h3>
+            <RadioGroup
+              qNum="3" label="What type of toothbrush does your child use?"
+              name="q3" value={formData.q3_toothbrushType}
+              onChange={(v) => set("q3_toothbrushType", v)}
+              options={["Manual toothbrush", "Electric toothbrush"]}
+              other
+              otherValue={formData.q3_toothbrushOther}
+              onOtherChange={(v) => set("q3_toothbrushOther", v)}
+            />
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">1. How frequently does your child brush teeth?</label>
-              {renderOptionButtons("brushFrequency", [
-                { value: "never", label: "Rarely / Never" },
-                { value: "once_daily", label: "Once daily" },
-                { value: "twice_daily", label: "Twice or more daily" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">2. Duration of brushing routine?</label>
-              {renderOptionButtons("brushDuration", [
-                { value: "less_than_1_min", label: "< 1 minute" },
-                { value: "1_to_2_min", label: "1 to 2 minutes" },
-                { value: "3_min", label: "2 to 3+ minutes" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">3. Type of toothbrush used?</label>
-              {renderOptionButtons("toothbrushType", [
-                { value: "manual", label: "Manual Soft Bristle" },
-                { value: "electric", label: "Electric / Sonic" },
-                { value: "other", label: "3-Sided / Finger Brush" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">4. Toothpaste formula / flavor used:</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-200">
+                <span className="text-teal-400 mr-1">4.</span>
+                Which toothpaste does your child use for toothbrushing?
+              </label>
               <input
                 type="text"
-                value={formData.toothpaste}
-                onChange={(e) => updateFormData({ toothpaste: e.target.value })}
-                placeholder="e.g., Non-foaming unflavored / mild strawberry fluoride"
-                className="w-full px-4 py-3 rounded-xl glass-input text-sm"
+                placeholder="Please specify toothpaste brand/type used"
+                value={formData.q4_toothpaste}
+                onChange={(e) => set("q4_toothpaste", e.target.value)}
+                className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500"
               />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">5. Covers all tooth surfaces (front, back, biting)?</label>
-              {renderOptionButtons("brushesAllSurfaces", [
-                { value: "yes", label: "Yes, thoroughly" },
-                { value: "no", label: "No, misses back areas" },
-                { value: "not_sure", label: "Not sure / Needs help" },
-              ])}
-            </div>
+            <RadioGroup
+              qNum="5" label="Does your child brush all surfaces of their teeth (front, back, and chewing surfaces)?"
+              name="q5" value={formData.q5_surfacesCovered}
+              onChange={(v) => set("q5_surfacesCovered", v)}
+              options={["Yes, all surfaces", "Only front teeth", "Partially — needs assistance for back teeth"]}
+            />
+
+            <RadioGroup
+              qNum="6" label="Does your child need assistance with brushing?"
+              name="q6" value={formData.q6_assistance}
+              onChange={(v) => set("q6_assistance", v)}
+              options={["No, brushes independently", "Yes, with full assistance", "Yes, with partial assistance (hand-over-hand)"]}
+            />
+
+            <CheckboxGroup
+              qNum="7" label="Does your child show any of the following difficulties during brushing?"
+              values={formData.q7_brushingDifficulties}
+              onChange={(v) => set("q7_brushingDifficulties", v)}
+              options={[
+                "Gagging or choking",
+                "Biting the toothbrush",
+                "Crying or screaming",
+                "Running away or refusing",
+                "Physical resistance",
+                "No difficulties",
+              ]}
+            />
+
+            <RadioGroup
+              qNum="8" label="What helps your child cooperate with brushing?"
+              name="q8" value={formData.q8_helpStrategy}
+              onChange={(v) => set("q8_helpStrategy", v)}
+              options={[
+                "Visual schedules or social stories",
+                "Music or songs (e.g., brushing timer songs)",
+                "Reward systems (stickers, praise, tokens)",
+                "Distraction (tablet/TV while brushing)",
+                "Nothing works consistently",
+              ]}
+            />
+
+            <RadioGroup
+              qNum="9" label="Has there been any recent change in your child's brushing behaviour or routine?"
+              name="q9" value={formData.q9_brushingChanges}
+              onChange={(v) => set("q9_brushingChanges", v)}
+              options={["Yes, improved recently", "Yes, worsened recently", "No change", "Not sure"]}
+            />
           </div>
         )}
 
-        {/* Step 5: Dietary Habits (Q6-Q10) */}
+        {/* ── STEP 4: DIETARY HABITS (Q10–Q14) ── */}
+        {currentStep === 4 && (
+          <div className="space-y-6">
+            <SectionHeader domain={2} total={4} title="Dietary Habits" subtitle="Questions 10–14 about nutrition and dietary patterns" />
+
+            <RadioGroup
+              qNum="10" label="How often does your child consume sugary drinks (e.g., juices, sodas, flavoured milk)?"
+              name="q10" value={formData.q10_sugaryDrinks}
+              onChange={(v) => set("q10_sugaryDrinks", v)}
+              options={["Never", "Once a week", "2–3 times a week", "Once daily", "More than once daily"]}
+            />
+
+            <RadioGroup
+              qNum="11" label="How often does your child eat sugary or sticky snacks (e.g., chocolates, biscuits, toffees)?"
+              name="q11" value={formData.q11_sugarySnacks}
+              onChange={(v) => set("q11_sugarySnacks", v)}
+              options={["Never", "Once a week", "2–3 times a week", "Once daily", "More than once daily"]}
+            />
+
+            <RadioGroup
+              qNum="12" label="How many main meals does your child typically have per day?"
+              name="q12" value={formData.q12_mealFrequency}
+              onChange={(v) => set("q12_mealFrequency", v)}
+              options={["1 meal", "2 meals", "3 meals", "More than 3 meals"]}
+            />
+
+            <RadioGroup
+              qNum="13" label="Does your child hold or 'pocket' food in their mouth for extended periods?"
+              name="q13" value={formData.q13_foodHolding}
+              onChange={(v) => set("q13_foodHolding", v)}
+              options={["Never", "Sometimes", "Frequently", "Always"]}
+            />
+
+            <RadioGroup
+              qNum="14" label="Does your child take a bottle or sippy cup to bed (with anything other than plain water)?"
+              name="q14" value={formData.q14_nightFeeding}
+              onChange={(v) => set("q14_nightFeeding", v)}
+              options={["No", "Yes, with milk", "Yes, with juice or sweet drink", "Not applicable"]}
+            />
+          </div>
+        )}
+
+        {/* ── STEP 5: MEDICAL & DENTAL HISTORY (Q15–Q17) ── */}
         {currentStep === 5 && (
           <div className="space-y-6">
-            <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-              <Utensils className="w-4 h-4 text-orange-400" /> Section 2: Dietary Habits & Nutrition (Q6 - Q10)
-            </h3>
+            <SectionHeader domain={3} total={4} title="Medical & Dental History" subtitle="Questions 15–17 about past dental and medical background" />
 
+            {/* Q15 */}
             <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">6. Frequency of sugary foods or sweetened drinks?</label>
-              {renderOptionButtons("sugaryFoodFrequency", [
-                { value: "never", label: "Rarely / Never" },
-                { value: "1_to_2_daily", label: "1-2 times daily" },
-                { value: "more_than_2_daily", label: "> 2 times daily" },
-              ])}
+              <label className="block text-xs font-bold text-slate-200">
+                <span className="text-teal-400 mr-1">15.</span>
+                When was your child's last dental visit?
+              </label>
+              <div className="space-y-1.5">
+                {["Less than 6 months ago", "6–12 months ago", "More than 1 year ago"].map((opt) => {
+                  const selected = !formData.q15_neverVisited && formData.q15_lastDentalVisit === opt;
+                  return (
+                    <button
+                      key={opt}
+                      type="button"
+                      onClick={() => { set("q15_lastDentalVisit", opt); set("q15_neverVisited", false); }}
+                      className="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs transition-all"
+                      style={{
+                        background: selected ? "rgba(20,184,166,0.18)" : "rgba(255,255,255,0.04)",
+                        border: selected ? "1px solid rgba(20,184,166,0.5)" : "1px solid rgba(255,255,255,0.1)",
+                        color: selected ? "#f0fdfa" : "#94a3b8",
+                      }}
+                    >
+                      <span className="w-4 h-4 rounded-full border-2 flex items-center justify-center" style={{ borderColor: selected ? "#14b8a6" : "rgba(255,255,255,0.2)", background: selected ? "#14b8a6" : "transparent" }}>
+                        {selected && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
+                      </span>
+                      {opt}
+                    </button>
+                  );
+                })}
+                <button
+                  type="button"
+                  onClick={() => { set("q15_neverVisited", true); set("q15_lastDentalVisit", ""); }}
+                  className="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs transition-all"
+                  style={{
+                    background: formData.q15_neverVisited ? "rgba(239,68,68,0.15)" : "rgba(255,255,255,0.04)",
+                    border: formData.q15_neverVisited ? "1px solid rgba(239,68,68,0.4)" : "1px solid rgba(255,255,255,0.1)",
+                    color: formData.q15_neverVisited ? "#fca5a5" : "#94a3b8",
+                  }}
+                >
+                  <span className="w-4 h-4 rounded-full border-2 flex items-center justify-center" style={{ borderColor: formData.q15_neverVisited ? "#ef4444" : "rgba(255,255,255,0.2)", background: formData.q15_neverVisited ? "#ef4444" : "transparent" }}>
+                    {formData.q15_neverVisited && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  </span>
+                  My child has never visited the dentist
+                </button>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">7. Frequency of fibrous fruits & crunchy vegetables?</label>
-              {renderOptionButtons("healthyFoodFrequency", [
-                { value: "daily", label: "Daily" },
-                { value: "3_to_4_weekly", label: "3-4 times/week" },
-                { value: "1_to_2_weekly", label: "1-2 times/week or rarely" },
-              ])}
-            </div>
+            <CheckboxGroup
+              qNum="16" label="Has your child been diagnosed with or experienced any of the following dental problems?"
+              values={formData.q16_dentalProblems}
+              onChange={(v) => set("q16_dentalProblems", v)}
+              options={[
+                "Tooth decay / cavities",
+                "Toothache or pain",
+                "Bleeding gums",
+                "Broken or missing teeth",
+                "Delayed tooth eruption",
+                "None of the above",
+              ]}
+              other
+              otherValue={formData.q16_dentalOther}
+              onOtherChange={(v) => set("q16_dentalOther", v)}
+            />
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">8. Primary preferred food texture?</label>
-              {renderOptionButtons("preferredFood", [
-                { value: "sweet", label: "Sweet / Sticky / Carb snacks" },
-                { value: "home_cooked", label: "Home-cooked mixed meals" },
-                { value: "fruits", label: "Fruits & raw textures" },
-                { value: "vegetables", label: "Pureed / Soft textures only" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">9. Does child pouch or hold food in mouth for long periods?</label>
-              {renderOptionButtons("keepsFoodInMouth", [
-                { value: "never", label: "Never" },
-                { value: "sometimes", label: "Sometimes" },
-                { value: "often", label: "Often (Prolonged pooling)" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">10. Frequent snacking/grazing between set meals?</label>
-              {renderOptionButtons("frequentlyAsksForFood", [
-                { value: "yes", label: "Yes, frequent snacking" },
-                { value: "no", label: "No, scheduled meals" },
-              ])}
-            </div>
+            <CheckboxGroup
+              qNum="17" label="Does your child have any of the following medical conditions or take any regular medications?"
+              values={formData.q17_medicalConditions}
+              onChange={(v) => set("q17_medicalConditions", v)}
+              options={[
+                "Epilepsy / seizure disorder",
+                "ADHD",
+                "Intellectual disability",
+                "Down syndrome",
+                "Cerebral palsy",
+                "Regular sweetened medications / syrups",
+                "None of the above",
+              ]}
+              other
+              otherValue={formData.q17_medicalOther}
+              onOtherChange={(v) => set("q17_medicalOther", v)}
+            />
           </div>
         )}
 
-        {/* Step 6: Medical & Dental History (Q11-Q15) */}
+        {/* ── STEP 6: BEHAVIOURAL & SENSORY-MOTOR (Q18–Q20) ── */}
         {currentStep === 6 && (
           <div className="space-y-6">
-            <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-              <Stethoscope className="w-4 h-4 text-indigo-400" /> Section 3: Medical & Dental History (Q11 - Q15)
-            </h3>
+            <SectionHeader domain={4} total={4} title="Behavioral & Sensory-Motor Skills" subtitle="Questions 18–20 about cooperation, motor skills, and sensory responses" />
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">11. Taking regular medications (syrups, tablets)?</label>
-              {renderOptionButtons("regularMedication", [
-                { value: "no", label: "No regular medications" },
-                { value: "yes", label: "Yes (syrups / daily meds)" },
-              ])}
-            </div>
+            <RadioGroup
+              qNum="18" label="How does your child generally behave when it comes to oral hygiene practices?"
+              name="q18" value={formData.q18_oralHygieneAttitude}
+              onChange={(v) => set("q18_oralHygieneAttitude", v)}
+              options={[
+                "Cooperative — allows brushing without resistance",
+                "Mildly resistant — needs coaxing but complies",
+                "Moderately resistant — frequent protests or avoidance",
+                "Severely resistant — extreme distress, meltdowns, or refusal",
+              ]}
+            />
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">12. Observed gum redness, swelling, or bleeding?</label>
-              {renderOptionButtons("gumBleeding", [
-                { value: "yes", label: "Yes, gums bleed/red" },
-                { value: "no", label: "No, gums healthy pink" },
-              ])}
-            </div>
+            <RadioGroup
+              qNum="19" label="How would you describe your child's hand motor skills?"
+              name="q19" value={formData.q19_motorSkills}
+              onChange={(v) => set("q19_motorSkills", v)}
+              options={[
+                "Good — can brush independently with proper technique",
+                "Moderate — brushes but with limited effectiveness",
+                "Poor — requires full caregiver assistance for brushing",
+                "Very limited — significant difficulty with all fine motor tasks",
+              ]}
+            />
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">13. Visible brown spots or cavity holes?</label>
-              {renderOptionButtons("toothSpotsOrCavities", [
-                { value: "yes", label: "Yes, spots visible" },
-                { value: "no", label: "No spots visible" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">14. Persistent bad breath noticeable?</label>
-              {renderOptionButtons("badBreath", [
-                { value: "yes", label: "Yes, often noticeable" },
-                { value: "no", label: "No / Normal" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">15. Last professional dental clinic visit?</label>
-              {renderOptionButtons("lastDentalVisit", [
-                { value: "1_to_2_months", label: "Within 6 months" },
-                { value: "6_to_12_months", label: "6 - 12 months ago" },
-                { value: "never", label: "Over 1 year / Never" },
-              ])}
-            </div>
+            <CheckboxGroup
+              qNum="20" label="Does your child have any known sensory sensitivities related to oral care?"
+              values={formData.q20_sensoryTriggers}
+              onChange={(v) => set("q20_sensoryTriggers", v)}
+              options={[
+                "Sensitive to toothpaste taste or flavour",
+                "Sensitive to toothpaste foaming",
+                "Sensitive to toothbrush texture or pressure",
+                "Sensitive to vibration (electric toothbrush)",
+                "Gag reflex triggered easily",
+                "Sensitive to mint or strong flavours",
+                "No known sensory sensitivities",
+              ]}
+              other
+              otherValue={formData.q20_sensoryOther}
+              onOtherChange={(v) => set("q20_sensoryOther", v)}
+            />
           </div>
         )}
 
-        {/* Step 7: Behavioral & Sensory Skills (Q16-Q20) */}
+        {/* ── STEP 7: REVIEW & SAVE ── */}
         {currentStep === 7 && (
           <div className="space-y-6">
-            <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-              <HeartHandshake className="w-4 h-4 text-purple-400" /> Section 4: Behavioral & Sensory-Motor (Q16 - Q20)
-            </h3>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">16. Response to new sensory situations?</label>
-              {renderOptionButtons("newSituationResponse", [
-                { value: "adapts_easily", label: "Adapts easily" },
-                { value: "needs_reassurance", label: "Needs gentle reassurance" },
-                { value: "requires_support", label: "High distress / Special support" },
-              ])}
+            <div className="text-center pb-4 border-b border-white/10">
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-teal-400">Review & Calibrate</span>
+              <h2 className="text-xl font-black text-white mt-1">
+                Profile Ready for {formData.childName || "your child"}
+              </h2>
+              <p className="text-xs text-slate-400 mt-1">
+                All 4 clinical domains will be stored and used to personalise Argus AI responses.
+              </p>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">17. Allows caregiver to help brush teeth?</label>
-              {renderOptionButtons("allowsCaregiverBrushing", [
-                { value: "yes", label: "Yes, allows caregiver" },
-                { value: "no", label: "No, strongly resists" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">18. Difficulty keeping mouth open?</label>
-              {renderOptionButtons("difficultyOpeningMouth", [
-                { value: "yes", label: "Yes, closes mouth/bites" },
-                { value: "no", label: "No, opens willingly" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">19. Sensory aversion to vibration, bristles, or taste?</label>
-              {renderOptionButtons("toothbrushSensoryDislike", [
-                { value: "yes", label: "Yes, notable aversion" },
-                { value: "no", label: "No significant aversion" },
-              ])}
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300">20. Top method for encouraging cooperation?</label>
-              {renderOptionButtons("cooperationMethod", [
-                { value: "pictures_video", label: "Visual Schedule & Social Stories" },
-                { value: "verbal", label: "Verbal Praise & Timers" },
-                { value: "demonstration", label: "Modeling / Brushing Together" },
-                { value: "other", label: "Token Rewards" },
-              ])}
-            </div>
-          </div>
-        )}
-
-        {/* Step 8: Review & AI Provisional Insights */}
-        {currentStep === 8 && (
-          <div className="space-y-6">
-            <h3 className="text-base font-bold text-white border-b border-white/10 pb-3 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-teal-400" /> Review Assessment & AI Risk Analysis
-            </h3>
-
-            <div className="bg-gradient-to-r from-teal-900/60 via-slate-900/80 to-indigo-900/60 rounded-3xl p-6 border border-teal-500/30 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
-              <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-teal-400">
-                  AI Assessment Generated
-                </span>
-                <h4 className="text-xl font-bold text-white mt-1">
-                  Baseline Profile for {formData.childName || "Leo (ASD-001)"}
-                </h4>
-                <p className="text-xs text-slate-300 mt-1 max-w-md">
-                  Calculated from 20 clinical markers across dental, sensory, dietary, and behavioral metrics.
-                </p>
-              </div>
-              <div className="bg-teal-500/20 rounded-2xl px-6 py-4 text-center border border-teal-500/30 min-w-[140px]">
-                <div className="text-3xl font-black text-teal-300">{calculateRiskEstimate()}%</div>
-                <div className="text-[10px] font-bold text-teal-400 uppercase tracking-wider">Estimated Need Index</div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/10 space-y-1.5">
-                <div className="font-bold text-teal-400 flex items-center gap-1.5">
-                  <User className="w-4 h-4" /> Caregiver & Child
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              {[
+                {
+                  icon: "👶", label: "Demographics",
+                  lines: [
+                    `${formData.childName || "—"}, Age ${formData.childAge}`,
+                    `${formData.asdLevel}`,
+                    `Caregiver: ${formData.caregiverName || "—"}`,
+                  ]
+                },
+                {
+                  icon: "🪥", label: "Brushing Habits",
+                  lines: [
+                    `Frequency: ${formData.q1_brushFrequency || "—"}`,
+                    `Duration: ${formData.q2_brushDuration || "—"}`,
+                    `Toothbrush: ${formData.q3_toothbrushType || "—"}`,
+                  ]
+                },
+                {
+                  icon: "🍎", label: "Dietary Habits",
+                  lines: [
+                    `Sugary drinks: ${formData.q10_sugaryDrinks || "—"}`,
+                    `Sugary snacks: ${formData.q11_sugarySnacks || "—"}`,
+                    `Food pocketing: ${formData.q13_foodHolding || "—"}`,
+                  ]
+                },
+                {
+                  icon: "🦷", label: "Medical & Dental",
+                  lines: [
+                    `Last dental visit: ${formData.q15_neverVisited ? "Never" : (formData.q15_lastDentalVisit || "—")}`,
+                    `Dental issues: ${formData.q16_dentalProblems.length > 0 ? formData.q16_dentalProblems[0] + (formData.q16_dentalProblems.length > 1 ? " +" + (formData.q16_dentalProblems.length - 1) + " more" : "") : "None"}`,
+                  ]
+                },
+                {
+                  icon: "🧠", label: "Behaviour & Sensory",
+                  lines: [
+                    `Attitude: ${formData.q18_oralHygieneAttitude ? formData.q18_oralHygieneAttitude.split("—")[0].trim() : "—"}`,
+                    `Motor skills: ${formData.q19_motorSkills ? formData.q19_motorSkills.split("—")[0].trim() : "—"}`,
+                    `Sensory triggers: ${formData.q20_sensoryTriggers.length} selected`,
+                  ]
+                },
+                {
+                  icon: "🤖", label: "Argus AI Calibration",
+                  lines: [
+                    "✅ Oral hygiene baseline ready",
+                    "✅ Sensory profile mapped",
+                    "✅ Weekly AI tracking active",
+                  ]
+                },
+              ].map((card) => (
+                <div
+                  key={card.label}
+                  className="p-4 rounded-2xl"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-base">{card.icon}</span>
+                    <span className="font-bold text-teal-300">{card.label}</span>
+                  </div>
+                  {card.lines.map((line, i) => (
+                    <p key={i} className="text-slate-300 text-[11px] leading-relaxed truncate">{line}</p>
+                  ))}
                 </div>
-                <p className="text-slate-300"><span className="text-slate-500">Caregiver:</span> {formData.guardianName || "Sarah Johnson"} ({formData.relationship})</p>
-                <p className="text-slate-300"><span className="text-slate-500">Child:</span> {formData.childName || "ASD-001"} (DOB: {formData.dateOfBirth})</p>
-                <p className="text-slate-300"><span className="text-slate-500">ASD Profile:</span> {formData.asdLevel}</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/10 space-y-1.5">
-                <div className="font-bold text-teal-400 flex items-center gap-1.5">
-                  <Smile className="w-4 h-4" /> Brushing Routine
-                </div>
-                <p className="text-slate-300"><span className="text-slate-500">Frequency:</span> {formData.brushFrequency.replace("_", " ")}</p>
-                <p className="text-slate-300"><span className="text-slate-500">Brush Type:</span> {formData.toothbrushType} ({formData.brushDuration})</p>
-                <p className="text-slate-300"><span className="text-slate-500">Coverage:</span> {formData.brushesAllSurfaces === "yes" ? "Thorough" : "Misses back areas"}</p>
-              </div>
+              ))}
             </div>
-          </div>
-        )}
 
-        {/* Step 9: Complete & Generated Plan */}
-        {currentStep === 9 && (
-          <div className="space-y-6 text-center py-6 max-w-xl mx-auto">
-            <div className="w-20 h-20 bg-teal-500/20 text-teal-400 rounded-3xl border border-teal-500/40 flex items-center justify-center mx-auto mb-2 shadow-[0_0_30px_rgba(45,212,191,0.3)]">
-              <CheckCircle2 className="w-10 h-10" />
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-black text-white">
-              Baseline Assessment Saved!
-            </h2>
-            <p className="text-slate-200 text-sm leading-relaxed">
-              Your 20-question baseline has been synced with ASD Bot and Dr. Nivrutti Reddy&apos;s supervision matrix. Your tailored care plan is now ready.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 pt-4 justify-center">
-              <Link
-                href="/care-plan"
-                className="px-6 py-3.5 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 text-xs font-extrabold rounded-2xl shadow-lg shadow-teal-500/20 transition-all flex items-center justify-center gap-2"
-              >
-                Open AI Care Plan <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/"
-                className="px-6 py-3.5 glass-pill hover:bg-white/10 text-white text-xs font-bold rounded-2xl transition-all"
-              >
-                Go to Dashboard
-              </Link>
-            </div>
-          </div>
-        )}
-
-        {/* Footer Navigation Buttons */}
-        {currentStep < 9 && (
-          <div className="flex items-center justify-between border-t border-white/10 pt-6 mt-8">
-            <button
-              type="button"
-              onClick={handleBack}
-              disabled={currentStep === 1}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-colors ${
-                currentStep === 1
-                  ? "text-slate-600 cursor-not-allowed"
-                  : "text-slate-400 hover:text-white hover:bg-white/5"
-              }`}
+            <div
+              className="p-5 rounded-2xl text-center"
+              style={{
+                background: "linear-gradient(135deg, rgba(15,118,110,0.3), rgba(30,27,75,0.4))",
+                border: "1px solid rgba(20,184,166,0.35)",
+              }}
             >
-              <ArrowLeft className="w-4 h-4" /> Back
-            </button>
-
-            {currentStep === 8 ? (
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 rounded-xl text-xs font-black shadow-lg shadow-teal-500/20 transition-all disabled:opacity-50"
-              >
-                {isSubmitting ? (
-                  <>Saving & Generating Plan...</>
-                ) : (
-                  <>
-                    Confirm & Save Assessment <CheckCircle2 className="w-4 h-4" />
-                  </>
-                )}
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={handleNext}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 rounded-xl text-xs font-black shadow-lg shadow-teal-500/20 transition-all"
-              >
-                Next <ArrowRight className="w-4 h-4" />
-              </button>
-            )}
+              <Sparkles className="w-6 h-6 text-teal-300 mx-auto mb-2" />
+              <div className="font-black text-base text-white">Argus AI — Personalised Routine Ready</div>
+              <p className="text-xs text-slate-300 mt-1 max-w-sm mx-auto">
+                Saving your answers will generate your first weekly AI oral health score and unlock personalised desensitization strategies.
+              </p>
+            </div>
           </div>
         )}
+
+        {/* ── Navigation Buttons ── */}
+        <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
+          {currentStep > 1 ? (
+            <button
+              onClick={goPrev}
+              className="px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all hover:text-white"
+              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.13)", color: "#94a3b8" }}
+            >
+              <ArrowLeft className="w-3.5 h-3.5" /> Previous
+            </button>
+          ) : <div />}
+
+          {currentStep < steps.length ? (
+            <button
+              onClick={goNext}
+              className="px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-2 transition-all hover:scale-105 shadow-lg"
+              style={{ background: "linear-gradient(135deg, #14b8a6, #06b6d4)", color: "#0f172a", boxShadow: "0 6px 20px rgba(20,184,166,0.35)" }}
+            >
+              Next <ChevronRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              disabled={isSubmitting}
+              className="px-8 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ background: "linear-gradient(135deg, #10b981, #14b8a6)", color: "#0f172a", boxShadow: "0 8px 30px rgba(16,185,129,0.4)" }}
+            >
+              {isSubmitting ? (
+                <>
+                  <div className="w-4 h-4 rounded-full border-2 border-slate-950 border-t-transparent animate-spin" />
+                  Saving Profile…
+                </>
+              ) : (
+                <>
+                  <Award className="w-4 h-4" />
+                  Save Profile & Go to Dashboard →
+                </>
+              )}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

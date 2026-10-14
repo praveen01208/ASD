@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, Sparkles, Bot, User, RefreshCw, AlertCircle, MessageCircle } from "lucide-react";
+import { useUser } from "@/context/AuthContext";
+import { getActiveAccount, getUserProfile, fetchUserProfileFromServer, ChildAccount } from "@/lib/userStore";
 
 interface Message {
   role: "user" | "assistant";
@@ -9,15 +11,52 @@ interface Message {
 }
 
 export default function AssistantPage() {
+  const { user } = useUser();
+  const [activeAccount, setActiveAccount] = useState<ChildAccount | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: "assistant", 
-      content: "Hello! I am your ASD Bot, specialized in pediatric neurodivergent oral health. I have direct context on Leo's profile and current sensory habits. How can I assist you with brushing routines, food pooling, or sensory comfort today?" 
+      content: "Hello! I am **Argus**, your specialized AI oral health companion for children with ASD. I have direct context on your child's sensory profile, brushing habits, and dietary risk factors. How can I assist you today?" 
     }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      let acc: ChildAccount | null = null;
+      if (user?.id) {
+        acc = (await fetchUserProfileFromServer(user.id)) || getUserProfile(user.id);
+      }
+      if (!acc) {
+        acc = getActiveAccount(user?.id);
+      }
+      setActiveAccount(acc);
+      setMessages([
+        {
+          role: "assistant",
+          content: `👋 Hello! I am **Argus**, your specialized AI oral health companion for children with ASD.\n\nI am synced with **${acc?.name || "your child"}** (${acc?.code || "ASD Profile"}). Ask me about brushing resistance, non-foaming paste recommendations, food pocketing in cheeks, or preparing for clinical dental visits! 💙`
+        }
+      ]);
+    };
+
+    loadProfile();
+
+    const handleAccountChange = () => {
+      const updated = user?.id ? getUserProfile(user.id) || getActiveAccount(user.id) : getActiveAccount();
+      setActiveAccount(updated);
+      setMessages([
+        {
+          role: "assistant",
+          content: `✅ Switched profile context to **${updated?.name || "your child"}** (${updated?.code || ""}). How can I assist you with ${updated?.name}'s oral care routine today?`
+        }
+      ]);
+    };
+
+    window.addEventListener("asd_account_changed", handleAccountChange);
+    return () => window.removeEventListener("asd_account_changed", handleAccountChange);
+  }, [user?.id]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -38,13 +77,31 @@ export default function AssistantPage() {
     setInput("");
     setIsLoading(true);
 
+    let todayChecklist = null;
+    if (typeof window !== "undefined") {
+      const raw = localStorage.getItem("asd_today_checklist");
+      if (raw) {
+        try { todayChecklist = JSON.parse(raw); } catch(e) {}
+      }
+    }
+
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           message: userMessage.content,
-          history: updatedMessages 
+          history: updatedMessages,
+          childName: activeAccount?.name,
+          childAge: activeAccount?.age,
+          asdLevel: activeAccount?.asdLevel,
+          sensoryProfile: activeAccount?.childBehaviour?.sensoryAversionTriggers || activeAccount?.sensorySensitivities,
+          brushingHabits: activeAccount?.brushingHabits,
+          dietaryHabits: activeAccount?.dietaryHabits,
+          dentalMedicalHistory: activeAccount?.dentalMedicalHistory,
+          childBehaviour: activeAccount?.childBehaviour,
+          questionnaire: activeAccount?.rawQuestionnaire,
+          dailyLog: todayChecklist,
         }),
       });
       
@@ -79,7 +136,7 @@ export default function AssistantPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            ASD Bot
+            Argus AI Oral Health Companion
           </h1>
           <p className="text-slate-300 text-xs sm:text-sm mt-0.5 font-medium">
             Empathetic pediatric oral health guidance tailored for neurodivergent children
@@ -89,10 +146,10 @@ export default function AssistantPage() {
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-500/20 text-teal-300 border border-teal-500/35 shadow-[0_0_15px_rgba(20,184,166,0.2)]">
             <Sparkles className="w-3.5 h-3.5 text-teal-400" />
-            ASD Bot Active
+            Argus AI Active
           </span>
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-white/10 text-slate-200 border border-white/15">
-            Leo (ASD-001) Synced
+            {activeAccount?.name || "Child"} ({activeAccount?.code || "ASD"}) Synced
           </span>
         </div>
       </div>
@@ -141,15 +198,15 @@ export default function AssistantPage() {
                 <Bot className="w-5 h-5 stroke-[2.5]" />
               </div>
               <div>
-                <h2 className="font-extrabold text-white text-sm">ASD Care Bot</h2>
-                <p className="text-[11px] text-slate-300 font-medium">Child: Leo (ASD-001) • Supervised by Dr. Nivrutti Reddy</p>
+                <h2 className="font-extrabold text-white text-sm">Argus AI</h2>
+                <p className="text-[11px] text-slate-300 font-medium">Child: {activeAccount?.name || "Leo"} ({activeAccount?.code || "ASD-001"}) • Pediatric ASD Oral Health Guide</p>
               </div>
             </div>
             
             <button
               onClick={() => setMessages([{ 
                 role: "assistant", 
-                content: "Hello! I am your ASD Bot. How can I help you today?" 
+                content: `Hello! I am **Argus**. How can I help you and ${activeAccount?.name || "your child"} today?` 
               }])}
               className="text-xs text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors px-2.5 py-1.5 rounded-lg hover:bg-white/10 border border-transparent hover:border-white/10"
               title="Reset conversation"
@@ -176,7 +233,7 @@ export default function AssistantPage() {
                   <div className={`text-[11px] font-black mb-1.5 uppercase tracking-wider ${
                     m.role === 'user' ? 'text-slate-950/80' : 'text-teal-400'
                   }`}>
-                    {m.role === 'user' ? 'Caregiver' : 'ASD Bot'}
+                    {m.role === 'user' ? 'Caregiver' : 'Argus AI'}
                   </div>
                   <div className={`leading-relaxed text-sm whitespace-pre-wrap ${
                     m.role === 'user' ? 'text-slate-950 font-medium' : 'text-slate-100 font-normal'
@@ -198,7 +255,7 @@ export default function AssistantPage() {
                 </div>
                 <div className="liquid-glass border border-white/15 rounded-2xl p-4 text-slate-200 text-sm flex items-center gap-2.5">
                   <Sparkles className="w-4 h-4 text-teal-400 animate-spin" />
-                  <span>ASD Bot is generating personalized guidance...</span>
+                  <span>Argus is generating tailored clinical guidance...</span>
                 </div>
               </div>
             )}
