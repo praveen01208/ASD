@@ -117,12 +117,12 @@ const INITIAL_FORM: FormData = {
 
 function SectionHeader({ domain, total, title, subtitle }: { domain: number; total: number; title: string; subtitle?: string }) {
   return (
-    <div className="pb-3 border-b border-slate-100 mb-4 sm:mb-5">
-      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-1.5 bg-teal-50 text-teal-800 border border-teal-200">
+    <div className="pb-3 border-b border-[#D5E8DA]/60 mb-4 sm:mb-5">
+      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full mb-1.5 bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] shadow-2xs">
         Domain {domain} of {total}
       </span>
-      <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{title}</h2>
-      {subtitle && <p className="text-xs text-slate-500 mt-0.5">{subtitle}</p>}
+      <h2 className="text-lg sm:text-xl font-black text-[#051F20] tracking-tight">{title}</h2>
+      {subtitle && <p className="text-xs text-[#0B2B26]/70 mt-0.5">{subtitle}</p>}
     </div>
   );
 }
@@ -149,8 +149,8 @@ function RadioGroup({
 }) {
   return (
     <div className="space-y-2">
-      <label className="block text-xs font-semibold text-slate-800 leading-relaxed">
-        {qNum && <span className="text-teal-700 font-bold mr-1">{qNum}.</span>}
+      <label className="block text-xs font-bold text-[#051F20] leading-relaxed">
+        {qNum && <span className="text-[#235347] font-bold mr-1">{qNum}.</span>}
         {label}
       </label>
       <div className="space-y-1.5">
@@ -163,13 +163,13 @@ function RadioGroup({
               onClick={() => onChange(opt)}
               className={`w-full text-left flex items-center gap-3 p-3 rounded-xl text-xs transition-all ${
                 selected
-                  ? "bg-teal-50 border border-teal-300 text-teal-950 font-semibold shadow-2xs"
-                  : "bg-slate-50 border border-slate-200 text-slate-700 hover:border-slate-300 hover:text-slate-900"
+                  ? "bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] font-bold shadow-2xs"
+                  : "bg-[#F4FAF6] border border-[#D5E8DA] text-[#0B2B26] hover:border-[#8EB69B] hover:text-[#051F20]"
               }`}
             >
               <span
                 className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-all ${
-                  selected ? "border-teal-600 bg-teal-600" : "border-slate-300 bg-white"
+                  selected ? "border-[#235347] bg-[#235347]" : "border-[#8EB69B]/60 bg-white"
                 }`}
               >
                 {selected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -184,7 +184,7 @@ function RadioGroup({
               type="button"
               onClick={() => onChange("Other")}
               className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
-                value === "Other" ? "border-teal-600 bg-teal-600" : "border-slate-300 bg-white"
+                value === "Other" ? "border-[#235347] bg-[#235347]" : "border-[#8EB69B]/60 bg-white"
               }`}
             >
               {value === "Other" && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
@@ -194,7 +194,7 @@ function RadioGroup({
               placeholder="Other (please specify)"
               value={otherValue || ""}
               onChange={(e) => { onChange("Other"); onOtherChange?.(e.target.value); }}
-              className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 transition-all"
+              className="flex-1 bg-white border border-[#D5E8DA] rounded-xl px-3 py-2.5 text-xs text-[#051F20] placeholder-[#0B2B26]/40 focus:outline-none focus:border-[#8EB69B] transition-all"
             />
           </div>
         )}
@@ -228,10 +228,10 @@ function CheckboxGroup({
 
   return (
     <div className="space-y-2">
-      <label className="block text-xs font-semibold text-slate-800 leading-relaxed">
-        {qNum && <span className="text-teal-700 font-bold mr-1">{qNum}.</span>}
+      <label className="block text-xs font-bold text-[#051F20] leading-relaxed">
+        {qNum && <span className="text-[#235347] font-bold mr-1">{qNum}.</span>}
         {label}
-        <span className="ml-1.5 text-[10px] font-normal text-slate-500">(Select all that apply)</span>
+        <span className="ml-1.5 text-[10px] font-normal text-[#0B2B26]/60">(Select all that apply)</span>
       </label>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {options.map((opt) => {
@@ -243,13 +243,13 @@ function CheckboxGroup({
               onClick={() => toggle(opt)}
               className={`text-left flex items-center gap-2.5 p-3 rounded-xl text-xs transition-all ${
                 checked
-                  ? "bg-teal-50 border border-teal-300 text-teal-950 font-semibold shadow-2xs"
-                  : "bg-slate-50 border border-slate-200 text-slate-700 hover:border-slate-300 hover:text-slate-900"
+                  ? "bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] font-bold shadow-2xs"
+                  : "bg-[#F4FAF6] border border-[#D5E8DA] text-[#0B2B26] hover:border-[#8EB69B] hover:text-[#051F20]"
               }`}
             >
               <span
                 className={`w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center transition-all ${
-                  checked ? "border-teal-600 bg-teal-600" : "border-slate-300 bg-white"
+                  checked ? "border-[#235347] bg-[#235347]" : "border-[#8EB69B]/60 bg-white"
                 }`}
               >
                 {checked && <Check className="w-2.5 h-2.5 text-white stroke-[3]" />}
@@ -265,7 +265,7 @@ function CheckboxGroup({
           placeholder="Other (please specify)"
           value={otherValue || ""}
           onChange={(e) => onOtherChange?.(e.target.value)}
-          className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 placeholder-slate-400 mt-1 focus:outline-none focus:border-teal-500 transition-all"
+          className="w-full bg-white border border-[#D5E8DA] rounded-xl px-3.5 py-2.5 text-xs text-[#051F20] placeholder-[#0B2B26]/40 mt-1 focus:outline-none focus:border-[#8EB69B] transition-all"
         />
       )}
     </div>
@@ -289,8 +289,8 @@ function StyledInput({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs font-semibold text-slate-800">
-        {qNum && <span className="text-teal-700 font-bold mr-1">{qNum}.</span>}
+      <label className="block text-xs font-bold text-[#051F20]">
+        {qNum && <span className="text-[#235347] font-bold mr-1">{qNum}.</span>}
         {label}
       </label>
       <input
@@ -298,7 +298,7 @@ function StyledInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-teal-500 transition-all"
+        className="w-full bg-white border border-[#D5E8DA] rounded-xl px-3.5 py-2.5 text-xs text-[#051F20] placeholder-[#0B2B26]/40 focus:outline-none focus:border-[#8EB69B] transition-all"
       />
     </div>
   );
@@ -319,14 +319,14 @@ function StyledSelect({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs font-semibold text-slate-800">
-        {qNum && <span className="text-teal-700 font-bold mr-1">{qNum}.</span>}
+      <label className="block text-xs font-bold text-[#051F20]">
+        {qNum && <span className="text-[#235347] font-bold mr-1">{qNum}.</span>}
         {label}
       </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 focus:outline-none focus:border-teal-500 transition-all"
+        className="w-full bg-white border border-[#D5E8DA] rounded-xl px-3.5 py-2.5 text-xs text-[#051F20] focus:outline-none focus:border-[#8EB69B] transition-all"
       >
         <option value="">— Select Option —</option>
         {options.map((o) => (
@@ -532,29 +532,29 @@ export default function OnboardingPage() {
   return (
     <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6 pb-24 px-3 sm:px-4 pt-4 sm:pt-6">
       {/* ── Top Header Card (Mobile-First Responsive) ── */}
-      <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-xs space-y-3">
+      <div className="bg-white rounded-2xl p-4 sm:p-6 border border-[#D5E8DA] shadow-xs space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-50 border border-slate-200 p-1.5 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#DAF1DE] border border-[#8EB69B]/40 p-1.5 flex items-center justify-center flex-shrink-0 shadow-2xs">
               <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
             </div>
             <div className="min-w-0">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200 inline-block mb-0.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] inline-block mb-0.5 shadow-2xs">
                 Clinical Baseline Intake
               </span>
-              <h1 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-snug">
+              <h1 className="text-base sm:text-lg font-black text-[#051F20] tracking-tight leading-snug">
                 Child Oral Health Questionnaire
               </h1>
             </div>
           </div>
 
-          <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100">
-            <span className="text-xs font-mono text-teal-700 font-bold">
+          <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#D5E8DA]/60">
+            <span className="text-xs font-mono text-[#235347] font-bold">
               Step {currentStep} of {steps.length}
             </span>
-            <div className="w-24 sm:w-28 h-2 rounded-full overflow-hidden bg-slate-100">
+            <div className="w-24 sm:w-28 h-2 rounded-full overflow-hidden bg-[#F4FAF6] border border-[#D5E8DA]">
               <div
-                className="h-full rounded-full transition-all duration-300 bg-teal-600"
+                className="h-full rounded-full transition-all duration-300 bg-[#235347]"
                 style={{ width: `${(currentStep / steps.length) * 100}%` }}
               />
             </div>
@@ -575,13 +575,13 @@ export default function OnboardingPage() {
               onClick={() => setCurrentStep(s.id)}
               className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
                 isCurrent
-                  ? "bg-teal-600 text-white font-bold shadow-xs"
+                  ? "bg-[#235347] text-white font-bold shadow-xs"
                   : isDone
-                  ? "bg-teal-50 text-teal-800 border border-teal-200"
-                  : "bg-white text-slate-500 border border-slate-200 hover:text-slate-800"
+                  ? "bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] font-bold"
+                  : "bg-white text-[#0B2B26]/60 border border-[#D5E8DA] hover:text-[#051F20] hover:border-[#8EB69B]"
               }`}
             >
-              {isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Icon className="w-3.5 h-3.5" />}
+              {isDone ? <CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> : <Icon className="w-3.5 h-3.5" />}
               <span>{s.title}</span>
             </button>
           );
@@ -589,20 +589,20 @@ export default function OnboardingPage() {
       </div>
 
       {/* ── Main Form Content Card ── */}
-      <div className="bg-white rounded-2xl p-5 sm:p-7 border border-slate-200 shadow-xs space-y-6">
+      <div className="bg-white rounded-2xl p-5 sm:p-7 border border-[#D5E8DA] shadow-xs space-y-6">
 
         {/* ── STEP 1: WELCOME ── */}
         {currentStep === 1 && (
           <div className="space-y-6 text-center max-w-lg mx-auto py-2">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-center text-teal-600">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-[#DAF1DE] border border-[#8EB69B] flex items-center justify-center text-[#235347] shadow-2xs">
               <ShieldCheck className="w-7 h-7" />
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-[#051F20] tracking-tight">
                 “Small steps, consistent routines, healthier smiles.”
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 mt-2.5 leading-relaxed">
-                This questionnaire covers <strong className="text-slate-900">4 clinical domains</strong> to calibrate your child&apos;s personalized oral care routine. Your answers feed directly into <strong className="text-teal-700 font-bold">Argus</strong>, your clinical AI guide.
+              <p className="text-xs sm:text-sm text-[#0B2B26]/80 mt-2.5 leading-relaxed">
+                This questionnaire covers <strong className="text-[#051F20]">4 clinical domains</strong> to calibrate your child&apos;s personalized oral care routine. Your answers feed directly into <strong className="text-[#235347] font-bold">Argus</strong>, your clinical AI guide.
               </p>
             </div>
 
@@ -615,10 +615,10 @@ export default function OnboardingPage() {
               ].map((card) => (
                 <div
                   key={card.title}
-                  className="p-3.5 rounded-xl bg-slate-50 border border-slate-200"
+                  className="p-3.5 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA] hover:border-[#8EB69B] transition-all"
                 >
-                  <div className="font-bold text-slate-900">{card.title}</div>
-                  <div className="text-slate-500 text-[11px] mt-0.5">{card.desc}</div>
+                  <div className="font-bold text-[#051F20]">{card.title}</div>
+                  <div className="text-[#0B2B26]/70 text-[11px] mt-0.5">{card.desc}</div>
                 </div>
               ))}
             </div>
@@ -626,7 +626,7 @@ export default function OnboardingPage() {
             <button
               type="button"
               onClick={goNext}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-all hover:scale-105"
             >
               <span>Begin Assessment</span>
               <ArrowRight className="w-4 h-4" />
@@ -826,8 +826,8 @@ export default function OnboardingPage() {
             <SectionHeader domain={3} total={4} title="Medical & Dental History" subtitle="Questions 15–17 on past dental visits and health factors" />
 
             <div className="space-y-2">
-              <label className="block text-xs font-semibold text-slate-200">
-                <span className="text-teal-400 font-bold mr-1">15.</span>
+              <label className="block text-xs font-bold text-[#051F20]">
+                <span className="text-[#235347] font-bold mr-1">15.</span>
                 When was your child&apos;s last dental visit?
               </label>
               <div className="space-y-2">
@@ -836,13 +836,13 @@ export default function OnboardingPage() {
                   onClick={() => set("q15_neverVisited", !formData.q15_neverVisited)}
                   className={`w-full text-left flex items-center gap-3 p-3 rounded-xl text-xs transition-all ${
                     formData.q15_neverVisited
-                      ? "bg-teal-50 border border-teal-300 text-teal-950 font-semibold shadow-2xs"
-                      : "bg-slate-50 border border-slate-200 text-slate-700 hover:border-slate-300 hover:text-slate-900"
+                      ? "bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] font-bold shadow-2xs"
+                      : "bg-[#F4FAF6] border border-[#D5E8DA] text-[#0B2B26] hover:border-[#8EB69B] hover:text-[#051F20]"
                   }`}
                 >
                   <span
                     className={`w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center ${
-                      formData.q15_neverVisited ? "border-teal-600 bg-teal-600" : "border-slate-300 bg-white"
+                      formData.q15_neverVisited ? "border-[#235347] bg-[#235347]" : "border-[#8EB69B]/60 bg-white"
                     }`}
                   >
                     {formData.q15_neverVisited && <Check className="w-2.5 h-2.5 text-white stroke-[3]" />}
@@ -971,17 +971,17 @@ export default function OnboardingPage() {
                   value: formData.q20_sensoryTriggers.length > 0 ? formData.q20_sensoryTriggers.join(", ") : "None reported",
                 },
               ].map((item) => (
-                <div key={item.label} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
-                  <span className="font-bold text-teal-800 block mb-0.5">{item.label}</span>
-                  <span className="text-slate-800">{item.value}</span>
+                <div key={item.label} className="p-3.5 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA] text-xs">
+                  <span className="font-bold text-[#235347] block mb-0.5">{item.label}</span>
+                  <span className="text-[#051F20]">{item.value}</span>
                 </div>
               ))}
             </div>
 
-            <div className="p-4 rounded-xl bg-teal-50 border border-teal-200 text-center space-y-1">
-              <ShieldCheck className="w-5 h-5 text-teal-600 mx-auto" />
-              <div className="font-bold text-sm text-slate-900">Argus AI Personalized Routine Ready</div>
-              <p className="text-xs text-slate-600 max-w-sm mx-auto">
+            <div className="p-4 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-center space-y-1 shadow-2xs">
+              <ShieldCheck className="w-5 h-5 text-[#235347] mx-auto" />
+              <div className="font-bold text-sm text-[#051F20]">Argus AI Personalized Routine Ready</div>
+              <p className="text-xs text-[#0B2B26]/80 max-w-sm mx-auto">
                 Submitting stores your baseline in the clinical database and configures Argus AI specifically for your child. Never prompted again.
               </p>
             </div>
@@ -989,12 +989,12 @@ export default function OnboardingPage() {
         )}
 
         {/* ── Responsive Navigation Footer Buttons ── */}
-        <div className="pt-5 border-t border-slate-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="pt-5 border-t border-[#D5E8DA]/60 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {currentStep > 1 ? (
             <button
               type="button"
               onClick={goPrev}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-semibold text-xs flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition-all min-h-[44px]"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 bg-[#F4FAF6] hover:bg-[#DAF1DE]/40 text-[#051F20] border border-[#D5E8DA] transition-all min-h-[44px]"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Previous Step
             </button>
@@ -1004,7 +1004,7 @@ export default function OnboardingPage() {
             <button
               type="button"
               onClick={goNext}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-teal-600 hover:bg-teal-700 text-white flex items-center justify-center gap-2 shadow-xs transition-all min-h-[44px]"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-[#235347] hover:bg-[#163832] text-white flex items-center justify-center gap-2 shadow-xs transition-all min-h-[44px] hover:scale-105"
             >
               <span>Next Step</span>
               <ChevronRight className="w-4 h-4" />
@@ -1014,7 +1014,7 @@ export default function OnboardingPage() {
               type="button"
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="w-full sm:w-auto px-7 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center gap-2 shadow-xs transition-all disabled:opacity-50 min-h-[44px]"
+              className="w-full sm:w-auto px-7 py-3 rounded-xl font-bold text-xs sm:text-sm bg-[#235347] hover:bg-[#163832] text-white flex items-center justify-center gap-2 shadow-xs transition-all disabled:opacity-50 min-h-[44px] hover:scale-105"
             >
               {isSubmitting ? (
                 <>

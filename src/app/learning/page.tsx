@@ -114,14 +114,14 @@ export default function LearningPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-8 pb-20 animate-in fade-in duration-300">
       {/* Page Header with Soothing Clinical Setup Image */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xs overflow-hidden relative">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D5E8DA] shadow-xs overflow-hidden relative">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
           <div className="md:col-span-8 space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-extrabold mb-2 shadow-2xs">
-              <Film className="w-3.5 h-3.5 text-teal-600" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] text-xs font-extrabold mb-2 shadow-2xs">
+              <Film className="w-3.5 h-3.5 text-[#235347]" />
               On-Site Stored Video Modules • No External Links
             </div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-[#051F20] tracking-tight">
               Visual Learning & Motivational Videos
             </h1>
             <p className="text-slate-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
@@ -130,14 +130,14 @@ export default function LearningPage() {
           </div>
 
           <div className="md:col-span-4">
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-video relative group">
+            <div className="rounded-2xl overflow-hidden border border-[#D5E8DA] shadow-sm aspect-video relative group">
               <img
                 src="/images/modern_soothing_dental_clinic.jpg"
                 alt="Soothing pediatric dental clinic setup"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent flex items-end p-2.5">
-                <span className="text-[10px] text-teal-100 font-medium">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#051F20]/75 via-transparent to-transparent flex items-end p-2.5">
+                <span className="text-[10px] text-[#DAF1DE] font-medium">
                   Soothing dental clinic environment
                 </span>
               </div>
@@ -150,13 +150,13 @@ export default function LearningPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <button
           onClick={() => setActiveTab("brushing")}
-          className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 ${
+          className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 cursor-pointer ${
             activeTab === "brushing"
-              ? "bg-teal-50/90 border-teal-300 shadow-xs text-teal-950 font-bold"
-              : "bg-white border-slate-200 hover:border-slate-300 text-slate-700 shadow-2xs"
+              ? "bg-[#DAF1DE] border-[#8EB69B] shadow-xs text-[#051F20] font-bold"
+              : "bg-white border-[#D5E8DA] hover:border-[#8EB69B] text-slate-700 shadow-2xs"
           }`}
         >
-          <div className="w-11 h-11 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-black text-xl">
+          <div className="w-11 h-11 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-[#235347] flex items-center justify-center font-black text-xl">
             🪥
           </div>
           <div>
@@ -227,7 +227,7 @@ export default function LearningPage() {
                       onClick={() => togglePlay(brushingVideoRef, setIsBrushingPlaying, isBrushingPlaying)}
                       className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] flex items-center justify-center cursor-pointer transition-all hover:bg-slate-950/20"
                     >
-                      <div className="w-16 h-16 rounded-full bg-teal-500 text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                      <div className="w-16 h-16 rounded-full bg-[#235347] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
                         <Play className="w-8 h-8 fill-white ml-1" />
                       </div>
                     </div>
@@ -235,11 +235,11 @@ export default function LearningPage() {
                 </div>
 
                 {/* Quick Controls Bar */}
-                <div className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs">
+                <div className="flex items-center justify-between p-3 rounded-2xl bg-[#DAF1DE]/30 border border-[#D5E8DA] text-xs">
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => togglePlay(brushingVideoRef, setIsBrushingPlaying, isBrushingPlaying)}
-                      className="px-3.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold flex items-center gap-1.5 transition-all shadow-2xs"
+                      className="px-3.5 py-1.5 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-bold flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer"
                     >
                       {isBrushingPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-white" />}
                       <span>{isBrushingPlaying ? "Pause" : "Play"}</span>
@@ -247,7 +247,7 @@ export default function LearningPage() {
 
                     <button
                       onClick={() => restartVideo(brushingVideoRef, setIsBrushingPlaying)}
-                      className="p-1.5 rounded-xl bg-slate-200/70 hover:bg-slate-300 text-slate-700 transition-colors"
+                      className="p-1.5 rounded-xl bg-[#DAF1DE]/60 hover:bg-[#DAF1DE] text-[#051F20] transition-colors cursor-pointer"
                       title="Restart Video"
                     >
                       <RotateCcw className="w-4 h-4" />
@@ -255,10 +255,10 @@ export default function LearningPage() {
 
                     <button
                       onClick={() => toggleMute(brushingVideoRef, setIsBrushingMuted, isBrushingMuted)}
-                      className="p-1.5 rounded-xl bg-slate-200/70 hover:bg-slate-300 text-slate-700 transition-colors"
+                      className="p-1.5 rounded-xl bg-[#DAF1DE]/60 hover:bg-[#DAF1DE] text-[#051F20] transition-colors cursor-pointer"
                       title={isBrushingMuted ? "Unmute" : "Mute"}
                     >
-                      {isBrushingMuted ? <VolumeX className="w-4 h-4 text-rose-600" /> : <Volume2 className="w-4 h-4 text-teal-700" />}
+                      {isBrushingMuted ? <VolumeX className="w-4 h-4 text-rose-600" /> : <Volume2 className="w-4 h-4 text-[#235347]" />}
                     </button>
                   </div>
 
@@ -266,7 +266,7 @@ export default function LearningPage() {
                     <span className="text-[11px] text-slate-500 font-mono">On-Site MP4</span>
                     <button
                       onClick={() => toggleFullscreen(brushingVideoRef)}
-                      className="p-1.5 rounded-xl bg-slate-200/70 hover:bg-slate-300 text-slate-700 transition-colors"
+                      className="p-1.5 rounded-xl bg-[#DAF1DE]/60 hover:bg-[#DAF1DE] text-[#051F20] transition-colors cursor-pointer"
                       title="Fullscreen"
                     >
                       <Maximize2 className="w-4 h-4" />
@@ -274,8 +274,8 @@ export default function LearningPage() {
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
-                  <h3 className="font-extrabold text-base text-slate-900">
+                <div className="p-4 rounded-2xl bg-white border border-[#D5E8DA] space-y-1">
+                  <h3 className="font-extrabold text-base text-[#051F20]">
                     Step-by-Step Brushing: Child Showing Steps with Joy
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed">
@@ -287,26 +287,26 @@ export default function LearningPage() {
               {/* Right Side Step Markers */}
               <div className="lg:col-span-5 space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-teal-600" />
+                  <h4 className="font-extrabold text-sm text-[#051F20] flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#235347]" />
                     Video Step Milestones
                   </h4>
-                  <span className="text-[11px] text-teal-700 font-bold">Follow Along</span>
+                  <span className="text-[11px] text-[#235347] font-bold">Follow Along</span>
                 </div>
 
                 <div className="space-y-2.5">
                   {brushSteps.map((s) => (
                     <div
                       key={s.step}
-                      className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-teal-300 transition-all flex items-start gap-3"
+                      className="p-3.5 rounded-2xl bg-white border border-[#D5E8DA] hover:border-[#8EB69B] transition-all flex items-start gap-3"
                     >
-                      <div className="w-8 h-8 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">
+                      <div className="w-8 h-8 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] flex items-center justify-center font-black text-xs flex-shrink-0 mt-0.5">
                         {s.step}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
-                          <h5 className="font-bold text-xs text-slate-900">{s.title}</h5>
-                          <span className="text-[10px] text-teal-800 font-mono font-bold bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200">
+                          <h5 className="font-bold text-xs text-[#051F20]">{s.title}</h5>
+                          <span className="text-[10px] text-[#051F20] font-mono font-bold bg-[#DAF1DE] px-1.5 py-0.5 rounded border border-[#8EB69B]">
                             {s.time}
                           </span>
                         </div>

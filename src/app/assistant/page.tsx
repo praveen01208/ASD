@@ -146,11 +146,11 @@ export default function AssistantPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-teal-50 text-teal-800 border border-teal-200 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#235347]" />
             Argus AI Active
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-[#DAF1DE]/40 text-[#051F20] border border-[#D5E8DA]">
             {activeAccount?.name || "Child"} ({activeAccount?.code || "ASD"}) Synced
           </span>
         </div>
@@ -158,10 +158,10 @@ export default function AssistantPage() {
 
       <div className="flex-1 flex flex-col md:flex-row gap-5 overflow-hidden min-h-0">
         {/* Quick Actions Sidebar */}
-        <div className="w-full md:w-80 bg-white rounded-3xl p-4 flex flex-col gap-2.5 overflow-y-auto flex-shrink-0 border border-slate-200 shadow-xs">
+        <div className="w-full md:w-80 bg-white rounded-3xl p-4 flex flex-col gap-2.5 overflow-y-auto flex-shrink-0 border border-[#D5E8DA] shadow-xs">
           <h3 className="font-bold text-slate-700 text-xs uppercase tracking-wider mb-1 px-1 flex items-center justify-between">
             <span>Quick Prompt Chips</span>
-            <span className="text-[10px] text-teal-700 font-semibold">1-Tap</span>
+            <span className="text-[10px] text-[#235347] font-semibold">1-Tap</span>
           </h3>
 
           <QuickActionBtn 
@@ -192,15 +192,15 @@ export default function AssistantPage() {
         </div>
 
         {/* Chat Area */}
-        <div className="flex-1 bg-white rounded-3xl flex flex-col overflow-hidden border border-slate-200 shadow-xs">
+        <div className="flex-1 bg-white rounded-3xl flex flex-col overflow-hidden border border-[#D5E8DA] shadow-xs">
           {/* Header */}
-          <div className="border-b border-slate-100 px-6 py-3.5 flex items-center justify-between bg-slate-50/70">
+          <div className="border-b border-[#D5E8DA] px-6 py-3.5 flex items-center justify-between bg-[#DAF1DE]/20">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold shadow-xs">
+              <div className="w-9 h-9 rounded-xl bg-[#235347] text-white flex items-center justify-center font-bold shadow-xs">
                 <Bot className="w-5 h-5 stroke-[2.5]" />
               </div>
               <div>
-                <h2 className="font-bold text-slate-900 text-sm">Argus AI</h2>
+                <h2 className="font-bold text-[#051F20] text-sm">Argus AI</h2>
                 <p className="text-[11px] text-slate-500 font-medium">Child: {activeAccount?.name || "Leo"} ({activeAccount?.code || "ASD-001"}) • Pediatric ASD Oral Health Guide</p>
               </div>
             </div>
@@ -210,7 +210,7 @@ export default function AssistantPage() {
                 role: "assistant", 
                 content: `Hello! I am **Argus**. How can I help you and ${activeAccount?.name || "your child"} today?` 
               }])}
-              className="text-xs text-slate-500 hover:text-slate-800 flex items-center gap-1.5 transition-colors px-2.5 py-1.5 rounded-lg hover:bg-slate-200/50 border border-transparent hover:border-slate-200"
+              className="text-xs text-slate-500 hover:text-[#051F20] flex items-center gap-1.5 transition-colors px-2.5 py-1.5 rounded-lg hover:bg-[#DAF1DE]/40 border border-transparent hover:border-[#8EB69B] cursor-pointer"
               title="Reset conversation"
             >
               <RefreshCw className="w-3.5 h-3.5" /> Clear
@@ -222,28 +222,28 @@ export default function AssistantPage() {
             {messages.map((m, i) => (
               <div key={i} className={`flex gap-3 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {m.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-xl bg-teal-50 border border-teal-200 text-teal-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-[#235347] flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Bot className="w-4 h-4" />
                   </div>
                 )}
                 
                 <div className={`max-w-[85%] sm:max-w-[75%] rounded-2xl p-4.5 transition-all ${
                   m.role === 'user' 
-                    ? 'bg-teal-600 text-white font-medium shadow-xs' 
-                    : 'bg-slate-50 border border-slate-200 text-slate-800'
+                    ? 'bg-[#235347] text-white font-medium shadow-xs' 
+                    : 'bg-[#DAF1DE]/20 border border-[#D5E8DA] text-[#0B2B26]'
                 }`}>
                   <div className={`text-[11px] font-bold mb-1.5 uppercase tracking-wider ${
-                    m.role === 'user' ? 'text-teal-100' : 'text-teal-700'
+                    m.role === 'user' ? 'text-[#DAF1DE]' : 'text-[#235347]'
                   }`}>
                     {m.role === 'user' ? 'Caregiver' : 'Argus AI'}
                   </div>
                   <div className={`leading-relaxed text-sm whitespace-pre-wrap ${
-                    m.role === 'user' ? 'text-white font-medium' : 'text-slate-700 font-normal'
+                    m.role === 'user' ? 'text-white font-medium' : 'text-[#0B2B26] font-normal'
                   }`}>{m.content}</div>
                 </div>
 
                 {m.role === 'user' && (
-                  <div className="w-8 h-8 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">
                     <User className="w-4 h-4" />
                   </div>
                 )}
@@ -252,11 +252,11 @@ export default function AssistantPage() {
 
             {isLoading && (
               <div className="flex gap-3 justify-start">
-                <div className="w-8 h-8 rounded-xl bg-teal-50 border border-teal-200 text-teal-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-8 h-8 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-[#235347] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Bot className="w-4 h-4" />
                 </div>
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 text-slate-700 text-sm flex items-center gap-2.5">
-                  <Sparkles className="w-4 h-4 text-teal-600 animate-spin" />
+                <div className="bg-[#DAF1DE]/20 border border-[#D5E8DA] rounded-2xl p-4 text-[#0B2B26] text-sm flex items-center gap-2.5">
+                  <Sparkles className="w-4 h-4 text-[#235347] animate-spin" />
                   <span>Argus is generating tailored clinical guidance...</span>
                 </div>
               </div>
@@ -265,20 +265,20 @@ export default function AssistantPage() {
           </div>
 
           {/* Input bar */}
-          <div className="p-4 border-t border-slate-100 bg-slate-50/70">
+          <div className="p-4 border-t border-[#D5E8DA] bg-[#DAF1DE]/20">
             <form onSubmit={sendMessage} className="relative flex items-center">
               <input 
                 type="text" 
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about sensory routines, brushing difficulties, or diet..."
-                className="w-full bg-white border border-slate-200 rounded-2xl py-3.5 pl-4 pr-24 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500"
+                className="w-full bg-white border border-[#D5E8DA] rounded-2xl py-3.5 pl-4 pr-24 text-sm text-[#0B2B26] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#8EB69B]/40 focus:border-[#235347]"
                 disabled={isLoading}
               />
               <button 
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-teal-600 hover:bg-teal-700 disabled:opacity-40 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 shadow-xs"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#235347] hover:bg-[#163832] disabled:opacity-40 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
               >
                 Send <Send className="w-3.5 h-3.5" />
               </button>
@@ -298,9 +298,9 @@ function QuickActionBtn({ title, desc, onClick }: { title: string; desc: string;
   return (
     <button 
       onClick={onClick} 
-      className="w-full text-left p-3.5 rounded-2xl bg-slate-50 hover:bg-teal-50/60 border border-slate-200 hover:border-teal-300 transition-all group"
+      className="w-full text-left p-3.5 rounded-2xl bg-[#DAF1DE]/20 hover:bg-[#DAF1DE]/50 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all group cursor-pointer"
     >
-      <div className="text-xs font-bold text-slate-900 group-hover:text-teal-800 transition-colors">{title}</div>
+      <div className="text-xs font-bold text-[#051F20] group-hover:text-[#235347] transition-colors">{title}</div>
       <div className="text-[11px] text-slate-500 mt-1 leading-snug font-normal">{desc}</div>
     </button>
   );

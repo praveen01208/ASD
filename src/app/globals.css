@@ -1,15 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F8FAFC;
-  --foreground: #0F172A;
+  /* Exact Color Palette specified by user */
+  --palette-1: #051F20; /* Obsidian Spruce (Darkest) */
+  --palette-2: #0B2B26; /* Deep Forest Pine */
+  --palette-3: #163832; /* Spruce Green */
+  --palette-4: #235347; /* Mid Forest Green (Primary Brand) */
+  --palette-5: #8EB69B; /* Soft Sage Green (Secondary / Accent) */
+  --palette-6: #DAF1DE; /* Mint Cream / Light Celadon (Subtle Glow / Badges) */
+
+  /* UI Tokens */
+  --background: #F4FAF6;
+  --foreground: #051F20;
   --surface-card: #FFFFFF;
-  --surface-card-hover: #F1F5F9;
-  --border-subtle: #E2E8F0;
-  --border-focus: #0D9488;
-  --accent-teal: #0D9488;
-  --accent-cyan: #0284C7;
-  --accent-emerald: #059669;
+  --surface-mint: #DAF1DE;
+  --surface-sage: #8EB69B;
+  --border-subtle: #D5E8DA;
+  --border-focus: #235347;
+  --accent-primary: #235347;
+  --accent-hover: #163832;
 }
 
 @theme inline {
@@ -17,6 +26,15 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Forest & Sage Theme Colors */
+  --color-spruce-950: #051F20;
+  --color-spruce-900: #0B2B26;
+  --color-spruce-800: #163832;
+  --color-spruce-700: #235347;
+  --color-sage-400: #8EB69B;
+  --color-mint-100: #DAF1DE;
+  --color-mint-50: #F4FAF6;
 }
 
 /* Ensure smooth native scrolling */
@@ -27,8 +45,8 @@ html {
 }
 
 body {
-  background-color: #F8FAFC;
-  color: #1E293B;
+  background-color: #F4FAF6;
+  color: #0B2B26;
   font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
@@ -37,59 +55,55 @@ body {
 }
 
 /* =========================================================
-   PREMIUM CLINICAL LIGHT SURFACE DESIGN SYSTEM
-   Luminous, soothing, hospital-grade sterile yet warm & gentle
+   PREMIUM CLINICAL FOREST & SAGE DESIGN SYSTEM
+   Palette: #051F20 | #0B2B26 | #163832 | #235347 | #8EB69B | #DAF1DE
    ========================================================= */
 
 .liquid-glass {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  border: 1px solid #D5E8DA;
+  box-shadow: 0 4px 20px -2px rgba(5, 31, 32, 0.04);
 }
 
 .liquid-glass-card {
   position: relative;
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 24px -4px rgba(15, 23, 42, 0.06);
+  border: 1px solid #D5E8DA;
+  box-shadow: 0 4px 24px -4px rgba(5, 31, 32, 0.05);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .liquid-glass-card:hover {
   background: #FFFFFF;
-  border-color: #CBD5E1;
-  box-shadow: 0 8px 30px -4px rgba(15, 23, 42, 0.1);
+  border-color: #8EB69B;
+  box-shadow: 0 8px 30px -4px rgba(5, 31, 32, 0.08);
 }
 
 .liquid-glass-island {
   background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.12);
+  border: 1px solid #8EB69B;
+  box-shadow: 0 20px 50px -10px rgba(5, 31, 32, 0.1);
 }
 
 .liquid-glass-pill {
-  background: #F1F5F9;
-  border: 1px solid #E2E8F0;
+  background: #DAF1DE;
+  border: 1px solid #8EB69B;
+  color: #051F20;
 }
 
 .liquid-glass-input {
   background: #FFFFFF;
-  border: 1px solid #CBD5E1;
-  color: #0F172A;
+  border: 1px solid #D5E8DA;
+  color: #051F20;
   transition: all 0.2s ease;
 }
 
 .liquid-glass-input:focus {
-  border-color: #0D9488;
-  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.18);
+  border-color: #235347;
+  box-shadow: 0 0 0 2px rgba(35, 83, 71, 0.2);
   outline: none;
-}
-
-/* Calm, tasteful accents */
-.text-glow-teal, .text-glow-emerald, .text-glow-cyan {
-  text-shadow: none; /* Remove harsh artificial glows */
 }
 
 /* Custom Scrollbars */
@@ -99,16 +113,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #080D1A;
+  background: #F4FAF6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #8EB69B;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #235347;
 }
 
 /* Clean Micro-Animations */

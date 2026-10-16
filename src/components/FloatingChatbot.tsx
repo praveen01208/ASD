@@ -194,13 +194,13 @@ export default function FloatingChatbot() {
               : "w-[94vw] sm:w-[400px] h-[560px] max-h-[88vh]"}
           `}
           style={{
-            background: "linear-gradient(160deg, rgba(2,8,23,0.97) 0%, rgba(10,20,40,0.98) 100%)",
+            background: "linear-gradient(160deg, rgba(5,31,32,0.98) 0%, rgba(11,43,38,0.99) 100%)",
             backdropFilter: "blur(32px) saturate(200%)",
             WebkitBackdropFilter: "blur(32px) saturate(200%)",
-            border: "1px solid rgba(20,184,166,0.35)",
+            border: "1px solid rgba(142,182,155,0.45)",
             borderRadius: "24px",
             boxShadow:
-              "0 0 0 1px rgba(255,255,255,0.06) inset, 0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(20,184,166,0.15)",
+              "0 0 0 1px rgba(218,241,222,0.08) inset, 0 30px 80px rgba(0,0,0,0.8), 0 0 40px rgba(35,83,71,0.25)",
           }}
         >
           {/* Header */}
@@ -208,24 +208,24 @@ export default function FloatingChatbot() {
             className="flex items-center justify-between px-4 py-3 flex-shrink-0"
             style={{
               background:
-                "linear-gradient(90deg, rgba(20,184,166,0.18) 0%, rgba(6,182,212,0.08) 100%)",
-              borderBottom: "1px solid rgba(255,255,255,0.08)",
+                "linear-gradient(90deg, rgba(35,83,71,0.35) 0%, rgba(22,56,50,0.25) 100%)",
+              borderBottom: "1px solid rgba(142,182,155,0.2)",
             }}
           >
             <div className="flex items-center gap-2.5">
               {/* Argus Avatar */}
               <div className="relative">
                 <div
-                  className="w-9 h-9 rounded-2xl flex items-center justify-center shadow-lg"
+                  className="w-9 h-9 rounded-2xl flex items-center justify-center shadow-lg border border-[#8EB69B]/40"
                   style={{
                     background:
-                      "linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)",
-                    boxShadow: "0 0 18px rgba(20,184,166,0.5)",
+                      "linear-gradient(135deg, #0B2B26 0%, #235347 100%)",
+                    boxShadow: "0 0 18px rgba(35,83,71,0.5)",
                   }}
                 >
-                  <Sparkles className="w-4.5 h-4.5 text-slate-950" style={{ width: 18, height: 18 }} />
+                  <Sparkles className="w-4.5 h-4.5 text-[#DAF1DE]" style={{ width: 18, height: 18 }} />
                 </div>
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-slate-950 animate-pulse" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#8EB69B] rounded-full border-2 border-[#051F20] animate-pulse" />
               </div>
 
               <div>
@@ -234,15 +234,15 @@ export default function FloatingChatbot() {
                   <span
                     className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
                     style={{
-                      background: "rgba(20,184,166,0.2)",
-                      border: "1px solid rgba(20,184,166,0.4)",
-                      color: "#2dd4bf",
+                      background: "rgba(218,241,222,0.2)",
+                      border: "1px solid #8EB69B",
+                      color: "#DAF1DE",
                     }}
                   >
                     AI
                   </span>
                 </div>
-                <p className="text-[10px] text-teal-400/80 truncate max-w-[190px]">
+                <p className="text-[10px] text-[#8EB69B] truncate max-w-[190px]">
                   {activeAccount?.name ? `Active: ${activeAccount.name} · ${activeAccount.code}` : "ASD Oral Health Guide"}
                 </p>
               </div>
@@ -276,23 +276,23 @@ export default function FloatingChatbot() {
               {/* Quick access bar */}
               <div
                 className="px-3.5 py-2 flex items-center justify-between text-[10px] flex-shrink-0"
-                style={{ borderBottom: "1px solid rgba(255,255,255,0.05)", background: "rgba(0,0,0,0.3)" }}
+                style={{ borderBottom: "1px solid rgba(142,182,155,0.15)", background: "rgba(5,31,32,0.6)" }}
               >
-                <span className="text-slate-500">Need immediate help?</span>
+                <span className="text-[#8EB69B]/70">Need immediate help?</span>
                 <div className="flex items-center gap-2.5">
                   <Link
                     href="/helpline"
-                    className="text-teal-400 hover:text-teal-300 flex items-center gap-1 font-semibold transition-colors"
+                    className="text-[#DAF1DE] hover:text-white flex items-center gap-1 font-bold transition-colors"
                   >
-                    <Phone className="w-3 h-3" />
+                    <Phone className="w-3 h-3 text-[#8EB69B]" />
                     Helpline
                   </Link>
-                  <span className="text-slate-700">·</span>
+                  <span className="text-[#8EB69B]/40">·</span>
                   <Link
                     href="/consultants"
-                    className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-semibold transition-colors"
+                    className="text-[#DAF1DE] hover:text-white flex items-center gap-1 font-bold transition-colors"
                   >
-                    <Stethoscope className="w-3 h-3" />
+                    <Stethoscope className="w-3 h-3 text-[#8EB69B]" />
                     Consultants
                   </Link>
                 </div>
@@ -309,10 +309,9 @@ export default function FloatingChatbot() {
                     <div
                       className={`w-6 h-6 rounded-xl flex items-center justify-center flex-shrink-0 mb-0.5 ${
                         m.role === "user"
-                          ? "bg-teal-500 text-slate-950"
-                          : "bg-white/8 text-teal-300 border border-white/10"
+                          ? "bg-[#235347] text-white"
+                          : "bg-white/10 text-[#DAF1DE] border border-[#8EB69B]/30"
                       }`}
-                      style={m.role === "assistant" ? { background: "rgba(255,255,255,0.08)" } : undefined}
                     >
                       {m.role === "user" ? (
                         <User className="w-3.5 h-3.5" />
@@ -326,19 +325,19 @@ export default function FloatingChatbot() {
                       <div
                         className={`px-3.5 py-2.5 text-xs leading-relaxed space-y-0.5 ${
                           m.role === "user"
-                            ? "rounded-2xl rounded-br-sm text-slate-950 font-semibold"
-                            : "rounded-2xl rounded-bl-sm text-slate-100"
+                            ? "rounded-2xl rounded-br-sm text-white font-medium"
+                            : "rounded-2xl rounded-bl-sm text-[#F4FAF6]"
                         }`}
                         style={
                           m.role === "user"
                             ? {
-                                background:
-                                  "linear-gradient(135deg, #14b8a6, #06b6d4)",
-                                boxShadow: "0 4px 15px rgba(20,184,166,0.3)",
+                                background: "#235347",
+                                border: "1px solid #8EB69B",
+                                boxShadow: "0 4px 15px rgba(35,83,71,0.4)",
                               }
                             : {
-                                background: "rgba(255,255,255,0.06)",
-                                border: "1px solid rgba(255,255,255,0.1)",
+                                background: "rgba(22,56,50,0.5)",
+                                border: "1px solid rgba(142,182,155,0.25)",
                                 boxShadow: "0 2px 10px rgba(0,0,0,0.3)",
                               }
                         }
@@ -421,23 +420,23 @@ export default function FloatingChatbot() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={`Ask Argus about ${activeAccount?.name || "your child"}'s care…`}
-                  className="flex-1 text-xs text-white placeholder-slate-500 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-1 focus:ring-teal-500/60 transition-all"
+                  className="flex-1 text-xs text-white placeholder-[#8EB69B]/50 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-1 focus:ring-[#8EB69B] transition-all"
                   style={{
                     background: "rgba(255,255,255,0.07)",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    border: "1px solid rgba(142,182,155,0.25)",
                   }}
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !input.trim()}
-                  className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-30 hover:scale-105 active:scale-95"
+                  className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-30 hover:scale-105 active:scale-95 border border-[#8EB69B]"
                   style={{
-                    background: "linear-gradient(135deg, #14b8a6, #06b6d4)",
-                    boxShadow: "0 4px 15px rgba(20,184,166,0.4)",
+                    background: "linear-gradient(135deg, #0B2B26, #235347)",
+                    boxShadow: "0 4px 15px rgba(35,83,71,0.4)",
                   }}
                   aria-label="Send"
                 >
-                  <Send className="w-3.5 h-3.5 text-slate-950" />
+                  <Send className="w-3.5 h-3.5 text-white" />
                 </button>
               </form>
             </>
@@ -449,26 +448,26 @@ export default function FloatingChatbot() {
       {!isOpen && (
         <button
           onClick={() => { setIsOpen(true); setIsMinimized(false); }}
-          className="group relative flex items-center gap-3 pl-3.5 pr-5 py-3 rounded-2xl transition-all hover:scale-105 active:scale-95"
+          className="group relative flex items-center gap-3 pl-3.5 pr-5 py-3 rounded-2xl transition-all hover:scale-105 active:scale-95 border border-[#8EB69B]/60 shadow-xl"
           style={{
-            background: "linear-gradient(135deg, #0f766e 0%, #0891b2 100%)",
-            boxShadow: "0 8px 32px rgba(20,184,166,0.45), 0 0 0 1px rgba(255,255,255,0.12) inset",
+            background: "linear-gradient(135deg, #051F20 0%, #235347 100%)",
+            boxShadow: "0 8px 32px rgba(5,31,32,0.45)",
           }}
           aria-label="Open Argus – ASD Care AI"
         >
           {/* Ping indicator */}
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-slate-950 animate-ping opacity-75" />
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-slate-950" />
+          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#8EB69B] rounded-full border-2 border-[#051F20] animate-ping opacity-75" />
+          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-[#8EB69B] rounded-full border-2 border-[#051F20]" />
 
           {/* Icon */}
           <div className="w-7 h-7 rounded-xl bg-white/15 flex items-center justify-center">
-            <Sparkles className="w-4 h-4 text-white" />
+            <Sparkles className="w-4 h-4 text-[#DAF1DE]" />
           </div>
 
           {/* Labels */}
           <div className="flex flex-col">
             <span className="text-xs font-black text-white tracking-tight leading-none">Argus</span>
-            <span className="text-[10px] text-teal-200/80 font-medium leading-none mt-0.5">AI Care Guide · Active</span>
+            <span className="text-[10px] text-[#DAF1DE]/90 font-medium leading-none mt-0.5">AI Care Guide · Active</span>
           </div>
         </button>
       )}

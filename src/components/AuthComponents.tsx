@@ -75,7 +75,7 @@ export function SignUpButton({
   return (
     <Link
       href="/sign-up"
-      className="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-cyan-400 hover:from-teal-400 hover:to-cyan-300 text-slate-950 text-xs font-extrabold shadow-lg shadow-teal-500/30 transition-all"
+      className="px-4 py-2 rounded-xl bg-[#235347] hover:bg-[#163832] text-white text-xs font-bold shadow-xs transition-all hover:scale-105"
     >
       Get Started
     </Link>
@@ -143,34 +143,34 @@ export function UserButton() {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         onClick={() => setDropdownOpen(!dropdownOpen)}
-        className="flex items-center gap-2 p-1.5 rounded-full hover:bg-white/10 transition-all focus:outline-none"
+        className="flex items-center gap-2 p-1 rounded-full hover:bg-[#DAF1DE]/40 transition-all focus:outline-none"
         aria-label="User profile menu"
       >
-        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-teal-500 to-cyan-400 text-slate-950 font-bold flex items-center justify-center text-xs shadow-md">
+        <div className="w-8 h-8 rounded-full bg-[#235347] text-white font-bold flex items-center justify-center text-xs shadow-md border border-[#8EB69B]">
           {initial}
         </div>
       </button>
 
       {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-[#090d16] border border-white/15 p-2 shadow-2xl z-50 animate-in fade-in zoom-in-95">
-          <div className="px-3 py-2 border-b border-white/10 mb-1">
-            <p className="text-xs font-bold text-white truncate">{name}</p>
-            <p className="text-[11px] text-slate-400 truncate">{email}</p>
+        <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white border border-[#D5E8DA] p-2 shadow-xl z-50 animate-in fade-in zoom-in-95">
+          <div className="px-3 py-2 border-b border-[#D5E8DA]/60 mb-1">
+            <p className="text-xs font-bold text-[#051F20] truncate">{name}</p>
+            <p className="text-[11px] text-[#0B2B26]/60 truncate">{email}</p>
           </div>
           <Link
             href="/profile"
             onClick={() => setDropdownOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-white/10 hover:text-white transition-all"
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#0B2B26] hover:bg-[#DAF1DE]/40 hover:text-[#051F20] transition-all"
           >
-            <UserIcon className="w-3.5 h-3.5 text-teal-400" />
+            <UserIcon className="w-3.5 h-3.5 text-[#235347]" />
             Caregiver Profile
           </Link>
           <Link
             href="/settings"
             onClick={() => setDropdownOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-slate-200 hover:bg-white/10 hover:text-white transition-all"
+            className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#0B2B26] hover:bg-[#DAF1DE]/40 hover:text-[#051F20] transition-all"
           >
-            <Shield className="w-3.5 h-3.5 text-cyan-400" />
+            <Shield className="w-3.5 h-3.5 text-[#235347]" />
             Account Settings
           </Link>
           <div className="border-t border-white/10 my-1 pt-1">

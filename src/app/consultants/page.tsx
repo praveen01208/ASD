@@ -79,27 +79,27 @@ export default function ConsultantsPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-8 pb-16">
       {/* Header Banner */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-emerald-200/90 shadow-sm relative overflow-hidden">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D5E8DA] shadow-sm relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold mb-3">
-              <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] text-xs font-bold mb-3 shadow-2xs">
+              <Stethoscope className="w-3.5 h-3.5 text-[#235347]" />
               Multidisciplinary Clinical Panel
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-black text-[#051F20] tracking-tight">
               Specialized ASD Consultants
             </h1>
-            <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
+            <p className="text-[#0B2B26]/70 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
               Connect directly with specialized clinicians for personalized sensory desensitization, pediatric dental exams, and preventive dietary protocols.
             </p>
           </div>
 
           {/* WhatsApp Connect Box */}
-          <div className="p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 flex flex-col items-center text-center shadow-xs w-full md:w-auto">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-800">
+          <div className="p-5 rounded-2xl bg-[#DAF1DE]/40 border border-[#8EB69B] flex flex-col items-center text-center shadow-xs w-full md:w-auto">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#235347]">
               Direct Clinical WhatsApp
             </span>
-            <div className="text-xl sm:text-2xl font-mono font-black text-slate-900 mt-1">
+            <div className="text-xl sm:text-2xl font-mono font-black text-[#051F20] mt-1">
               +91 {consultantWhatsAppNumber}
             </div>
             <a
@@ -108,7 +108,7 @@ export default function ConsultantsPage() {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 w-full py-2.5 px-5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all hover:scale-105"
+              className="mt-3 w-full py-2.5 px-5 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all hover:scale-105"
             >
               <MessageCircle className="w-4 h-4 fill-white" />
               WhatsApp Specialist Panel
@@ -123,8 +123,8 @@ export default function ConsultantsPage() {
           onClick={() => setSelectedSpecialist("all")}
           className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
             selectedSpecialist === "all"
-              ? "bg-emerald-600 text-white shadow-xs"
-              : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200"
+              ? "bg-[#235347] text-white shadow-xs"
+              : "bg-white text-[#0B2B26] hover:text-[#051F20] border border-[#D5E8DA] hover:border-[#8EB69B]"
           }`}
         >
           All 3 Specialists
@@ -135,8 +135,8 @@ export default function ConsultantsPage() {
             onClick={() => setSelectedSpecialist(s.id)}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap flex items-center gap-1.5 ${
               selectedSpecialist === s.id
-                ? "bg-emerald-600 text-white shadow-xs"
-                : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200"
+                ? "bg-[#235347] text-white shadow-xs"
+                : "bg-white text-[#0B2B26] hover:text-[#051F20] border border-[#D5E8DA] hover:border-[#8EB69B]"
             }`}
           >
             <s.icon className="w-3.5 h-3.5" />
@@ -154,44 +154,44 @@ export default function ConsultantsPage() {
           return (
             <div
               key={spec.id}
-              className="bg-white rounded-3xl p-6 border border-slate-200 hover:border-emerald-300 flex flex-col justify-between transition-all group shadow-xs"
+              className="bg-white rounded-3xl p-6 border border-[#D5E8DA] hover:border-[#8EB69B] flex flex-col justify-between transition-all group shadow-xs"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 group-hover:scale-105 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-[#DAF1DE] border border-[#8EB69B]/40 flex items-center justify-center text-[#235347] group-hover:scale-105 transition-transform">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <span className="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <span className="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B]">
                     {spec.badge}
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                <h3 className="text-lg font-bold text-[#051F20] group-hover:text-[#235347] transition-colors">
                   {spec.role}
                 </h3>
-                <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                <p className="text-xs text-[#0B2B26]/70 mt-2 leading-relaxed">
                   {spec.description}
                 </p>
 
                 <div className="mt-5 space-y-2">
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 block">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#163832] block">
                     Core Specializations:
                   </span>
                   {spec.keyAreas.map((area, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-slate-700">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div key={i} className="flex items-start gap-2 text-xs text-[#0B2B26]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#235347] flex-shrink-0 mt-0.5" />
                       <span>{area}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="mt-6 pt-5 border-t border-slate-100 space-y-2">
+              <div className="mt-6 pt-5 border-t border-[#D5E8DA]/60 space-y-2">
                 <a
                   href={directWa}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all hover:scale-[1.02]"
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all hover:scale-[1.02]"
                 >
                   <MessageCircle className="w-4 h-4 fill-white" />
                   WhatsApp {spec.role.split("(")[0].trim()}
@@ -209,8 +209,8 @@ export default function ConsultantsPage() {
             <Phone className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="font-bold text-sm text-slate-900">Need Urgent Immediate Assistance?</h4>
-            <p className="text-xs text-slate-600">
+            <h4 className="font-bold text-sm text-[#051F20]">Need Urgent Immediate Assistance?</h4>
+            <p className="text-xs text-[#0B2B26]/70">
               For acute emergencies or active distress, call our direct 24/7 Helpline.
             </p>
           </div>
@@ -218,7 +218,7 @@ export default function ConsultantsPage() {
 
         <Link
           href="/helpline"
-          className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs"
+          className="px-5 py-2.5 rounded-xl bg-[#235347] hover:bg-[#163832] text-white text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs hover:scale-105"
         >
           <Phone className="w-3.5 h-3.5" /> Go to 24/7 Helpline
         </Link>

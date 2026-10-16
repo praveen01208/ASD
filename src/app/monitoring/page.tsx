@@ -161,33 +161,33 @@ export default function DailyMonitoringPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-7 pb-24 animate-fade-in">
       {/* ── Page Header ── */}
-      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#D5E8DA] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold text-teal-700 flex items-center gap-1.5">
+            <span className="text-xs font-bold text-[#235347] flex items-center gap-1.5 bg-[#DAF1DE] px-2.5 py-0.5 rounded-full border border-[#8EB69B]/50">
               <Activity className="w-3.5 h-3.5" /> Clinical Telemetry & Daily Monitoring
             </span>
-            <span className="text-slate-300">•</span>
-            <span className="text-xs text-slate-500">Dr. Nivrutti Reddy Dental Protocol</span>
+            <span className="text-[#8EB69B]">•</span>
+            <span className="text-xs text-[#163832]/70 font-medium">Dr. Nivrutti Reddy Dental Protocol</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-black text-[#051F20] tracking-tight">
             Daily Monitoring for {activeChild?.name || "Your Child"}
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Participant Code: <span className="font-mono text-slate-700 font-semibold">{activeChild?.code || "ASD-001"}</span> • Daily checklists stored in database & synced with Argus AI
+          <p className="text-xs text-[#0B2B26]/70 mt-0.5">
+            Participant Code: <span className="font-mono text-[#051F20] font-bold">{activeChild?.code || "ASD-001"}</span> • Daily checklists stored in database & synced with Argus AI
           </p>
         </div>
 
         <div className="flex items-center gap-2.5">
           {isTodayComplete ? (
-            <div className="px-3.5 py-1.5 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold flex items-center gap-1.5">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+            <div className="px-3.5 py-1.5 rounded-xl bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] text-xs font-bold flex items-center gap-1.5 shadow-2xs">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" />
               <span>Today&apos;s Routine Logged</span>
             </div>
           ) : (
             <button
               onClick={() => setShowChecklistModal(true)}
-              className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
+              className="px-4 py-2 rounded-xl bg-[#235347] hover:bg-[#163832] text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs hover:scale-105"
             >
               <Clock className="w-3.5 h-3.5" />
               <span>Record Today&apos;s Checklist</span>
@@ -198,46 +198,46 @@ export default function DailyMonitoringPage() {
 
       {/* ── Clinical Telemetry Metrics (4 Cards) ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-medium">Morning Brushing</span>
+        <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
+          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
+            <span className="font-semibold text-[#0B2B26]">Morning Brushing</span>
             <Sun className="w-4 h-4 text-amber-500" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">{morningAdherence}%</div>
-          <div className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3 text-emerald-600" /> {morningBrushedCount} of {totalDays} logged days
+          <div className="text-2xl font-black text-[#051F20] font-mono">{morningAdherence}%</div>
+          <div className="text-[11px] text-[#235347] font-semibold flex items-center gap-1">
+            <CheckCircle2 className="w-3 h-3 text-[#235347]" /> {morningBrushedCount} of {totalDays} logged days
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-medium">Bedtime Brushing</span>
-            <Moon className="w-4 h-4 text-indigo-500" />
+        <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
+          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
+            <span className="font-semibold text-[#0B2B26]">Bedtime Brushing</span>
+            <Moon className="w-4 h-4 text-[#235347]" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">{nightAdherence}%</div>
-          <div className="text-[11px] text-slate-600 font-medium flex items-center gap-1">
-            <Clock className="w-3 h-3 text-indigo-500" /> {nightBrushedCount} of {totalDays} logged days
+          <div className="text-2xl font-black text-[#051F20] font-mono">{nightAdherence}%</div>
+          <div className="text-[11px] text-[#163832] font-semibold flex items-center gap-1">
+            <Clock className="w-3 h-3 text-[#235347]" /> {nightBrushedCount} of {totalDays} logged days
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-medium">Sensory Cooperation</span>
-            <Smile className="w-4 h-4 text-purple-500" />
+        <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
+          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
+            <span className="font-semibold text-[#0B2B26]">Sensory Cooperation</span>
+            <Smile className="w-4 h-4 text-[#235347]" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">{cooperationRate}%</div>
-          <div className="text-[11px] text-purple-700 font-medium">
+          <div className="text-2xl font-black text-[#051F20] font-mono">{cooperationRate}%</div>
+          <div className="text-[11px] text-[#235347] font-semibold">
             Routine adherence without distress
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-slate-500">
-            <span className="font-medium">Enamel Sugar Exposure</span>
-            <Apple className="w-4 h-4 text-emerald-600" />
+        <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
+          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
+            <span className="font-semibold text-[#0B2B26]">Enamel Sugar Exposure</span>
+            <Apple className="w-4 h-4 text-[#235347]" />
           </div>
-          <div className="text-2xl font-bold text-slate-900">{highSugarDays} days</div>
-          <div className={`text-[11px] font-semibold ${highSugarDays > 1 ? "text-amber-700" : "text-emerald-700"}`}>
+          <div className="text-2xl font-black text-[#051F20] font-mono">{highSugarDays} days</div>
+          <div className={`text-[11px] font-semibold ${highSugarDays > 1 ? "text-amber-700" : "text-[#235347]"}`}>
             {highSugarDays > 1 ? "Moderate cavity risk" : "Low enamel vulnerability"}
           </div>
         </div>
@@ -247,14 +247,14 @@ export default function DailyMonitoringPage() {
       {(!isTodayComplete || showChecklistModal) && (
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-teal-600" />
+            <h2 className="text-base font-bold text-[#051F20] flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#235347]" />
               {isTodayComplete ? "Update Today's Checklist Log" : "Pending: Submit Today's Oral Hygiene Checklist"}
             </h2>
             {showChecklistModal && isTodayComplete && (
               <button
                 onClick={() => setShowChecklistModal(false)}
-                className="text-xs text-slate-500 hover:text-slate-800"
+                className="text-xs text-[#0B2B26]/70 hover:text-[#051F20] font-semibold"
               >
                 Close Editor ✕
               </button>
@@ -268,27 +268,27 @@ export default function DailyMonitoringPage() {
       )}
 
       {/* ── Chronological Telemetry Log History Table ── */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden space-y-0">
-        <div className="p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-white rounded-2xl border border-[#D5E8DA] shadow-xs overflow-hidden space-y-0">
+        <div className="p-5 border-b border-[#D5E8DA] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#F4FAF6]/40">
           <div>
-            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-              <FileText className="w-4 h-4 text-teal-600" />
+            <h3 className="text-base font-bold text-[#051F20] flex items-center gap-2">
+              <FileText className="w-4 h-4 text-[#235347]" />
               Recorded Routine History (Database Telemetry)
             </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-[#0B2B26]/70 mt-0.5">
               Verified clinical records logged by caregiver and synced across sessions
             </p>
           </div>
 
-          <div className="text-xs text-slate-500 flex items-center gap-1.5 font-mono font-medium">
-            <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
+          <div className="text-xs text-[#163832] flex items-center gap-1.5 font-mono font-bold bg-[#DAF1DE] px-3 py-1 rounded-xl border border-[#8EB69B]/40">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#235347]" />
             <span>{logs.length} Total Logs On File</span>
           </div>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-700">
-            <thead className="bg-slate-50 text-slate-500 text-[11px] uppercase tracking-wider border-b border-slate-200">
+          <table className="w-full text-left text-xs text-[#0B2B26]">
+            <thead className="bg-[#F4FAF6] text-[#163832] text-[11px] uppercase tracking-wider border-b border-[#D5E8DA]">
               <tr>
                 <th className="py-3 px-4 font-bold">Date</th>
                 <th className="py-3 px-4 font-bold">Morning</th>
@@ -299,17 +299,17 @@ export default function DailyMonitoringPage() {
                 <th className="py-3 px-4 font-bold">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#D5E8DA]/60">
               {logs.map((item, idx) => {
                 const isItemToday = item.date === todayKey;
                 const hasSugar = item.consumedSugarySnacksDrinks || item.consumedStickyFood;
                 return (
-                  <tr key={item.date || idx} className={`hover:bg-slate-50 transition-colors ${isItemToday ? "bg-teal-50/40" : ""}`}>
-                    <td className="py-3.5 px-4 font-semibold text-slate-900 flex items-center gap-2">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                  <tr key={item.date || idx} className={`hover:bg-[#DAF1DE]/20 transition-colors ${isItemToday ? "bg-[#DAF1DE]/40" : ""}`}>
+                    <td className="py-3.5 px-4 font-bold text-[#051F20] flex items-center gap-2">
+                      <Calendar className="w-3.5 h-3.5 text-[#8EB69B]" />
                       <span>{item.date}</span>
                       {isItemToday && (
-                        <span className="text-[10px] bg-teal-100 text-teal-800 px-1.5 py-0.5 rounded font-bold">
+                        <span className="text-[10px] bg-[#235347] text-white px-2 py-0.5 rounded-full font-bold">
                           Today
                         </span>
                       )}
@@ -317,26 +317,26 @@ export default function DailyMonitoringPage() {
 
                     <td className="py-3.5 px-4">
                       {item.brushedMorning ? (
-                        <span className="text-emerald-700 font-semibold flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Done
+                        <span className="text-[#235347] font-bold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> Done
                         </span>
                       ) : (
-                        <span className="text-slate-400">Missed</span>
+                        <span className="text-slate-400 font-medium">Missed</span>
                       )}
                     </td>
 
                     <td className="py-3.5 px-4">
                       {item.brushedNight ? (
-                        <span className="text-emerald-700 font-semibold flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Done
+                        <span className="text-[#235347] font-bold flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> Done
                         </span>
                       ) : (
-                        <span className="text-slate-400">Pending</span>
+                        <span className="text-slate-400 font-medium">Pending</span>
                       )}
                     </td>
 
                     <td className="py-3.5 px-4">
-                      <span className="text-slate-700">
+                      <span className="text-[#0B2B26] font-medium">
                         {item.healthyBreakfast && item.healthyLunch ? "Healthy (B+L)" : "Standard Meals"}
                       </span>
                     </td>
@@ -347,7 +347,7 @@ export default function DailyMonitoringPage() {
                           <AlertCircle className="w-3.5 h-3.5 text-amber-600" /> {item.consumedStickyFood ? "Sticky Food" : "Sugary Snack"}
                         </span>
                       ) : (
-                        <span className="text-emerald-700 font-medium">None Logged ✓</span>
+                        <span className="text-[#235347] font-bold">None Logged ✓</span>
                       )}
                     </td>
 
@@ -355,14 +355,14 @@ export default function DailyMonitoringPage() {
                       {item.showResistanceOrCrying ? (
                         <span className="text-rose-700 font-semibold">Sensory Distress</span>
                       ) : item.cooperatedWithBrushing ? (
-                        <span className="text-teal-700 font-semibold">Cooperative</span>
+                        <span className="text-[#235347] font-bold">Cooperative</span>
                       ) : (
-                        <span className="text-slate-500">Assisted</span>
+                        <span className="text-[#0B2B26]/70 font-medium">Assisted</span>
                       )}
                     </td>
 
                     <td className="py-3.5 px-4">
-                      <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 text-[10px] font-medium border border-slate-200">
+                      <span className="px-2.5 py-0.5 rounded-full bg-[#DAF1DE] text-[#051F20] text-[10px] font-bold border border-[#8EB69B]/40">
                         Recorded
                       </span>
                     </td>

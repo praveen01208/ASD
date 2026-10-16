@@ -189,40 +189,40 @@ export default function AssessmentPage() {
   return (
     <div className="max-w-6xl mx-auto space-y-8 pb-20 animate-in fade-in duration-300">
       {/* ── TOP LEVEL ASSESSMENT TAB SELECTOR ── */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-2.5 rounded-2xl bg-white border border-slate-200 shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-2.5 rounded-2xl bg-white border border-[#D5E8DA] shadow-xs">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab("baseline")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "baseline"
-                ? "bg-teal-600 text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                ? "bg-[#235347] text-white shadow-xs"
+                : "text-[#0B2B26] hover:text-[#051F20] hover:bg-[#DAF1DE]/40"
             }`}
           >
             <ShieldCheck className="w-4 h-4" />
             <span>1. Baseline Clinical Assessment</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-teal-100 text-teal-900 font-extrabold">20 Questions</span>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-extrabold ${activeTab === "baseline" ? "bg-[#DAF1DE] text-[#051F20]" : "bg-[#DAF1DE]/60 text-[#235347]"}`}>20 Questions</span>
           </button>
 
           <button
             onClick={() => setActiveTab("weekly")}
-            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
+            className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === "weekly"
-                ? "bg-teal-600 text-white shadow-xs"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                ? "bg-[#235347] text-white shadow-xs"
+                : "text-[#0B2B26] hover:text-[#051F20] hover:bg-[#DAF1DE]/40"
             }`}
           >
             <Activity className="w-4 h-4" />
             <span>2. Weekly AI Assessments</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-teal-100 text-teal-900 font-extrabold">Milestones</span>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-extrabold ${activeTab === "weekly" ? "bg-[#DAF1DE] text-[#051F20]" : "bg-[#DAF1DE]/60 text-[#235347]"}`}>Milestones</span>
           </button>
         </div>
 
         <Link
           href="/onboarding"
-          className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-teal-800 border border-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-2xs"
+          className="px-3.5 py-2 rounded-xl bg-[#DAF1DE]/40 hover:bg-[#DAF1DE] text-[#051F20] border border-[#D5E8DA] text-xs font-semibold flex items-center gap-1.5 transition-all shadow-2xs"
         >
-          <RefreshCw className="w-3.5 h-3.5 text-teal-600" />
+          <RefreshCw className="w-3.5 h-3.5 text-[#235347]" />
           <span>Update Baseline 20Q Intake</span>
         </Link>
       </div>
@@ -233,30 +233,30 @@ export default function AssessmentPage() {
       {activeTab === "baseline" && (
         <div className="space-y-6 animate-in fade-in duration-300">
           {/* Clinical Hero Card with Soothing Photo */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-xs overflow-hidden relative">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D5E8DA] shadow-xs overflow-hidden relative">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
               <div className="lg:col-span-7 space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-extrabold shadow-2xs">
-                  <ShieldCheck className="w-4 h-4 text-teal-600" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] text-xs font-extrabold shadow-2xs">
+                  <ShieldCheck className="w-4 h-4 text-[#235347]" />
                   Dr. Nivrutti Reddy Clinical Assessment Protocol
                 </div>
-                <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                <h1 className="text-2xl sm:text-4xl font-extrabold text-[#051F20] tracking-tight">
                   Baseline Clinical Oral Health Assessment
                 </h1>
                 <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                  Calibrated profile for <strong className="text-slate-900 font-semibold">{activeAccount?.name || "Your Child"}</strong> ({activeAccount?.code || "ASD-001"}). This baseline records your child&apos;s 20 intake responses across 4 clinical domains to guide all personalized routines and Argus AI advice.
+                  Calibrated profile for <strong className="text-[#0B2B26] font-semibold">{activeAccount?.name || "Your Child"}</strong> ({activeAccount?.code || "ASD-001"}). This baseline records your child&apos;s 20 intake responses across 4 clinical domains to guide all personalized routines and Argus AI advice.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <span className="px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-700 font-mono">
-                    Status: <strong className="text-teal-700 font-bold">Calibrated & Active</strong>
+                  <span className="px-3 py-1.5 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA] text-xs text-[#0B2B26] font-mono">
+                    Status: <strong className="text-[#235347] font-bold">Calibrated & Active</strong>
                   </span>
-                  <span className="px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200 text-xs text-slate-700">
-                    ASD Level: <strong className="text-slate-900 font-semibold">{activeAccount?.asdLevel || "ASD Profile"}</strong>
+                  <span className="px-3 py-1.5 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA] text-xs text-[#0B2B26]">
+                    ASD Level: <strong className="text-[#051F20] font-semibold">{activeAccount?.asdLevel || "ASD Profile"}</strong>
                   </span>
                   <Link
                     href="/care-plan"
-                    className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs"
+                    className="px-4 py-2 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs"
                   >
                     <span>View Resulting Care Plan</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -266,14 +266,14 @@ export default function AssessmentPage() {
 
               {/* Soothing Clinical Picture */}
               <div className="lg:col-span-5">
-                <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-video relative group">
+                <div className="rounded-2xl overflow-hidden border border-[#D5E8DA] shadow-sm aspect-video relative group">
                   <img
                     src="/images/dental_clinic_chair_care.jpg"
                     alt="Pediatric Dentist checking child on dental chair"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent flex items-end p-3">
-                    <span className="text-[11px] text-teal-100 font-medium">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#051F20]/75 via-transparent to-transparent flex items-end p-3">
+                    <span className="text-[11px] text-[#DAF1DE] font-medium">
                       Pediatric clinical examination environment
                     </span>
                   </div>
@@ -284,21 +284,21 @@ export default function AssessmentPage() {
 
           {/* 4 Core Clinical Baseline Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-2xl p-5 border border-teal-200/80 shadow-xs">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700 block mb-1">
+            <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#235347] block mb-1">
                 Baseline Oral Health Score
               </span>
-              <div className="text-2xl sm:text-3xl font-black text-slate-900">82%</div>
+              <div className="text-2xl sm:text-3xl font-black text-[#051F20]">82%</div>
               <p className="text-[11px] text-slate-500 mt-1">
                 Calibrated against brushing frequency and gum health.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-5 border border-cyan-200/80 shadow-xs">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-700 block mb-1">
+            <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#235347] block mb-1">
                 Toothbrushing Setup
               </span>
-              <div className="text-base font-bold text-slate-900 truncate">
+              <div className="text-base font-bold text-[#051F20] truncate">
                 {activeAccount?.brushingHabits?.toothbrushType || "Ultra-soft Manual"}
               </div>
               <p className="text-[11px] text-slate-500 mt-1">
@@ -306,11 +306,11 @@ export default function AssessmentPage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-5 border border-amber-200/80 shadow-xs">
+            <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
               <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 block mb-1">
                 Dietary Sugar Risk
               </span>
-              <div className="text-base font-bold text-slate-900 truncate">
+              <div className="text-base font-bold text-[#051F20] truncate">
                 {activeAccount?.dietaryHabits?.sugaryFoodFrequency || "Moderate / Controlled"}
               </div>
               <p className="text-[11px] text-slate-500 mt-1">
@@ -318,11 +318,11 @@ export default function AssessmentPage() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-5 border border-emerald-200/80 shadow-xs">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 block mb-1">
+            <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#235347] block mb-1">
                 Cooperation Level
               </span>
-              <div className="text-base font-bold text-slate-900 truncate">
+              <div className="text-base font-bold text-[#051F20] truncate">
                 {activeAccount?.childBehaviour?.mouthOpeningCooperation || "Tolerates with guidance"}
               </div>
               <p className="text-[11px] text-slate-500 mt-1">
@@ -333,33 +333,33 @@ export default function AssessmentPage() {
 
           {/* Detailed 4 Clinical Domains from 20-Question Intake */}
           <div className="space-y-4">
-            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <CheckCircle2 className="w-5 h-5 text-teal-600" />
+            <h2 className="text-lg font-bold text-[#051F20] flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-[#235347]" />
               <span>Calibrated Intake Findings (4 Clinical Domains)</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Domain 1: Demographics & Special Needs */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                  <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-700 border border-teal-200 flex items-center justify-center font-bold text-xs">
+              <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
+                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
                     01
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-slate-900">Demographics & ASD Classification</h3>
+                    <h3 className="font-bold text-sm text-[#051F20]">Demographics & ASD Classification</h3>
                     <p className="text-[10px] text-slate-500">Questions 1 to 5</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Child Name & Age:</span>
-                    <span className="text-slate-900 font-semibold">{activeAccount?.name || "Child"}, {activeAccount?.age || 6} yrs</span>
+                    <span className="text-[#0B2B26] font-semibold">{activeAccount?.name || "Child"}, {activeAccount?.age || 6} yrs</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">ASD Severity:</span>
-                    <span className="text-teal-700 font-bold">{activeAccount?.asdLevel || "Diagnosed ASD"}</span>
+                    <span className="text-[#235347] font-bold">{activeAccount?.asdLevel || "Diagnosed ASD"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Communication Style:</span>
                     <span className="text-slate-800 font-medium">{activeAccount?.demographics?.communicationStyle || "Verbal with visual prompts"}</span>
                   </div>
@@ -371,26 +371,26 @@ export default function AssessmentPage() {
               </div>
 
               {/* Domain 2: Brushing Habits & Sensitivities */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                  <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-700 border border-teal-200 flex items-center justify-center font-bold text-xs">
+              <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
+                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
                     02
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-slate-900">Brushing Habits & Sensory Tolerance</h3>
+                    <h3 className="font-bold text-sm text-[#051F20]">Brushing Habits & Sensory Tolerance</h3>
                     <p className="text-[10px] text-slate-500">Questions 6 to 11</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Brushing Frequency:</span>
-                    <span className="text-slate-900 font-semibold">{activeAccount?.brushingHabits?.frequency || "Twice daily"}</span>
+                    <span className="text-[#0B2B26] font-semibold">{activeAccount?.brushingHabits?.frequency || "Twice daily"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Toothbrush Type:</span>
                     <span className="text-slate-800 font-medium">{activeAccount?.brushingHabits?.toothbrushType || "Triple-headed / Ultra-soft"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Toothpaste Flavor:</span>
                     <span className="text-slate-800 font-medium">{activeAccount?.brushingHabits?.toothpaste || "Mild non-foaming paste"}</span>
                   </div>
@@ -402,28 +402,28 @@ export default function AssessmentPage() {
               </div>
 
               {/* Domain 3: Dietary Patterns & Sugar Exposure */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                  <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-700 border border-teal-200 flex items-center justify-center font-bold text-xs">
+              <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
+                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
                     03
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-slate-900">Dietary Habits & Sugar Exposure</h3>
+                    <h3 className="font-bold text-sm text-[#051F20]">Dietary Habits & Sugar Exposure</h3>
                     <p className="text-[10px] text-slate-500">Questions 12 to 16</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Sweet / Sugary Snacks:</span>
                     <span className="text-slate-800 font-medium">{activeAccount?.dietaryHabits?.sugaryFoodFrequency || "Limited to meals"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Food Holding in Cheeks:</span>
                     <span className="text-slate-800 font-medium">{activeAccount?.dietaryHabits?.foodHoldingInMouth || "Rare / None"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Bedtime Bottle / Milk:</span>
-                    <span className="text-emerald-700 font-semibold">No bottle in bed (Water only)</span>
+                    <span className="text-[#235347] font-semibold">No bottle in bed (Water only)</span>
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-slate-500">Daily Water Hydration:</span>
@@ -433,28 +433,28 @@ export default function AssessmentPage() {
               </div>
 
               {/* Domain 4: Clinical Dental History & Cooperation */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-                  <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-700 border border-teal-200 flex items-center justify-center font-bold text-xs">
+              <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
+                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
                     04
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-slate-900">Dental History & Cooperation</h3>
+                    <h3 className="font-bold text-sm text-[#051F20]">Dental History & Cooperation</h3>
                     <p className="text-[10px] text-slate-500">Questions 17 to 20</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Past Dental Visits:</span>
                     <span className="text-slate-800 font-medium">{activeAccount?.dentalMedicalHistory?.lastDentalVisit || "Within last 6-12 months"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Past Experience:</span>
                     <span className="text-slate-800 font-medium">{activeAccount?.dentalMedicalHistory?.pastDentalExperience || "Mild anxiety"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
+                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
                     <span className="text-slate-500">Active Pain / Cavities:</span>
-                    <span className="text-emerald-700 font-semibold">{activeAccount?.dentalMedicalHistory?.activeCavitiesOrPain || "No active toothache reported"}</span>
+                    <span className="text-[#235347] font-semibold">{activeAccount?.dentalMedicalHistory?.activeCavitiesOrPain || "No active toothache reported"}</span>
                   </div>
                   <div className="flex justify-between py-1">
                     <span className="text-slate-500">Gum Bleeding:</span>
@@ -473,25 +473,25 @@ export default function AssessmentPage() {
       {activeTab === "weekly" && (
         <div className="space-y-6 animate-in fade-in duration-300">
           {/* Page Header */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-teal-200/80 shadow-sm relative overflow-hidden">
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D5E8DA] shadow-sm relative overflow-hidden">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold mb-3">
-                  <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DAF1DE] border border-[#8EB69B] text-[#051F20] text-xs font-bold mb-3">
+                  <Sparkles className="w-3.5 h-3.5 text-[#235347]" />
                   Weekly Motivational Telemetry & Reinforcement
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-black text-[#051F20] tracking-tight">
                   Weekly AI Assessment & Reinforcement
                 </h1>
                 <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
-                  Updated weekly to provide continuous motivation, positive reinforcement badges, and sensory habit calibrations for <span className="text-slate-900 font-bold">{activeAccount?.name || "your child"}</span>. All assessments are permanently stored.
+                  Updated weekly to provide continuous motivation, positive reinforcement badges, and sensory habit calibrations for <span className="text-[#051F20] font-bold">{activeAccount?.name || "your child"}</span>. All assessments are permanently stored.
                 </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
                 <button
                   onClick={() => setShowCertificate(true)}
-                  className="px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs"
+                  className="px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                 >
                   <Trophy className="w-4 h-4 text-amber-600" />
                   <span>Weekly Certificate</span>
@@ -500,7 +500,7 @@ export default function AssessmentPage() {
                 <button
                   onClick={handleUpdateAssessment}
                   disabled={isUpdating}
-                  className="px-5 py-3 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs sm:text-sm shadow-sm flex items-center gap-2 transition-all hover:scale-105 disabled:opacity-50"
+                  className="px-5 py-3 rounded-2xl bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs sm:text-sm shadow-sm flex items-center gap-2 transition-all hover:scale-105 disabled:opacity-50 cursor-pointer"
                 >
                   <RefreshCw className={`w-4 h-4 ${isUpdating ? "animate-spin" : ""}`} />
                   <span>{isUpdating ? "Evaluating Week..." : "Generate This Week's AI Assessment"}</span>
@@ -518,10 +518,10 @@ export default function AssessmentPage() {
               <button
                 key={idx}
                 onClick={() => setSelectedWeekIndex(idx)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
                   selectedWeekIndex === idx
-                    ? "bg-teal-600 text-white shadow-xs"
-                    : "bg-white text-slate-700 hover:text-slate-900 border border-slate-200"
+                    ? "bg-[#235347] text-white shadow-xs"
+                    : "bg-white text-slate-700 hover:text-[#051F20] border border-[#D5E8DA] hover:border-[#8EB69B]"
                 }`}
               >
                 <span>{a.motivationBadge?.icon || "🌟"}</span>
@@ -534,7 +534,7 @@ export default function AssessmentPage() {
       {currentAssessment && (
         <div className="space-y-6">
           {/* Motivational Hero Badge Card */}
-          <div className="bg-gradient-to-r from-amber-50/80 via-white to-teal-50/60 rounded-3xl p-6 sm:p-8 border border-amber-200 shadow-sm relative overflow-hidden">
+          <div className="bg-gradient-to-r from-amber-50/80 via-white to-[#DAF1DE]/40 rounded-3xl p-6 sm:p-8 border border-amber-200 shadow-sm relative overflow-hidden">
             <div className="flex flex-col sm:flex-row items-center gap-6 relative z-10">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-amber-100 border-2 border-amber-300 p-1 shadow-sm flex-shrink-0 animate-float flex items-center justify-center">
                 <div className="w-full h-full rounded-2xl bg-white flex flex-col items-center justify-center text-center p-2">
@@ -551,7 +551,7 @@ export default function AssessmentPage() {
                   <span className="text-xs text-slate-500">Streak: {currentAssessment.routineStreakDays} Days Consistent</span>
                 </div>
 
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+                <h2 className="text-xl sm:text-2xl font-black text-[#051F20] mt-1">
                   {currentAssessment.motivationBadge?.title || "Sparkling Routine Hero"}
                 </h2>
 
@@ -559,7 +559,7 @@ export default function AssessmentPage() {
                   {currentAssessment.motivationBadge?.description || "Outstanding effort and habit formation!"}
                 </p>
 
-                <div className="mt-3 p-3 rounded-xl bg-teal-50/80 border border-teal-200 text-xs italic text-teal-900 max-w-xl">
+                <div className="mt-3 p-3 rounded-xl bg-[#DAF1DE]/70 border border-[#8EB69B]/60 text-xs italic text-[#051F20] max-w-xl">
                   “{currentAssessment.statusSummary}”
                 </div>
               </div>
@@ -569,19 +569,19 @@ export default function AssessmentPage() {
           {/* 3 Core Weekly Indexes */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {/* Oral Hygiene */}
-            <div className="bg-white rounded-2xl p-6 border border-teal-200/80 shadow-xs">
+            <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Oral Hygiene Index
                 </span>
-                <Sparkles className="w-4 h-4 text-teal-600" />
+                <Sparkles className="w-4 h-4 text-[#235347]" />
               </div>
-              <div className="text-3xl font-black text-teal-700">
+              <div className="text-3xl font-black text-[#235347]">
                 {currentAssessment.oralHygieneScore}%
               </div>
               <div className="w-full h-2 bg-slate-100 rounded-full mt-3 overflow-hidden">
                 <div
-                  className="h-full bg-teal-500 rounded-full"
+                  className="h-full bg-[#235347] rounded-full"
                   style={{ width: `${currentAssessment.oralHygieneScore}%` }}
                 />
               </div>
@@ -613,19 +613,19 @@ export default function AssessmentPage() {
             </div>
 
             {/* Sensory Comfort */}
-            <div className="bg-white rounded-2xl p-6 border border-emerald-200/80 shadow-xs">
+            <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                   Sensory Comfort Index
                 </span>
-                <Heart className="w-4 h-4 text-emerald-600" />
+                <Heart className="w-4 h-4 text-[#235347]" />
               </div>
-              <div className="text-3xl font-black text-emerald-700">
+              <div className="text-3xl font-black text-[#235347]">
                 {currentAssessment.sensoryComfortScore}%
               </div>
               <div className="w-full h-2 bg-slate-100 rounded-full mt-3 overflow-hidden">
                 <div
-                  className="h-full bg-emerald-500 rounded-full"
+                  className="h-full bg-[#235347] rounded-full"
                   style={{ width: `${currentAssessment.sensoryComfortScore}%` }}
                 />
               </div>
@@ -636,32 +636,32 @@ export default function AssessmentPage() {
           </div>
 
           {/* AI Clinical Recommendations for This Week */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4">
-            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-              <Activity className="w-5 h-5 text-teal-600" />
+          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D5E8DA] shadow-xs space-y-4">
+            <h3 className="text-lg font-bold text-[#051F20] flex items-center gap-2">
+              <Activity className="w-5 h-5 text-[#235347]" />
               Weekly Action Goals & Reinforcement Protocol
             </h3>
 
             <div className="space-y-3">
               {currentAssessment.aiRecommendations?.map((rec, i) => (
-                <div key={i} className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-                  <div className="w-6 h-6 rounded-lg bg-teal-600 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div key={i} className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#DAF1DE]/20 border border-[#D5E8DA]">
+                  <div className="w-6 h-6 rounded-lg bg-[#235347] text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                     {i + 1}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+                  <p className="text-xs sm:text-sm text-[#0B2B26] leading-relaxed font-medium">
                     {rec}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="pt-4 border-t border-[#D5E8DA] flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="text-xs text-slate-500">
                 Watch this week&apos;s joyful story videos to reinforce habits before brushing:
               </div>
               <Link
                 href="/learning"
-                className="px-5 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs flex items-center gap-2 shadow-xs transition-all hover:scale-105"
+                className="px-5 py-2.5 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs flex items-center gap-2 shadow-xs transition-all hover:scale-105"
               >
                 Watch Visual Stories & Videos →
               </Link>
@@ -690,11 +690,11 @@ export default function AssessmentPage() {
                 <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
                   Official Autism Oral Health Achievement
                 </span>
-                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-2">
+                <h2 className="text-2xl sm:text-3xl font-black text-[#051F20] mt-2">
                   Weekly Oral Health Hero Certificate
                 </h2>
                 <p className="text-xs text-slate-600">
-                  Awarded to <strong className="text-slate-900 text-sm">{activeAccount?.name || "Our Champion"}</strong>
+                  Awarded to <strong className="text-[#051F20] text-sm">{activeAccount?.name || "Our Champion"}</strong>
                 </p>
               </div>
             </div>
@@ -709,13 +709,13 @@ export default function AssessmentPage() {
               </p>
 
               <div className="grid grid-cols-3 gap-3 max-w-md mx-auto pt-2">
-                <div className="p-2.5 rounded-xl bg-teal-50 border border-teal-200">
-                  <div className="text-[10px] text-teal-700 font-medium">Hygiene Score</div>
-                  <div className="text-lg font-black text-teal-900">{currentAssessment.oralHygieneScore}%</div>
+                <div className="p-2.5 rounded-xl bg-[#DAF1DE] border border-[#8EB69B]">
+                  <div className="text-[10px] text-[#235347] font-medium">Hygiene Score</div>
+                  <div className="text-lg font-black text-[#051F20]">{currentAssessment.oralHygieneScore}%</div>
                 </div>
-                <div className="p-2.5 rounded-xl bg-emerald-50 border border-emerald-200">
-                  <div className="text-[10px] text-emerald-700 font-medium">Sensory Score</div>
-                  <div className="text-lg font-black text-emerald-900">{currentAssessment.sensoryComfortScore}%</div>
+                <div className="p-2.5 rounded-xl bg-[#DAF1DE]/60 border border-[#8EB69B]">
+                  <div className="text-[10px] text-[#235347] font-medium">Sensory Score</div>
+                  <div className="text-lg font-black text-[#051F20]">{currentAssessment.sensoryComfortScore}%</div>
                 </div>
                 <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200">
                   <div className="text-[10px] text-amber-700 font-medium">Streak Days</div>
@@ -733,14 +733,14 @@ export default function AssessmentPage() {
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePrintCertificate}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 transition-all"
+                  className="px-4 py-2 rounded-xl bg-[#DAF1DE]/40 hover:bg-[#DAF1DE] text-[#051F20] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
                 >
-                  <Printer className="w-4 h-4 text-slate-600" />
+                  <Printer className="w-4 h-4 text-[#235347]" />
                   <span>Print Certificate</span>
                 </button>
                 <button
                   onClick={() => setShowCertificate(false)}
-                  className="px-4 py-2 rounded-xl bg-amber-500 text-white font-bold text-xs hover:bg-amber-600 transition-all shadow-xs"
+                  className="px-4 py-2 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs transition-all shadow-xs cursor-pointer"
                 >
                   Done
                 </button>

@@ -43,7 +43,7 @@ export default function RootLayout({
     >
       <body 
         suppressHydrationWarning 
-        className="min-h-screen bg-[#F8FAFC] text-slate-800 antialiased overflow-x-hidden"
+        className="min-h-screen bg-[#F4FAF6] text-[#0B2B26] antialiased overflow-x-hidden"
       >
         <AuthProvider>
           <AppLayoutClient>{children}</AppLayoutClient>
