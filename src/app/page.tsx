@@ -165,13 +165,13 @@ export default function Dashboard() {
     };
   }, [isLoaded, isSignedIn, user?.id, router]);
 
-  // If auth is loaded and user is signed out, render LandingPage directly
-  if (isLoaded && !isSignedIn) {
+  // If user is signed out, render LandingPage immediately (no redirects, no spinner)
+  if (!isSignedIn) {
     return <LandingPage />;
   }
 
-  // Loading state
-  if (!isLoaded || isCheckingProfile) {
+  // Loading state only for signed-in caregivers fetching profile
+  if (!isLoaded || (isCheckingProfile && !activeChild)) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3 text-slate-300">
         <div className="w-8 h-8 rounded-full border-2 border-teal-500 border-t-transparent animate-spin" />

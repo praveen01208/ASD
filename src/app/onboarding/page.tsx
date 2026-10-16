@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth, useUser } from "@/context/AuthContext";
 import {
-  Sparkles,
+  ShieldCheck,
   Baby,
   Smile,
   Utensils,
@@ -16,6 +16,11 @@ import {
   Award,
   ChevronRight,
   Check,
+  Apple,
+  FileText,
+  Activity,
+  User,
+  Sparkle
 } from "lucide-react";
 import { saveUserProfile, hasUserCompletedOnboarding, ChildAccount } from "@/lib/userStore";
 
@@ -112,15 +117,12 @@ const INITIAL_FORM: FormData = {
 
 function SectionHeader({ domain, total, title, subtitle }: { domain: number; total: number; title: string; subtitle?: string }) {
   return (
-    <div className="pb-4 border-b border-white/10 mb-5">
-      <span
-        className="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-full mb-2"
-        style={{ background: "rgba(20,184,166,0.15)", border: "1px solid rgba(20,184,166,0.3)", color: "#2dd4bf" }}
-      >
+    <div className="pb-3 border-b border-slate-800 mb-4 sm:mb-5">
+      <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-1.5 bg-teal-500/10 text-teal-400 border border-teal-500/20">
         Domain {domain} of {total}
       </span>
-      <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">{title}</h2>
-      {subtitle && <p className="text-xs text-slate-400 mt-1">{subtitle}</p>}
+      <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">{title}</h2>
+      {subtitle && <p className="text-xs text-slate-400 mt-0.5">{subtitle}</p>}
     </div>
   );
 }
@@ -128,7 +130,6 @@ function SectionHeader({ domain, total, title, subtitle }: { domain: number; tot
 function RadioGroup({
   label,
   qNum,
-  name,
   options,
   value,
   onChange,
@@ -138,7 +139,7 @@ function RadioGroup({
 }: {
   label: string;
   qNum?: string;
-  name: string;
+  name?: string;
   options: string[];
   value: string;
   onChange: (v: string) => void;
@@ -148,8 +149,8 @@ function RadioGroup({
 }) {
   return (
     <div className="space-y-2">
-      <label className="block text-xs font-bold text-slate-200 leading-relaxed">
-        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+      <label className="block text-xs font-semibold text-slate-200 leading-relaxed">
+        {qNum && <span className="text-teal-400 font-bold mr-1">{qNum}.</span>}
         {label}
       </label>
       <div className="space-y-1.5">
@@ -160,36 +161,31 @@ function RadioGroup({
               key={opt}
               type="button"
               onClick={() => onChange(opt)}
-              className="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs transition-all"
-              style={{
-                background: selected ? "rgba(20,184,166,0.18)" : "rgba(255,255,255,0.04)",
-                border: selected ? "1px solid rgba(20,184,166,0.5)" : "1px solid rgba(255,255,255,0.1)",
-                color: selected ? "#f0fdfa" : "#94a3b8",
-              }}
+              className={`w-full text-left flex items-center gap-3 p-3 rounded-xl text-xs transition-all ${
+                selected
+                  ? "bg-teal-500/15 border border-teal-500/40 text-white"
+                  : "bg-[#0B1120] border border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
+              }`}
             >
               <span
-                className="w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
-                style={{
-                  borderColor: selected ? "#14b8a6" : "rgba(255,255,255,0.2)",
-                  background: selected ? "#14b8a6" : "transparent",
-                }}
+                className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center transition-all ${
+                  selected ? "border-teal-400 bg-teal-400" : "border-slate-600 bg-transparent"
+                }`}
               >
                 {selected && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
               </span>
-              {opt}
+              <span className="leading-snug">{opt}</span>
             </button>
           );
         })}
         {other && (
-          <div className="flex items-center gap-2 mt-1">
+          <div className="flex items-center gap-2 mt-1.5">
             <button
               type="button"
               onClick={() => onChange("Other")}
-              className="w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center"
-              style={{
-                borderColor: value === "Other" ? "#14b8a6" : "rgba(255,255,255,0.2)",
-                background: value === "Other" ? "#14b8a6" : "transparent",
-              }}
+              className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${
+                value === "Other" ? "border-teal-400 bg-teal-400" : "border-slate-600 bg-transparent"
+              }`}
             >
               {value === "Other" && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
             </button>
@@ -198,7 +194,7 @@ function RadioGroup({
               placeholder="Other (please specify)"
               value={otherValue || ""}
               onChange={(e) => { onChange("Other"); onOtherChange?.(e.target.value); }}
-              className="flex-1 liquid-glass-input rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500"
+              className="flex-1 bg-[#0B1120] border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-all"
             />
           </div>
         )}
@@ -232,12 +228,12 @@ function CheckboxGroup({
 
   return (
     <div className="space-y-2">
-      <label className="block text-xs font-bold text-slate-200 leading-relaxed">
-        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+      <label className="block text-xs font-semibold text-slate-200 leading-relaxed">
+        {qNum && <span className="text-teal-400 font-bold mr-1">{qNum}.</span>}
         {label}
-        <span className="ml-1.5 text-[10px] font-normal text-slate-500">(Select all that apply)</span>
+        <span className="ml-1.5 text-[10px] font-normal text-slate-400">(Select all that apply)</span>
       </label>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {options.map((opt) => {
           const checked = values.includes(opt);
           return (
@@ -245,23 +241,20 @@ function CheckboxGroup({
               key={opt}
               type="button"
               onClick={() => toggle(opt)}
-              className="text-left flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs transition-all"
-              style={{
-                background: checked ? "rgba(20,184,166,0.18)" : "rgba(255,255,255,0.04)",
-                border: checked ? "1px solid rgba(20,184,166,0.5)" : "1px solid rgba(255,255,255,0.1)",
-                color: checked ? "#f0fdfa" : "#94a3b8",
-              }}
+              className={`text-left flex items-center gap-2.5 p-3 rounded-xl text-xs transition-all ${
+                checked
+                  ? "bg-teal-500/15 border border-teal-500/40 text-white font-medium"
+                  : "bg-[#0B1120] border border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
+              }`}
             >
               <span
-                className="w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center"
-                style={{
-                  borderColor: checked ? "#14b8a6" : "rgba(255,255,255,0.2)",
-                  background: checked ? "#14b8a6" : "transparent",
-                }}
+                className={`w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center transition-all ${
+                  checked ? "border-teal-400 bg-teal-400" : "border-slate-600 bg-transparent"
+                }`}
               >
-                {checked && <Check className="w-2.5 h-2.5 text-slate-950" />}
+                {checked && <Check className="w-2.5 h-2.5 text-slate-950 stroke-[3]" />}
               </span>
-              {opt}
+              <span className="leading-snug">{opt}</span>
             </button>
           );
         })}
@@ -272,7 +265,7 @@ function CheckboxGroup({
           placeholder="Other (please specify)"
           value={otherValue || ""}
           onChange={(e) => onOtherChange?.(e.target.value)}
-          className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 mt-1"
+          className="w-full bg-[#0B1120] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 mt-1 focus:outline-none focus:border-teal-500 transition-all"
         />
       )}
     </div>
@@ -296,8 +289,8 @@ function StyledInput({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs font-bold text-slate-200">
-        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+      <label className="block text-xs font-semibold text-slate-200">
+        {qNum && <span className="text-teal-400 font-bold mr-1">{qNum}.</span>}
         {label}
       </label>
       <input
@@ -305,7 +298,7 @@ function StyledInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500"
+        className="w-full bg-[#0B1120] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-all"
       />
     </div>
   );
@@ -326,16 +319,16 @@ function StyledSelect({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs font-bold text-slate-200">
-        {qNum && <span className="text-teal-400 mr-1">{qNum}.</span>}
+      <label className="block text-xs font-semibold text-slate-200">
+        {qNum && <span className="text-teal-400 font-bold mr-1">{qNum}.</span>}
         {label}
       </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white"
+        className="w-full bg-[#0B1120] border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-teal-500 transition-all"
       >
-        <option value="">— Select —</option>
+        <option value="">— Select Option —</option>
         {options.map((o) => (
           <option key={o} value={o}>{o}</option>
         ))}
@@ -354,9 +347,15 @@ export default function OnboardingPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>(INITIAL_FORM);
 
-  // Ensure 20 questionnaires are asked ONLY ONCE per user after first login and nowhere again
+  // Ensure unauthenticated users are redirected to landing, and 20 questionnaires asked ONLY ONCE
   useEffect(() => {
     if (!isAuthLoaded) return;
+    if (!isSignedIn) {
+      // Must first register or sign in before onboarding
+      router.replace("/landing");
+      return;
+    }
+
     if (typeof window !== "undefined") {
       const isCompleted =
         hasUserCompletedOnboarding(user?.id) ||
@@ -371,13 +370,13 @@ export default function OnboardingPage() {
         router.replace("/");
       }
     }
-  }, [isAuthLoaded, user?.id, router]);
+  }, [isAuthLoaded, isSignedIn, user?.id, router]);
 
   const set = (field: keyof FormData, value: string | string[] | boolean) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
 
   const steps = [
-    { id: 1, title: "Welcome", icon: Sparkles },
+    { id: 1, title: "Welcome", icon: ShieldCheck },
     { id: 2, title: "Demographics", icon: Baby },
     { id: 3, title: "Brushing", icon: Smile },
     { id: 4, title: "Diet", icon: Utensils },
@@ -505,8 +504,9 @@ export default function OnboardingPage() {
       localStorage.setItem("asd_onboarding_completed", "true");
       if (currentUserId) {
         localStorage.setItem(`asd_onboarding_completed_${currentUserId}`, "true");
+        localStorage.setItem(`asd_onboarded_${currentUserId}`, "true");
+        localStorage.setItem(`asd_profile_${currentUserId}`, JSON.stringify(newAccount));
       }
-      localStorage.setItem("asd_profile_" + currentUserId, JSON.stringify(newAccount));
       localStorage.setItem("asd_current_user_profile", JSON.stringify(newAccount));
     }
 
@@ -519,59 +519,51 @@ export default function OnboardingPage() {
     }, 400);
   };
 
-  const goNext = () => setCurrentStep((s) => Math.min(steps.length, s + 1));
-  const goPrev = () => setCurrentStep((s) => Math.max(1, s - 1));
+  const goNext = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setCurrentStep((s) => Math.min(steps.length, s + 1));
+  };
+
+  const goPrev = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setCurrentStep((s) => Math.max(1, s - 1));
+  };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-5 pb-20 px-4 sm:px-0 pt-6">
-      {/* ── Top Header Card ── */}
-      <div
-        className="rounded-3xl p-5 sm:p-7 relative overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, rgba(15,118,110,0.3) 0%, rgba(8,20,40,0.95) 60%, rgba(30,27,75,0.4) 100%)",
-          border: "1px solid rgba(20,184,166,0.35)",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(20,184,166,0.1)",
-        }}
-      >
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-3.5">
-            <div
-              className="w-11 h-11 rounded-2xl p-1.5 flex items-center justify-center flex-shrink-0"
-              style={{ background: "rgba(15,25,50,0.9)", border: "1px solid rgba(20,184,166,0.4)", boxShadow: "0 0 20px rgba(20,184,166,0.2)" }}
-            >
+    <div className="max-w-3xl mx-auto space-y-4 sm:space-y-6 pb-24 px-3 sm:px-4 pt-4 sm:pt-6">
+      {/* ── Top Header Card (Mobile-First Responsive) ── */}
+      <div className="bg-[#0F172A] rounded-2xl p-4 sm:p-6 border border-slate-800 shadow-sm space-y-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-900 border border-slate-700 p-1.5 flex items-center justify-center flex-shrink-0">
               <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
             </div>
-            <div>
-              <span
-                className="text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-0.5 rounded-full"
-                style={{ background: "rgba(20,184,166,0.15)", border: "1px solid rgba(20,184,166,0.3)", color: "#2dd4bf" }}
-              >
-                Child Oral Health Assessment
+            <div className="min-w-0">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20 inline-block mb-0.5">
+                Clinical Baseline Intake
               </span>
-              <h1 className="text-lg sm:text-xl font-black text-white mt-1 tracking-tight">
-                Child Oral Health Assessment Questionnaire
+              <h1 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
+                Child Oral Health Questionnaire
               </h1>
             </div>
           </div>
-          <div className="text-right flex-shrink-0">
-            <span className="text-xs font-mono text-teal-300 font-bold block">
-              Step {currentStep}/{steps.length}
+
+          <div className="flex items-center justify-between sm:justify-end gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
+            <span className="text-xs font-mono text-teal-300 font-semibold">
+              Step {currentStep} of {steps.length}
             </span>
-            <div className="w-24 h-1.5 rounded-full mt-1.5 overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
+            <div className="w-24 sm:w-28 h-2 rounded-full overflow-hidden bg-slate-800">
               <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${(currentStep / steps.length) * 100}%`,
-                  background: "linear-gradient(90deg, #14b8a6, #06b6d4)",
-                }}
+                className="h-full rounded-full transition-all duration-300 bg-teal-500"
+                style={{ width: `${(currentStep / steps.length) * 100}%` }}
               />
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Step Tabs ── */}
-      <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+      {/* ── Step Tabs (Mobile-Friendly Horizontal Scroller) ── */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar -mx-3 px-3 sm:mx-0 sm:px-0">
         {steps.map((s) => {
           const Icon = s.icon;
           const isCurrent = currentStep === s.id;
@@ -579,77 +571,65 @@ export default function OnboardingPage() {
           return (
             <button
               key={s.id}
+              type="button"
               onClick={() => setCurrentStep(s.id)}
-              className="px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap flex-shrink-0"
-              style={
+              className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 whitespace-nowrap flex-shrink-0 ${
                 isCurrent
-                  ? { background: "linear-gradient(135deg, #14b8a6, #06b6d4)", color: "#0f172a" }
+                  ? "bg-teal-600 text-white font-bold shadow-sm"
                   : isDone
-                  ? { background: "rgba(20,184,166,0.12)", border: "1px solid rgba(20,184,166,0.35)", color: "#2dd4bf" }
-                  : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#64748b" }
-              }
+                  ? "bg-teal-500/10 text-teal-300 border border-teal-500/30"
+                  : "bg-[#0F172A] text-slate-400 border border-slate-800 hover:text-slate-200"
+              }`}
             >
               {isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Icon className="w-3.5 h-3.5" />}
-              {s.title}
+              <span>{s.title}</span>
             </button>
           );
         })}
       </div>
 
-      {/* ── Form Card ── */}
-      <div
-        className="rounded-3xl p-6 sm:p-8"
-        style={{
-          background: "linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
-          border: "1px solid rgba(255,255,255,0.12)",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.15)",
-          backdropFilter: "blur(24px)",
-        }}
-      >
+      {/* ── Main Form Content Card ── */}
+      <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-7 border border-slate-800 shadow-sm space-y-6">
 
         {/* ── STEP 1: WELCOME ── */}
         {currentStep === 1 && (
-          <div className="space-y-7 text-center max-w-lg mx-auto py-4">
-            <div
-              className="w-20 h-20 mx-auto rounded-3xl flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, rgba(20,184,166,0.25), rgba(6,182,212,0.15))", border: "1px solid rgba(20,184,166,0.4)", boxShadow: "0 0 40px rgba(20,184,166,0.2)" }}
-            >
-              <Sparkles className="w-9 h-9 text-teal-300" />
+          <div className="space-y-6 text-center max-w-lg mx-auto py-2">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400">
+              <ShieldCheck className="w-7 h-7" />
             </div>
             <div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                "Small steps, consistent routines, healthier smiles."
+              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                “Small steps, consistent routines, healthier smiles.”
               </h2>
-              <p className="text-sm text-slate-300 mt-3 leading-relaxed">
-                This questionnaire covers <strong className="text-white">4 clinical domains</strong> to calibrate your child's personalised oral care routine. Your answers feed directly into <strong className="text-teal-300">Argus</strong>, your AI oral health guide.
+              <p className="text-xs sm:text-sm text-slate-300 mt-2.5 leading-relaxed">
+                This questionnaire covers <strong className="text-white">4 clinical domains</strong> to calibrate your child&apos;s personalized oral care routine. Your answers feed directly into <strong className="text-teal-300">Argus</strong>, your clinical AI guide.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 text-left text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left text-xs">
               {[
-                { icon: "🪥", title: "Brushing Habits", desc: "9 targeted questions" },
-                { icon: "🍎", title: "Dietary Habits", desc: "5 key questions" },
-                { icon: "🦷", title: "Medical & Dental", desc: "3 history questions" },
-                { icon: "🧠", title: "Behaviour & Sensory", desc: "3 sensory questions" },
+                { title: "1. Brushing Habits", desc: "9 targeted frequency & duration questions" },
+                { title: "2. Dietary Habits", desc: "5 key nutrition & snacking questions" },
+                { title: "3. Medical & Dental", desc: "3 dental history & comfort questions" },
+                { title: "4. Behaviour & Sensory", desc: "3 sensory trigger & motivator questions" },
               ].map((card) => (
                 <div
                   key={card.title}
-                  className="p-3.5 rounded-2xl"
-                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
+                  className="p-3.5 rounded-xl bg-[#0B1120] border border-slate-800"
                 >
-                  <div className="text-lg mb-1">{card.icon}</div>
                   <div className="font-bold text-white">{card.title}</div>
-                  <div className="text-slate-400 text-[10px] mt-0.5">{card.desc}</div>
+                  <div className="text-slate-400 text-[11px] mt-0.5">{card.desc}</div>
                 </div>
               ))}
             </div>
 
             <button
+              type="button"
               onClick={goNext}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl font-black text-sm text-slate-950 transition-all hover:scale-105 shadow-lg"
-              style={{ background: "linear-gradient(135deg, #14b8a6, #06b6d4)", boxShadow: "0 8px 30px rgba(20,184,166,0.4)" }}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-sm transition-all"
             >
-              Begin Assessment <ArrowRight className="w-4 h-4" />
+              <span>Begin Assessment</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         )}
@@ -730,66 +710,66 @@ export default function OnboardingPage() {
               onOtherChange={(v) => set("q3_toothbrushOther", v)}
             />
 
-            <div className="space-y-1.5">
-              <label className="block text-xs font-bold text-slate-200">
-                <span className="text-teal-400 mr-1">4.</span>
-                Which toothpaste does your child use for toothbrushing?
-              </label>
-              <input
-                type="text"
-                placeholder="Please specify toothpaste brand/type used"
-                value={formData.q4_toothpaste}
-                onChange={(e) => set("q4_toothpaste", e.target.value)}
-                className="w-full liquid-glass-input rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500"
-              />
-            </div>
+            <StyledInput
+              qNum="4"
+              label="Which toothpaste does your child use for toothbrushing?"
+              placeholder="e.g. Mild fruit, non-foaming, or fluoridated paste"
+              value={formData.q4_toothpaste}
+              onChange={(v) => set("q4_toothpaste", v)}
+            />
 
             <RadioGroup
               qNum="5" label="Does your child brush all surfaces of their teeth (front, back, and chewing surfaces)?"
               name="q5" value={formData.q5_surfacesCovered}
               onChange={(v) => set("q5_surfacesCovered", v)}
-              options={["Yes, all surfaces", "Only front teeth", "Partially — needs assistance for back teeth"]}
+              options={["Yes, all surfaces", "Front teeth only", "Chewing surfaces only", "No / Unsure"]}
             />
 
             <RadioGroup
-              qNum="6" label="Does your child need assistance with brushing?"
+              qNum="6" label="Does your child require assistance while brushing?"
               name="q6" value={formData.q6_assistance}
               onChange={(v) => set("q6_assistance", v)}
-              options={["No, brushes independently", "Yes, with full assistance", "Yes, with partial assistance (hand-over-hand)"]}
+              options={[
+                "Fully independent (brushes on own without help)",
+                "Partially independent (brushes with verbal reminders / guidance)",
+                "Completely dependent (parent/caregiver brushes for them)",
+              ]}
             />
 
             <CheckboxGroup
-              qNum="7" label="Does your child show any of the following difficulties during brushing?"
-              values={formData.q7_brushingDifficulties}
-              onChange={(v) => set("q7_brushingDifficulties", v)}
+              qNum="7" label="Do you face any difficulties while brushing your child's teeth?"
               options={[
-                "Gagging or choking",
-                "Biting the toothbrush",
-                "Crying or screaming",
-                "Running away or refusing",
-                "Physical resistance",
-                "No difficulties",
+                "Refuses to open mouth",
+                "Sensory issues (dislikes paste taste, texture, or vibration)",
+                "Lack of cooperation / crying / resistance",
+                "Difficulty in reaching back teeth",
+                "None — child cooperates well",
               ]}
+              values={formData.q7_brushingDifficulties}
+              onChange={(vals) => set("q7_brushingDifficulties", vals)}
             />
 
             <RadioGroup
-              qNum="8" label="What helps your child cooperate with brushing?"
+              qNum="8" label="Have you tried any strategies or aids to help your child brush?"
               name="q8" value={formData.q8_helpStrategy}
               onChange={(v) => set("q8_helpStrategy", v)}
               options={[
-                "Visual schedules or social stories",
-                "Music or songs (e.g., brushing timer songs)",
-                "Reward systems (stickers, praise, tokens)",
-                "Distraction (tablet/TV while brushing)",
-                "Nothing works consistently",
+                "Yes, visual timers / charts / songs",
+                "Yes, sensory-friendly brushes / unflavored paste",
+                "Yes, positive reinforcement / rewards",
+                "No, haven't tried any specific aids yet",
               ]}
             />
 
             <RadioGroup
-              qNum="9" label="Has there been any recent change in your child's brushing behaviour or routine?"
+              qNum="9" label="How does your child react to changes in their toothbrushing routine?"
               name="q9" value={formData.q9_brushingChanges}
               onChange={(v) => set("q9_brushingChanges", v)}
-              options={["Yes, improved recently", "Yes, worsened recently", "No change", "Not sure"]}
+              options={[
+                "Adapts easily with minimal explanation",
+                "Needs time and visual preparation",
+                "Strongly resists / experiences meltdowns with routine change",
+              ]}
             />
           </div>
         )}
@@ -797,41 +777,45 @@ export default function OnboardingPage() {
         {/* ── STEP 4: DIETARY HABITS (Q10–Q14) ── */}
         {currentStep === 4 && (
           <div className="space-y-6">
-            <SectionHeader domain={2} total={4} title="Dietary Habits" subtitle="Questions 10–14 about nutrition and dietary patterns" />
+            <SectionHeader domain={2} total={4} title="Dietary Habits" subtitle="Questions 10–14 on sugar intake and eating habits" />
 
             <RadioGroup
-              qNum="10" label="How often does your child consume sugary drinks (e.g., juices, sodas, flavoured milk)?"
+              qNum="10" label="How often does your child consume sugary drinks (juices, sodas, flavoured milk)?"
               name="q10" value={formData.q10_sugaryDrinks}
               onChange={(v) => set("q10_sugaryDrinks", v)}
-              options={["Never", "Once a week", "2–3 times a week", "Once daily", "More than once daily"]}
+              options={["Rarely / Never", "1–2 times a week", "Daily", "Multiple times a day"]}
             />
 
             <RadioGroup
-              qNum="11" label="How often does your child eat sugary or sticky snacks (e.g., chocolates, biscuits, toffees)?"
+              qNum="11" label="How often does your child consume sweet or sticky snacks (chocolates, candies, biscuits)?"
               name="q11" value={formData.q11_sugarySnacks}
               onChange={(v) => set("q11_sugarySnacks", v)}
-              options={["Never", "Once a week", "2–3 times a week", "Once daily", "More than once daily"]}
+              options={["Rarely / Never", "1–2 times a week", "Daily", "Multiple times a day"]}
             />
 
             <RadioGroup
-              qNum="12" label="How many main meals does your child typically have per day?"
+              qNum="12" label="How often does your child eat meals and snacks throughout the day?"
               name="q12" value={formData.q12_mealFrequency}
               onChange={(v) => set("q12_mealFrequency", v)}
-              options={["1 meal", "2 meals", "3 meals", "More than 3 meals"]}
+              options={[
+                "3 structured meals, minimal snacking",
+                "3 meals + 2 structured healthy snacks",
+                "Frequent grazing / snacking throughout the day",
+              ]}
             />
 
             <RadioGroup
-              qNum="13" label="Does your child hold or 'pocket' food in their mouth for extended periods?"
+              qNum="13" label="Does your child keep food or sweet liquids in their mouth for a long time (pouching/holding)?"
               name="q13" value={formData.q13_foodHolding}
               onChange={(v) => set("q13_foodHolding", v)}
-              options={["Never", "Sometimes", "Frequently", "Always"]}
+              options={["Never", "Occasionally", "Frequently (holds food in cheeks)"]}
             />
 
             <RadioGroup
-              qNum="14" label="Does your child take a bottle or sippy cup to bed (with anything other than plain water)?"
+              qNum="14" label="Does your child drink milk or sugary liquids from a bottle/sippy cup at bedtime or through the night?"
               name="q14" value={formData.q14_nightFeeding}
               onChange={(v) => set("q14_nightFeeding", v)}
-              options={["No", "Yes, with milk", "Yes, with juice or sweet drink", "Not applicable"]}
+              options={["No, plain water only or none", "Yes, bottle/sippy cup in bed", "Yes, breastfeeding to sleep"]}
             />
           </div>
         )}
@@ -839,84 +823,72 @@ export default function OnboardingPage() {
         {/* ── STEP 5: MEDICAL & DENTAL HISTORY (Q15–Q17) ── */}
         {currentStep === 5 && (
           <div className="space-y-6">
-            <SectionHeader domain={3} total={4} title="Medical & Dental History" subtitle="Questions 15–17 about past dental and medical background" />
+            <SectionHeader domain={3} total={4} title="Medical & Dental History" subtitle="Questions 15–17 on past dental visits and health factors" />
 
-            {/* Q15 */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-slate-200">
-                <span className="text-teal-400 mr-1">15.</span>
-                When was your child's last dental visit?
+              <label className="block text-xs font-semibold text-slate-200">
+                <span className="text-teal-400 font-bold mr-1">15.</span>
+                When was your child&apos;s last dental visit?
               </label>
-              <div className="space-y-1.5">
-                {["Less than 6 months ago", "6–12 months ago", "More than 1 year ago"].map((opt) => {
-                  const selected = !formData.q15_neverVisited && formData.q15_lastDentalVisit === opt;
-                  return (
-                    <button
-                      key={opt}
-                      type="button"
-                      onClick={() => { set("q15_lastDentalVisit", opt); set("q15_neverVisited", false); }}
-                      className="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs transition-all"
-                      style={{
-                        background: selected ? "rgba(20,184,166,0.18)" : "rgba(255,255,255,0.04)",
-                        border: selected ? "1px solid rgba(20,184,166,0.5)" : "1px solid rgba(255,255,255,0.1)",
-                        color: selected ? "#f0fdfa" : "#94a3b8",
-                      }}
-                    >
-                      <span className="w-4 h-4 rounded-full border-2 flex items-center justify-center" style={{ borderColor: selected ? "#14b8a6" : "rgba(255,255,255,0.2)", background: selected ? "#14b8a6" : "transparent" }}>
-                        {selected && <span className="w-1.5 h-1.5 rounded-full bg-slate-950" />}
-                      </span>
-                      {opt}
-                    </button>
-                  );
-                })}
+              <div className="space-y-2">
                 <button
                   type="button"
-                  onClick={() => { set("q15_neverVisited", true); set("q15_lastDentalVisit", ""); }}
-                  className="w-full text-left flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs transition-all"
-                  style={{
-                    background: formData.q15_neverVisited ? "rgba(239,68,68,0.15)" : "rgba(255,255,255,0.04)",
-                    border: formData.q15_neverVisited ? "1px solid rgba(239,68,68,0.4)" : "1px solid rgba(255,255,255,0.1)",
-                    color: formData.q15_neverVisited ? "#fca5a5" : "#94a3b8",
-                  }}
+                  onClick={() => set("q15_neverVisited", !formData.q15_neverVisited)}
+                  className={`w-full text-left flex items-center gap-3 p-3 rounded-xl text-xs transition-all ${
+                    formData.q15_neverVisited
+                      ? "bg-teal-500/15 border border-teal-500/40 text-white font-medium"
+                      : "bg-[#0B1120] border border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
+                  }`}
                 >
-                  <span className="w-4 h-4 rounded-full border-2 flex items-center justify-center" style={{ borderColor: formData.q15_neverVisited ? "#ef4444" : "rgba(255,255,255,0.2)", background: formData.q15_neverVisited ? "#ef4444" : "transparent" }}>
-                    {formData.q15_neverVisited && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                  <span
+                    className={`w-4 h-4 rounded-md border-2 flex-shrink-0 flex items-center justify-center ${
+                      formData.q15_neverVisited ? "border-teal-400 bg-teal-400" : "border-slate-600 bg-transparent"
+                    }`}
+                  >
+                    {formData.q15_neverVisited && <Check className="w-2.5 h-2.5 text-slate-950 stroke-[3]" />}
                   </span>
-                  My child has never visited the dentist
+                  <span>Never visited a dentist</span>
                 </button>
+
+                {!formData.q15_neverVisited && (
+                  <StyledSelect
+                    label="Last Dental Visit Timing"
+                    value={formData.q15_lastDentalVisit}
+                    onChange={(v) => set("q15_lastDentalVisit", v)}
+                    options={["Within the last 6 months", "6–12 months ago", "More than 1 year ago"]}
+                  />
+                )}
               </div>
             </div>
 
             <CheckboxGroup
-              qNum="16" label="Has your child been diagnosed with or experienced any of the following dental problems?"
-              values={formData.q16_dentalProblems}
-              onChange={(v) => set("q16_dentalProblems", v)}
+              qNum="16" label="Has your child had any of the following dental problems?"
               options={[
-                "Tooth decay / cavities",
                 "Toothache or pain",
+                "Cavities / Tooth decay",
                 "Bleeding gums",
-                "Broken or missing teeth",
-                "Delayed tooth eruption",
-                "None of the above",
+                "Dental trauma / Broken tooth",
+                "None known",
               ]}
+              values={formData.q16_dentalProblems}
+              onChange={(vals) => set("q16_dentalProblems", vals)}
               other
               otherValue={formData.q16_dentalOther}
               onOtherChange={(v) => set("q16_dentalOther", v)}
             />
 
             <CheckboxGroup
-              qNum="17" label="Does your child have any of the following medical conditions or take any regular medications?"
-              values={formData.q17_medicalConditions}
-              onChange={(v) => set("q17_medicalConditions", v)}
+              qNum="17" label="Does your child have any other medical conditions or regular medications?"
               options={[
-                "Epilepsy / seizure disorder",
-                "ADHD",
-                "Intellectual disability",
-                "Down syndrome",
-                "Cerebral palsy",
-                "Regular sweetened medications / syrups",
-                "None of the above",
+                "Seizure disorder / Epilepsy",
+                "Gastroesophageal reflux (GERD)",
+                "Heart condition",
+                "Sensory Processing Disorder (SPD)",
+                "Sweetened syrup medications taken daily",
+                "None",
               ]}
+              values={formData.q17_medicalConditions}
+              onChange={(vals) => set("q17_medicalConditions", vals)}
               other
               otherValue={formData.q17_medicalOther}
               onOtherChange={(v) => set("q17_medicalOther", v)}
@@ -924,48 +896,46 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* ── STEP 6: BEHAVIOURAL & SENSORY-MOTOR (Q18–Q20) ── */}
+        {/* ── STEP 6: BEHAVIOUR & SENSORY (Q18–Q20) ── */}
         {currentStep === 6 && (
           <div className="space-y-6">
-            <SectionHeader domain={4} total={4} title="Behavioral & Sensory-Motor Skills" subtitle="Questions 18–20 about cooperation, motor skills, and sensory responses" />
+            <SectionHeader domain={4} total={4} title="Behaviour & Sensory Skills" subtitle="Questions 18–20 on sensory triggers and cooperation" />
 
             <RadioGroup
-              qNum="18" label="How does your child generally behave when it comes to oral hygiene practices?"
+              qNum="18" label="How would you describe your child's general attitude towards oral hygiene?"
               name="q18" value={formData.q18_oralHygieneAttitude}
               onChange={(v) => set("q18_oralHygieneAttitude", v)}
               options={[
-                "Cooperative — allows brushing without resistance",
-                "Mildly resistant — needs coaxing but complies",
-                "Moderately resistant — frequent protests or avoidance",
-                "Severely resistant — extreme distress, meltdowns, or refusal",
+                "Cooperative and calm",
+                "Mild resistance / needs distraction",
+                "Strong refusal / crying / extreme distress",
               ]}
             />
 
             <RadioGroup
-              qNum="19" label="How would you describe your child's hand motor skills?"
+              qNum="19" label="How are your child's fine motor skills for holding and moving a toothbrush?"
               name="q19" value={formData.q19_motorSkills}
               onChange={(v) => set("q19_motorSkills", v)}
               options={[
-                "Good — can brush independently with proper technique",
-                "Moderate — brushes but with limited effectiveness",
-                "Poor — requires full caregiver assistance for brushing",
-                "Very limited — significant difficulty with all fine motor tasks",
+                "Good — can grip and brush independently",
+                "Developing — needs hand-over-hand guidance",
+                "Limited — cannot grasp or coordinate brush movements",
               ]}
             />
 
             <CheckboxGroup
-              qNum="20" label="Does your child have any known sensory sensitivities related to oral care?"
-              values={formData.q20_sensoryTriggers}
-              onChange={(v) => set("q20_sensoryTriggers", v)}
+              qNum="20" label="What sensory triggers cause discomfort for your child during toothbrushing?"
               options={[
-                "Sensitive to toothpaste taste or flavour",
-                "Sensitive to toothpaste foaming",
-                "Sensitive to toothbrush texture or pressure",
-                "Sensitive to vibration (electric toothbrush)",
-                "Gag reflex triggered easily",
-                "Sensitive to mint or strong flavours",
-                "No known sensory sensitivities",
+                "Taste of toothpaste (especially mint)",
+                "Texture / foaming of toothpaste",
+                "Bristle texture (too hard / prickly)",
+                "Vibration (if using electric brush)",
+                "Bright bathroom lighting",
+                "Sound of running water / brushing noise",
+                "None — no sensory distress",
               ]}
+              values={formData.q20_sensoryTriggers}
+              onChange={(vals) => set("q20_sensoryTriggers", vals)}
               other
               otherValue={formData.q20_sensoryOther}
               onOtherChange={(v) => set("q20_sensoryOther", v)}
@@ -973,137 +943,88 @@ export default function OnboardingPage() {
           </div>
         )}
 
-        {/* ── STEP 7: REVIEW & SAVE ── */}
+        {/* ── STEP 7: REVIEW & COMPLETE ── */}
         {currentStep === 7 && (
-          <div className="space-y-6">
-            <div className="text-center pb-4 border-b border-white/10">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-teal-400">Review & Calibrate</span>
-              <h2 className="text-xl font-black text-white mt-1">
-                Profile Ready for {formData.childName || "your child"}
-              </h2>
-              <p className="text-xs text-slate-400 mt-1">
-                All 4 clinical domains will be stored and used to personalise Argus AI responses.
-              </p>
-            </div>
+          <div className="space-y-5">
+            <SectionHeader domain={4} total={4} title="Review & Confirm Clinical Baseline" subtitle="Please verify your responses before saving to the database" />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div className="space-y-3">
               {[
                 {
-                  icon: "👶", label: "Demographics",
-                  lines: [
-                    `${formData.childName || "—"}, Age ${formData.childAge}`,
-                    `${formData.asdLevel}`,
-                    `Caregiver: ${formData.caregiverName || "—"}`,
-                  ]
+                  label: "Child Demographics",
+                  value: `${formData.childName || "Child"}, Age ${formData.childAge} (${formData.gender}) • Caregiver: ${formData.caregiverName || "Caregiver"} (${formData.relationship})`,
                 },
                 {
-                  icon: "🪥", label: "Brushing Habits",
-                  lines: [
-                    `Frequency: ${formData.q1_brushFrequency || "—"}`,
-                    `Duration: ${formData.q2_brushDuration || "—"}`,
-                    `Toothbrush: ${formData.q3_toothbrushType || "—"}`,
-                  ]
+                  label: "ASD Level & Communication",
+                  value: `${formData.asdLevel} • ${formData.communicationLevel}`,
                 },
                 {
-                  icon: "🍎", label: "Dietary Habits",
-                  lines: [
-                    `Sugary drinks: ${formData.q10_sugaryDrinks || "—"}`,
-                    `Sugary snacks: ${formData.q11_sugarySnacks || "—"}`,
-                    `Food pocketing: ${formData.q13_foodHolding || "—"}`,
-                  ]
+                  label: "Brushing Protocol",
+                  value: `${formData.q1_brushFrequency || "Not answered"} • ${formData.q2_brushDuration || "Duration not set"} • Brush: ${formData.q3_toothbrushType || "Standard"} • ${formData.q6_assistance || "Assistance not set"}`,
                 },
                 {
-                  icon: "🦷", label: "Medical & Dental",
-                  lines: [
-                    `Last dental visit: ${formData.q15_neverVisited ? "Never" : (formData.q15_lastDentalVisit || "—")}`,
-                    `Dental issues: ${formData.q16_dentalProblems.length > 0 ? formData.q16_dentalProblems[0] + (formData.q16_dentalProblems.length > 1 ? " +" + (formData.q16_dentalProblems.length - 1) + " more" : "") : "None"}`,
-                  ]
+                  label: "Dietary Risk Factors",
+                  value: `Sugar Drinks: ${formData.q10_sugaryDrinks || "None"} • Sweets: ${formData.q11_sugarySnacks || "None"} • Night Bottle: ${formData.q14_nightFeeding || "None"}`,
                 },
                 {
-                  icon: "🧠", label: "Behaviour & Sensory",
-                  lines: [
-                    `Attitude: ${formData.q18_oralHygieneAttitude ? formData.q18_oralHygieneAttitude.split("—")[0].trim() : "—"}`,
-                    `Motor skills: ${formData.q19_motorSkills ? formData.q19_motorSkills.split("—")[0].trim() : "—"}`,
-                    `Sensory triggers: ${formData.q20_sensoryTriggers.length} selected`,
-                  ]
+                  label: "Sensory Triggers Identified",
+                  value: formData.q20_sensoryTriggers.length > 0 ? formData.q20_sensoryTriggers.join(", ") : "None reported",
                 },
-                {
-                  icon: "🤖", label: "Argus AI Calibration",
-                  lines: [
-                    "✅ Oral hygiene baseline ready",
-                    "✅ Sensory profile mapped",
-                    "✅ Weekly AI tracking active",
-                  ]
-                },
-              ].map((card) => (
-                <div
-                  key={card.label}
-                  className="p-4 rounded-2xl"
-                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-base">{card.icon}</span>
-                    <span className="font-bold text-teal-300">{card.label}</span>
-                  </div>
-                  {card.lines.map((line, i) => (
-                    <p key={i} className="text-slate-300 text-[11px] leading-relaxed truncate">{line}</p>
-                  ))}
+              ].map((item) => (
+                <div key={item.label} className="p-3.5 rounded-xl bg-[#0B1120] border border-slate-800 text-xs">
+                  <span className="font-semibold text-teal-400 block mb-0.5">{item.label}</span>
+                  <span className="text-slate-200">{item.value}</span>
                 </div>
               ))}
             </div>
 
-            <div
-              className="p-5 rounded-2xl text-center"
-              style={{
-                background: "linear-gradient(135deg, rgba(15,118,110,0.3), rgba(30,27,75,0.4))",
-                border: "1px solid rgba(20,184,166,0.35)",
-              }}
-            >
-              <Sparkles className="w-6 h-6 text-teal-300 mx-auto mb-2" />
-              <div className="font-black text-base text-white">Argus AI — Personalised Routine Ready</div>
-              <p className="text-xs text-slate-300 mt-1 max-w-sm mx-auto">
-                Saving your answers will generate your first weekly AI oral health score and unlock personalised desensitization strategies.
+            <div className="p-4 rounded-xl bg-teal-500/10 border border-teal-500/25 text-center space-y-1">
+              <ShieldCheck className="w-5 h-5 text-teal-400 mx-auto" />
+              <div className="font-bold text-sm text-white">Argus AI Personalized Routine Ready</div>
+              <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                Submitting stores your baseline in the clinical database and configures Argus AI specifically for your child. Never prompted again.
               </p>
             </div>
           </div>
         )}
 
-        {/* ── Navigation Buttons ── */}
-        <div className="mt-8 pt-5 border-t border-white/10 flex items-center justify-between">
+        {/* ── Responsive Navigation Footer Buttons ── */}
+        <div className="pt-5 border-t border-slate-800 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {currentStep > 1 ? (
             <button
+              type="button"
               onClick={goPrev}
-              className="px-4 py-2.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all hover:text-white"
-              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.13)", color: "#94a3b8" }}
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-semibold text-xs flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all min-h-[44px]"
             >
-              <ArrowLeft className="w-3.5 h-3.5" /> Previous
+              <ArrowLeft className="w-3.5 h-3.5" /> Previous Step
             </button>
-          ) : <div />}
+          ) : <div className="hidden sm:block" />}
 
           {currentStep < steps.length ? (
             <button
+              type="button"
               onClick={goNext}
-              className="px-6 py-2.5 rounded-xl font-black text-xs sm:text-sm flex items-center gap-2 transition-all hover:scale-105 shadow-lg"
-              style={{ background: "linear-gradient(135deg, #14b8a6, #06b6d4)", color: "#0f172a", boxShadow: "0 6px 20px rgba(20,184,166,0.35)" }}
+              className="w-full sm:w-auto px-6 py-2.5 rounded-xl font-semibold text-xs sm:text-sm bg-teal-600 hover:bg-teal-500 text-white flex items-center justify-center gap-2 shadow-sm transition-all min-h-[44px]"
             >
-              Next <ChevronRight className="w-4 h-4" />
+              <span>Next Step</span>
+              <ChevronRight className="w-4 h-4" />
             </button>
           ) : (
             <button
+              type="button"
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="px-8 py-3 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{ background: "linear-gradient(135deg, #10b981, #14b8a6)", color: "#0f172a", boxShadow: "0 8px 30px rgba(16,185,129,0.4)" }}
+              className="w-full sm:w-auto px-7 py-3 rounded-xl font-semibold text-xs sm:text-sm bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center gap-2 shadow-sm transition-all disabled:opacity-50 min-h-[44px]"
             >
               {isSubmitting ? (
                 <>
-                  <div className="w-4 h-4 rounded-full border-2 border-slate-950 border-t-transparent animate-spin" />
-                  Saving Profile…
+                  <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                  <span>Saving Clinical Baseline…</span>
                 </>
               ) : (
                 <>
                   <Award className="w-4 h-4" />
-                  Save Profile & Go to Dashboard →
+                  <span>Save Profile & Open Dashboard</span>
                 </>
               )}
             </button>

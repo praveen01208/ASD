@@ -112,9 +112,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             try {
               setUser(JSON.parse(cached));
             } catch (e) {
-              setUser(DEMO_USER);
+              setUser(null);
             }
-          } else if (storedDemoAuth !== "false") {
+          } else if (storedDemoAuth === "true") {
             setUser(DEMO_USER);
           } else {
             setUser(null);
