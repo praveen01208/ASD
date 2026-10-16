@@ -33,8 +33,23 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen w-full bg-[#080D1A] text-slate-100 overflow-x-hidden selection:bg-teal-600 selection:text-white">
+      {/* ── BACKGROUND VIDEO ─────────────────────────────────────── */}
+      <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover will-change-transform"
+          style={{ opacity: 0.28, transform: "translateZ(0)" }}
+          src="/bg.mp4"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080D1A]/85 via-[#080D1A]/75 to-[#080D1A]/95" />
+      </div>
+
       {/* ── TOP ANNOUNCEMENT & HELPLINE BAR ─────────────────────────────── */}
-      <div className="bg-[#0B1120] border-b border-slate-800/80 px-4 py-2 text-center text-xs text-slate-300 flex items-center justify-center gap-2">
+      <div className="relative z-10 bg-[#0B1120]/80 backdrop-blur-sm border-b border-slate-800/80 px-4 py-2 text-center text-xs text-slate-300 flex items-center justify-center gap-2">
         <span className="text-teal-400 font-semibold">Dr. Nivrutti Reddy Clinical Protocol:</span>
         <span>Dedicated Pediatric Autism Oral Health System</span>
         <span className="hidden sm:inline text-slate-500">•</span>
@@ -44,7 +59,7 @@ export default function LandingPage() {
       </div>
 
       {/* ── NAVBAR ───────────────────────────────────────────────────────── */}
-      <nav className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 bg-[#080D1A]/90 backdrop-blur-md border-b border-slate-800">
+      <nav className="sticky top-0 z-40 w-full px-4 sm:px-8 py-3 bg-[#080D1A]/85 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Brand with ASD Logo */}
           <Link href="/landing" className="flex items-center gap-3 group">
@@ -215,7 +230,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── 5 CLINICAL INTAKE DOMAINS SECTION ────────────────────────────── */}
-      <section id="intake" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
+      <section id="intake" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
         <div className="text-center mb-10">
           <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
             Intake Protocol
@@ -273,7 +288,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── DAILY MONITORING CHECKLIST OVERVIEW ──────────────────────────── */}
-      <section id="daily-monitoring" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
+      <section id="daily-monitoring" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
         <div className="bg-[#0F172A] rounded-2xl p-6 sm:p-10 border border-slate-800 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div className="max-w-xl space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
@@ -305,7 +320,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── ON-SITE STORED VISUAL LEARNING SUITE ─────────────────────────── */}
-      <section id="visual-learning" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
+      <section id="visual-learning" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
@@ -377,7 +392,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── CONSULTANTS PANEL SECTION ───────────────────────────────────── */}
-      <section id="consultants" className="max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
+      <section id="consultants" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-8 py-14 border-t border-slate-800/80">
         <div className="text-center mb-10">
           <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
             Multidisciplinary Care
@@ -484,7 +499,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── FOOTER ───────────────────────────────────────────────────────── */}
-      <footer className="border-t border-slate-800 px-4 sm:px-8 py-8 bg-[#0B1120]">
+      <footer className="relative z-10 border-t border-slate-800 px-4 sm:px-8 py-8 bg-[#0B1120]/90 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 p-0.5 flex items-center justify-center">
