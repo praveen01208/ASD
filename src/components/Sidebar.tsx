@@ -128,26 +128,26 @@ export default function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`group flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-all ${
+                className={`group flex items-center justify-between rounded-xl px-3 py-2 text-xs transition-all ${
                   isActive
-                    ? "bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] font-bold shadow-2xs"
-                    : "text-[#163832] hover:bg-[#DAF1DE]/40 hover:text-[#051F20]"
+                    ? "bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] font-black shadow-2xs"
+                    : "text-[#051F20] font-bold hover:bg-[#DAF1DE]/60 hover:text-[#051F20]"
                 }`}
               >
                 <div className="flex items-center gap-x-2.5">
                   <item.icon
                     className={`h-4 w-4 shrink-0 transition-transform group-hover:scale-105 ${
-                      isActive ? "text-[#235347]" : "text-[#8EB69B] group-hover:text-[#235347]"
+                      isActive ? "text-[#235347]" : "text-[#235347] group-hover:text-[#051F20]"
                     }`}
                     aria-hidden="true"
                   />
                   <span>{item.name}</span>
                 </div>
                 {item.badge && (
-                  <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${
+                  <span className={`text-[9px] font-mono font-black px-1.5 py-0.5 rounded border ${
                     isActive 
                       ? "bg-white text-[#235347] border-[#8EB69B]" 
-                      : "bg-[#DAF1DE] text-[#163832] border-[#8EB69B]/60"
+                      : "bg-[#DAF1DE] text-[#051F20] border-[#8EB69B]"
                   }`}>
                     {item.badge}
                   </span>
@@ -170,7 +170,7 @@ export default function Sidebar() {
               </div>
 
               <SignOutButton redirectUrl="/landing">
-                <button className="w-full py-1.5 px-3 rounded-lg bg-white hover:bg-rose-50 border border-[#D5E8DA] hover:border-rose-200 text-slate-700 hover:text-rose-800 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-2xs">
+                <button className="w-full py-1.5 px-3 rounded-lg bg-white hover:bg-rose-50 border border-[#D5E8DA] hover:border-rose-200 text-[#051F20] hover:text-rose-800 font-black text-xs flex items-center justify-center gap-2 transition-all shadow-2xs">
                   <LogOut className="w-3.5 h-3.5" />
                   Log Out
                 </button>

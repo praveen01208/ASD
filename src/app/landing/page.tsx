@@ -81,7 +81,7 @@ export default function LandingPage() {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-600">
+          <div className="hidden md:flex items-center gap-6 text-xs font-bold text-[#163832]">
             <a href="#intake" className="hover:text-[#235347] transition-colors">
               Intake Protocol
             </a>
@@ -181,7 +181,7 @@ export default function LandingPage() {
           </span>
         </h1>
 
-        <p className="mt-5 text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        <p className="mt-5 text-sm sm:text-base text-[#0B2B26] max-w-2xl mx-auto leading-relaxed font-medium">
           Sensory-calibrated brushing desensitization, daily oral telemetry, weekly clinical progress tracking, and direct consultant support designed specifically for children on the autism spectrum.
         </p>
 
@@ -216,7 +216,7 @@ export default function LandingPage() {
         </div>
 
         {/* Clinical Trust Checkpoints */}
-        <div className="mt-8 pt-6 border-t border-[#D5E8DA] flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600">
+        <div className="mt-8 pt-6 border-t border-[#D5E8DA] flex flex-wrap items-center justify-center gap-6 text-xs text-[#163832] font-bold">
           <span className="flex items-center gap-2 font-medium">
             <CheckCircle2 className="w-4 h-4 text-[#235347]" /> Step 1: Baseline Assessment (Answered Once)
           </span>
@@ -243,7 +243,7 @@ export default function LandingPage() {
                 </span>
               </div>
             </div>
-            <p className="text-[11px] text-slate-600 px-1 leading-relaxed">
+            <p className="text-xs text-[#0B2B26] px-1 leading-relaxed font-medium">
               Dr. Reddy&apos;s desensitization protocol prepares children with ASD to sit calmly in modern dental chairs with zero panic.
             </p>
           </div>
@@ -261,7 +261,7 @@ export default function LandingPage() {
                 </span>
               </div>
             </div>
-            <p className="text-[11px] text-slate-600 px-1 leading-relaxed">
+            <p className="text-xs text-[#0B2B26] px-1 leading-relaxed font-medium">
               Soft ambient lighting, pastel walls, and predictable visual cues designed specifically for sensory-sensitive children.
             </p>
           </div>
@@ -277,7 +277,7 @@ export default function LandingPage() {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#051F20] mt-1">
             5 Key Domains Answered Once Post-Registration
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-[#163832] mt-1 max-w-xl mx-auto font-semibold">
             Your responses are stored securely in the clinical database to customize Argus AI and calibrate sensory routines. Never prompted again.
           </p>
         </div>
@@ -319,7 +319,7 @@ export default function LandingPage() {
                   {d.step}
                 </div>
                 <h3 className="text-sm font-bold text-[#051F20] mb-1.5">{d.title}</h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{d.desc}</p>
+                <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">{d.desc}</p>
               </div>
             </div>
           ))}
@@ -339,7 +339,7 @@ export default function LandingPage() {
             <p className="text-xs sm:text-sm text-[#0B2B26] leading-relaxed">
               Asked once daily on the dashboard. Records morning and bedtime brushing, dietary sugar/snack balance, and behavioral cooperation. All submissions store directly in the database and feed live telemetry for parent and doctor monitoring.
             </p>
-            <div className="pt-2 flex flex-wrap gap-4 text-xs text-slate-600">
+            <div className="pt-2 flex flex-wrap gap-4 text-xs text-[#163832] font-semibold">
               <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> Morning & Night Tracking</span>
               <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> Sugar & Sticky Food Risk</span>
               <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> Sensory Resistance Detection</span>
@@ -368,7 +368,7 @@ export default function LandingPage() {
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#051F20] mt-1">
               On-Site Visual Learning Videos
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-xl">
+            <p className="text-xs sm:text-sm text-[#163832] mt-1 max-w-xl font-semibold">
               Stored directly on the website with zero external links or distractions. Tailored for children on the autism spectrum.
             </p>
           </div>
@@ -404,7 +404,7 @@ export default function LandingPage() {
               <h3 className="text-lg sm:text-xl font-extrabold text-[#051F20]">
                 Children Learn by Seeing Happy Peers Brush
               </h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">
                 Neurodivergent children thrive when they observe joyful, relatable peers happily brushing their teeth. Our on-site video suite replaces stress and tantrums with calm curiosity, healthy diet motivation, and positive moral encouragement.
               </p>
               <div className="pt-2 flex items-center gap-3">
@@ -427,7 +427,7 @@ export default function LandingPage() {
                 01
               </div>
               <h3 className="text-sm font-bold text-[#051F20] mb-1.5">Step-by-Step Brushing</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">
                 Children demonstrating gentle brushing steps to help normalize sensations and build predictable morning and bedtime routines.
               </p>
             </div>
@@ -442,7 +442,7 @@ export default function LandingPage() {
                 02
               </div>
               <h3 className="text-sm font-bold text-[#051F20] mb-1.5">Diet Motivation: Shiny vs. Bugs</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">
                 Dr. Binocs explains how bacteria feed on chocolates and soda, and how crunchy healthy fruits keep tooth enamel bright and strong.
               </p>
             </div>
@@ -457,7 +457,7 @@ export default function LandingPage() {
                 03
               </div>
               <h3 className="text-sm font-bold text-[#051F20] mb-1.5">God Blessings & Cleanliness</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">
                 An uplifting moral story demonstrating how caring for teeth brings peace, self-respect, and divine blessings for the whole family.
               </p>
             </div>
@@ -477,7 +477,7 @@ export default function LandingPage() {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#051F20] mt-1">
             Specialized ASD Consultant Panel
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm text-[#163832] mt-1 max-w-xl mx-auto font-semibold">
             Direct clinical WhatsApp access is exclusively dedicated to consulting our 3 specialized clinical practitioners.
           </p>
         </div>
@@ -493,7 +493,7 @@ export default function LandingPage() {
                 Behavior & Sensory
               </span>
               <h3 className="text-base font-bold text-[#051F20] mt-2">ASD Therapist</h3>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+              <p className="text-xs text-[#0B2B26] mt-2 leading-relaxed font-medium">
                 Tactile oral-motor desensitization, sensory trigger reduction, visual scheduling, and positive reinforcement strategies.
               </p>
             </div>
@@ -523,7 +523,7 @@ export default function LandingPage() {
                 Clinical Caries Care
               </span>
               <h3 className="text-base font-bold text-[#051F20] mt-2">Pediatric Dentist</h3>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+              <p className="text-xs text-[#0B2B26] mt-2 leading-relaxed font-medium">
                 Supervised by Dr. Nivrutti Reddy. Non-foaming fluoride protocols, sensory-adapted mock checkups, and enamel remineralization.
               </p>
             </div>
@@ -553,7 +553,7 @@ export default function LandingPage() {
                 Prevention & Diet
               </span>
               <h3 className="text-base font-bold text-[#051F20] mt-2">Public Health Dentist</h3>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+              <p className="text-xs text-[#0B2B26] mt-2 leading-relaxed font-medium">
                 Preventive oral health guidelines, dietary sugar reduction strategies, caregiver coaching, and evidence-based home protocols.
               </p>
             </div>
@@ -577,7 +577,7 @@ export default function LandingPage() {
 
       {/* ── FOOTER ───────────────────────────────────────────────────────── */}
       <footer className="relative z-10 border-t border-[#D5E8DA] px-4 sm:px-8 py-8 bg-white/95 backdrop-blur-xs">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#163832] font-semibold">
           <div className="flex items-center gap-3">
             <div className="w-6 h-6 rounded-lg bg-[#DAF1DE] border border-[#8EB69B] p-0.5 flex items-center justify-center">
               <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
@@ -588,9 +588,9 @@ export default function LandingPage() {
           <div className="flex flex-wrap items-center gap-4 font-semibold">
             <Link href="/helpline" className="text-rose-700 hover:underline">24/7 Helpline</Link>
             <Link href="/consultants" className="text-[#235347] hover:underline">Consultants Panel</Link>
-            <Link href="/admin" className="text-slate-600 hover:text-[#051F20]">Admin Portal</Link>
+            <Link href="/admin" className="text-[#163832] hover:text-[#051F20] font-bold">Admin Portal</Link>
             <Show when="signed-in">
-              <Link href="/" className="text-slate-600 hover:text-[#051F20]">Dashboard</Link>
+              <Link href="/" className="text-[#163832] hover:text-[#051F20] font-bold">Dashboard</Link>
             </Show>
           </div>
         </div>

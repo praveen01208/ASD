@@ -13,7 +13,7 @@ export default function ReportsPage() {
           Clinical Study Governance
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-[#051F20] tracking-tight">Clinical & Research Reports</h1>
-        <p className="text-[#0B2B26]/70 mt-1.5 text-sm sm:text-base">
+        <p className="text-[#0B2B26] mt-1.5 text-sm sm:text-base font-medium">
           De-identified study analytics, longitudinal data exports, and audit-ready trial summaries.
         </p>
       </div>
@@ -32,21 +32,21 @@ export default function ReportsPage() {
         
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <div className="p-4 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
-            <span className="text-xs text-[#0B2B26]/70 block font-mono mb-1 font-semibold">Subject Identifier</span>
+            <span className="text-xs text-[#163832] block font-mono mb-1 font-bold">Subject Identifier</span>
             <span className="text-xl font-black text-[#051F20] font-mono">ASD-001</span>
           </div>
           <div className="p-4 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
-            <span className="text-xs text-[#0B2B26]/70 block font-mono mb-1 font-semibold">Observation Timeline</span>
+            <span className="text-xs text-[#163832] block font-mono mb-1 font-bold">Observation Timeline</span>
             <span className="text-xl font-black text-[#235347] font-mono">Week 8 of 12</span>
           </div>
           <div className="p-4 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
-            <span className="text-xs text-[#0B2B26]/70 block font-mono mb-1 font-semibold">Data Completeness Rate</span>
+            <span className="text-xs text-[#163832] block font-mono mb-1 font-bold">Data Completeness Rate</span>
             <span className="text-xl font-black text-[#235347] font-mono">94.2%</span>
           </div>
         </div>
         
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-6 border-t border-[#D5E8DA]/60">
-          <span className="text-xs text-[#0B2B26]/70">
+          <span className="text-xs text-[#163832] font-semibold">
             Full IRB protocol compliance verification completed.
           </span>
           <button 
@@ -86,7 +86,7 @@ export default function ReportsPage() {
           >
             <FileSpreadsheet className="w-6 h-6 text-[#235347] mb-2 group-hover:scale-110 transition-transform" />
             <div className="font-bold text-[#051F20] text-sm">Participant CSV</div>
-            <div className="text-xs text-[#0B2B26]/70 mt-1">Raw telemetry logs</div>
+            <div className="text-xs text-[#163832] font-semibold mt-1">Raw telemetry logs</div>
           </button>
 
           <button 
@@ -95,7 +95,7 @@ export default function ReportsPage() {
           >
             <FileCheck className="w-6 h-6 text-[#235347] mb-2 group-hover:scale-110 transition-transform" />
             <div className="font-bold text-[#051F20] text-sm">Clinical Report PDF</div>
-            <div className="text-xs text-[#0B2B26]/70 mt-1">Printable trial dossier</div>
+            <div className="text-xs text-[#163832] font-semibold mt-1">Printable trial dossier</div>
           </button>
 
           <button 
@@ -104,7 +104,7 @@ export default function ReportsPage() {
           >
             <FileSpreadsheet className="w-6 h-6 text-[#235347] mb-2 group-hover:scale-110 transition-transform" />
             <div className="font-bold text-[#051F20] text-sm">Intervention Logs</div>
-            <div className="text-xs text-[#0B2B26]/70 mt-1">Action adherence log</div>
+            <div className="text-xs text-[#163832] font-semibold mt-1">Action adherence log</div>
           </button>
 
           <button 
@@ -113,11 +113,11 @@ export default function ReportsPage() {
           >
             <Download className="w-6 h-6 text-[#235347] mb-2 group-hover:scale-110 transition-transform" />
             <div className="font-bold text-[#051F20] text-sm">Full Aggregate Dataset</div>
-            <div className="text-xs text-[#0B2B26]/70 mt-1">Multi-modal synthesis</div>
+            <div className="text-xs text-[#163832] font-semibold mt-1">Multi-modal synthesis</div>
           </button>
         </div>
         
-        <p className="text-xs text-[#0B2B26]/60 italic">
+        <p className="text-xs text-[#163832] font-medium italic">
           Data exports conform strictly to HIPAA and GCP guidelines with automatic participant de-identification.
         </p>
       </div>

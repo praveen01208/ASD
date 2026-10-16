@@ -251,7 +251,7 @@ export default function FloatingChatbot() {
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setIsMinimized(!isMinimized)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+                className="p-1.5 rounded-lg text-[#DAF1DE] hover:text-white hover:bg-white/10 transition-all cursor-pointer"
                 aria-label={isMinimized ? "Expand" : "Minimize"}
               >
                 {isMinimized ? (
@@ -262,7 +262,7 @@ export default function FloatingChatbot() {
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/10 transition-all"
+                className="p-1.5 rounded-lg text-[#DAF1DE] hover:text-white hover:bg-white/10 transition-all cursor-pointer"
                 aria-label="Close"
               >
                 <X className="w-3.5 h-3.5" />
@@ -345,7 +345,7 @@ export default function FloatingChatbot() {
                         {renderContent(m.content)}
                       </div>
                       {m.timestamp && (
-                        <span className="text-[9px] text-slate-600 px-1">
+                        <span className="text-[10px] text-[#DAF1DE]/90 px-1 font-medium">
                           {m.timestamp}
                         </span>
                       )}
@@ -389,7 +389,7 @@ export default function FloatingChatbot() {
                     key={i}
                     onClick={() => handleSend(prompt)}
                     disabled={isLoading}
-                    className="whitespace-nowrap px-2.5 py-1.5 rounded-full text-[10px] font-medium text-slate-300 hover:text-white transition-all flex-shrink-0 disabled:opacity-40"
+                    className="whitespace-nowrap px-2.5 py-1.5 rounded-full text-xs font-bold text-[#DAF1DE] hover:text-white transition-all flex-shrink-0 disabled:opacity-40"
                     style={{
                       background: "rgba(255,255,255,0.06)",
                       border: "1px solid rgba(255,255,255,0.1)",

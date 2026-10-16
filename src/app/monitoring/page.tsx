@@ -164,16 +164,16 @@ export default function DailyMonitoringPage() {
       <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#D5E8DA] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold text-[#235347] flex items-center gap-1.5 bg-[#DAF1DE] px-2.5 py-0.5 rounded-full border border-[#8EB69B]/50">
+            <span className="text-xs font-bold text-[#235347] flex items-center gap-1.5 bg-[#DAF1DE] px-2.5 py-0.5 rounded-full border border-[#8EB69B]">
               <Activity className="w-3.5 h-3.5" /> Clinical Telemetry & Daily Monitoring
             </span>
-            <span className="text-[#8EB69B]">•</span>
-            <span className="text-xs text-[#163832]/70 font-medium">Dr. Nivrutti Reddy Dental Protocol</span>
+            <span className="text-[#235347] font-bold">•</span>
+            <span className="text-xs text-[#163832] font-bold">Dr. Nivrutti Reddy Dental Protocol</span>
           </div>
           <h1 className="text-xl sm:text-2xl font-black text-[#051F20] tracking-tight">
             Daily Monitoring for {activeChild?.name || "Your Child"}
           </h1>
-          <p className="text-xs text-[#0B2B26]/70 mt-0.5">
+          <p className="text-xs text-[#0B2B26] mt-0.5 font-medium">
             Participant Code: <span className="font-mono text-[#051F20] font-bold">{activeChild?.code || "ASD-001"}</span> • Daily checklists stored in database & synced with Argus AI
           </p>
         </div>
@@ -199,30 +199,30 @@ export default function DailyMonitoringPage() {
       {/* ── Clinical Telemetry Metrics (4 Cards) ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
-            <span className="font-semibold text-[#0B2B26]">Morning Brushing</span>
+          <div className="flex items-center justify-between text-xs text-[#163832]">
+            <span className="font-extrabold text-[#051F20]">Morning Brushing</span>
             <Sun className="w-4 h-4 text-amber-500" />
           </div>
           <div className="text-2xl font-black text-[#051F20] font-mono">{morningAdherence}%</div>
-          <div className="text-[11px] text-[#235347] font-semibold flex items-center gap-1">
+          <div className="text-xs text-[#235347] font-bold flex items-center gap-1">
             <CheckCircle2 className="w-3 h-3 text-[#235347]" /> {morningBrushedCount} of {totalDays} logged days
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
-            <span className="font-semibold text-[#0B2B26]">Bedtime Brushing</span>
+          <div className="flex items-center justify-between text-xs text-[#163832]">
+            <span className="font-extrabold text-[#051F20]">Bedtime Brushing</span>
             <Moon className="w-4 h-4 text-[#235347]" />
           </div>
           <div className="text-2xl font-black text-[#051F20] font-mono">{nightAdherence}%</div>
-          <div className="text-[11px] text-[#163832] font-semibold flex items-center gap-1">
+          <div className="text-xs text-[#163832] font-bold flex items-center gap-1">
             <Clock className="w-3 h-3 text-[#235347]" /> {nightBrushedCount} of {totalDays} logged days
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
-            <span className="font-semibold text-[#0B2B26]">Sensory Cooperation</span>
+          <div className="flex items-center justify-between text-xs text-[#163832]">
+            <span className="font-extrabold text-[#051F20]">Sensory Cooperation</span>
             <Smile className="w-4 h-4 text-[#235347]" />
           </div>
           <div className="text-2xl font-black text-[#051F20] font-mono">{cooperationRate}%</div>
@@ -232,12 +232,12 @@ export default function DailyMonitoringPage() {
         </div>
 
         <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all shadow-xs space-y-2">
-          <div className="flex items-center justify-between text-xs text-[#0B2B26]/70">
-            <span className="font-semibold text-[#0B2B26]">Enamel Sugar Exposure</span>
+          <div className="flex items-center justify-between text-xs text-[#163832]">
+            <span className="font-extrabold text-[#051F20]">Enamel Sugar Exposure</span>
             <Apple className="w-4 h-4 text-[#235347]" />
           </div>
           <div className="text-2xl font-black text-[#051F20] font-mono">{highSugarDays} days</div>
-          <div className={`text-[11px] font-semibold ${highSugarDays > 1 ? "text-amber-700" : "text-[#235347]"}`}>
+          <div className={`text-xs font-bold ${highSugarDays > 1 ? "text-amber-800" : "text-[#235347]"}`}>
             {highSugarDays > 1 ? "Moderate cavity risk" : "Low enamel vulnerability"}
           </div>
         </div>
@@ -254,7 +254,7 @@ export default function DailyMonitoringPage() {
             {showChecklistModal && isTodayComplete && (
               <button
                 onClick={() => setShowChecklistModal(false)}
-                className="text-xs text-[#0B2B26]/70 hover:text-[#051F20] font-semibold"
+                className="text-xs text-[#163832] hover:text-[#051F20] font-semibold"
               >
                 Close Editor ✕
               </button>
@@ -275,7 +275,7 @@ export default function DailyMonitoringPage() {
               <FileText className="w-4 h-4 text-[#235347]" />
               Recorded Routine History (Database Telemetry)
             </h3>
-            <p className="text-xs text-[#0B2B26]/70 mt-0.5">
+            <p className="text-xs text-[#163832] mt-0.5">
               Verified clinical records logged by caregiver and synced across sessions
             </p>
           </div>
@@ -321,7 +321,7 @@ export default function DailyMonitoringPage() {
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> Done
                         </span>
                       ) : (
-                        <span className="text-slate-400 font-medium">Missed</span>
+                        <span className="text-rose-700 font-bold">Missed</span>
                       )}
                     </td>
 
@@ -331,7 +331,7 @@ export default function DailyMonitoringPage() {
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#235347]" /> Done
                         </span>
                       ) : (
-                        <span className="text-slate-400 font-medium">Pending</span>
+                        <span className="text-amber-800 font-bold">Pending</span>
                       )}
                     </td>
 
@@ -357,7 +357,7 @@ export default function DailyMonitoringPage() {
                       ) : item.cooperatedWithBrushing ? (
                         <span className="text-[#235347] font-bold">Cooperative</span>
                       ) : (
-                        <span className="text-[#0B2B26]/70 font-medium">Assisted</span>
+                        <span className="text-[#051F20] font-bold">Assisted</span>
                       )}
                     </td>
 

@@ -89,7 +89,7 @@ export default function ConsultantsPage() {
             <h1 className="text-2xl sm:text-4xl font-black text-[#051F20] tracking-tight">
               Specialized ASD Consultants
             </h1>
-            <p className="text-[#0B2B26]/70 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
+            <p className="text-[#0B2B26] text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed font-medium">
               Connect directly with specialized clinicians for personalized sensory desensitization, pediatric dental exams, and preventive dietary protocols.
             </p>
           </div>
@@ -169,7 +169,7 @@ export default function ConsultantsPage() {
                 <h3 className="text-lg font-bold text-[#051F20] group-hover:text-[#235347] transition-colors">
                   {spec.role}
                 </h3>
-                <p className="text-xs text-[#0B2B26]/70 mt-2 leading-relaxed">
+                <p className="text-xs text-[#0B2B26] mt-2 leading-relaxed font-medium">
                   {spec.description}
                 </p>
 
@@ -210,7 +210,7 @@ export default function ConsultantsPage() {
           </div>
           <div>
             <h4 className="font-bold text-sm text-[#051F20]">Need Urgent Immediate Assistance?</h4>
-            <p className="text-xs text-[#0B2B26]/70">
+            <p className="text-xs text-[#163832] font-semibold">
               For acute emergencies or active distress, call our direct 24/7 Helpline.
             </p>
           </div>

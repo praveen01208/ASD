@@ -17,7 +17,7 @@ export default function CarePlanPage() {
           Individualized Clinical Protocol
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-[#051F20] tracking-tight">Personalized Care Plan</h1>
-        <p className="text-[#0B2B26]/70 mt-1.5 text-sm sm:text-base">
+        <p className="text-[#0B2B26] mt-1.5 text-sm sm:text-base font-medium">
           Dynamic pediatric interventions tailored to ASD-001&apos;s sensory tolerance, motor readiness, and behavioral baseline.
         </p>
       </div>
@@ -34,7 +34,7 @@ export default function CarePlanPage() {
             <h3 className="font-extrabold text-[#051F20] text-lg sm:text-xl">
               Posterior Tooth Desensitization & Visual Routine
             </h3>
-            <p className="text-[#0B2B26]/80 text-sm sm:text-base leading-relaxed">
+            <p className="text-[#051F20] text-sm sm:text-base leading-relaxed font-medium">
               Focus on <strong className="text-[#051F20] font-bold">posterior molar coverage</strong> using Leo&apos;s familiar visual sequence card deck. 
               Avoid introducing a new toothpaste brand today due to taste sensitivity elevation logged over the past 48 hours.
             </p>
@@ -71,7 +71,7 @@ export default function CarePlanPage() {
 
               <div className="p-3.5 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
                 <span className="text-[#235347] text-[11px] font-bold uppercase tracking-wider block mb-1">Clinical Rationale</span>
-                <p className="text-[#0B2B26]/80 text-xs sm:text-sm leading-relaxed">{carePlan.oral_intervention.reason}</p>
+                <p className="text-[#051F20] text-xs sm:text-sm leading-relaxed font-medium">{carePlan.oral_intervention.reason}</p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
@@ -118,7 +118,7 @@ export default function CarePlanPage() {
 
               <div className="p-3.5 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
                 <span className="text-[#235347] text-[11px] font-bold uppercase tracking-wider block mb-1">Sensory Adaptation</span>
-                <p className="text-[#0B2B26]/80 text-xs sm:text-sm leading-relaxed">{carePlan.dietary_intervention.suggestion}</p>
+                <p className="text-[#051F20] text-xs sm:text-sm leading-relaxed font-medium">{carePlan.dietary_intervention.suggestion}</p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">

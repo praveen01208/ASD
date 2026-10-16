@@ -20,8 +20,8 @@ export default function SettingsPage() {
             <Settings className="w-3.5 h-3.5 text-teal-600" />
             System & Privacy Configuration
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Settings</h1>
-          <p className="text-slate-600 mt-1.5 text-sm sm:text-base">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#051F20] tracking-tight">Settings</h1>
+          <p className="text-[#0B2B26] mt-1.5 text-sm sm:text-base font-medium">
             Caregiver preferences, clinical study telemetry controls, and sensory display options.
           </p>
         </div>
@@ -44,7 +44,7 @@ export default function SettingsPage() {
 
       {/* Notifications Card */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-        <h2 className="text-lg sm:text-xl font-bold text-slate-900 p-6 pb-4 border-b border-slate-100 flex items-center gap-2">
+        <h2 className="text-lg sm:text-xl font-bold text-[#051F20] p-6 pb-4 border-b border-slate-100 flex items-center gap-2">
           <Bell className="w-5 h-5 text-teal-600" />
           Caregiver Reminders & Notifications
         </h2>
@@ -57,7 +57,7 @@ export default function SettingsPage() {
 
       {/* Language & Accessibility */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-        <h2 className="text-lg sm:text-xl font-bold text-slate-900 p-6 pb-4 border-b border-slate-100 flex items-center gap-2">
+        <h2 className="text-lg sm:text-xl font-bold text-[#051F20] p-6 pb-4 border-b border-slate-100 flex items-center gap-2">
           <Globe className="w-5 h-5 text-cyan-600" />
           Language & Sensory Display
         </h2>
@@ -70,7 +70,7 @@ export default function SettingsPage() {
 
       {/* Privacy & Governance */}
       <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-        <h2 className="text-lg sm:text-xl font-bold text-slate-900 p-6 pb-4 border-b border-slate-100 flex items-center gap-2">
+        <h2 className="text-lg sm:text-xl font-bold text-[#051F20] p-6 pb-4 border-b border-slate-100 flex items-center gap-2">
           <Shield className="w-5 h-5 text-emerald-600" />
           Clinical Study Governance & Privacy
         </h2>
@@ -84,8 +84,8 @@ export default function SettingsPage() {
       {/* Account & Session Controls */}
       <div className="bg-white rounded-2xl border border-rose-200 overflow-hidden p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
         <div>
-          <h3 className="font-bold text-slate-900 text-base">Account Session</h3>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <h3 className="font-bold text-[#051F20] text-base">Account Session</h3>
+          <p className="text-xs text-[#163832] mt-0.5 font-semibold">
             Sign out of your caregiver session and return to the main landing page.
           </p>
         </div>
@@ -124,9 +124,9 @@ function SettingRow({
 }) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200 gap-3">
-      <span className="text-slate-800 font-semibold text-sm">{label}</span>
+      <span className="text-[#051F20] font-bold text-sm">{label}</span>
       <div className="flex items-center justify-between sm:justify-end gap-3">
-        <span className="font-mono text-xs font-semibold text-slate-500">{value}</span>
+        <span className="font-mono text-xs font-bold text-[#235347]">{value}</span>
         <button className={`px-4 py-1.5 rounded-lg text-xs font-mono font-bold tracking-wider transition-colors border ${
           isActive 
             ? "bg-emerald-50 text-emerald-800 border-emerald-200" 

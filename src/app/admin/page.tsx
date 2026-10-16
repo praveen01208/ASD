@@ -394,22 +394,22 @@ export default function AdminPage() {
         </div>
 
         {/* Global Statistics Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-100">
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-            <span className="text-[11px] text-slate-500 font-medium">Total Registered Children</span>
-            <div className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">{accounts.length}</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-[#D5E8DA]">
+          <div className="p-3.5 rounded-2xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+            <span className="text-xs text-[#163832] font-bold">Total Registered Children</span>
+            <div className="text-xl sm:text-2xl font-black text-[#051F20] mt-0.5">{accounts.length}</div>
           </div>
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-            <span className="text-[11px] text-slate-500 font-medium">Active Profiles</span>
-            <div className="text-xl sm:text-2xl font-black text-teal-700 mt-0.5">{accounts.length}</div>
+          <div className="p-3.5 rounded-2xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+            <span className="text-xs text-[#163832] font-bold">Active Profiles</span>
+            <div className="text-xl sm:text-2xl font-black text-[#235347] mt-0.5">{accounts.length}</div>
           </div>
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-            <span className="text-[11px] text-slate-500 font-medium">Daily Telemetry Submissions</span>
-            <div className="text-xl sm:text-2xl font-black text-amber-700 mt-0.5">{accounts.length * 7}+</div>
+          <div className="p-3.5 rounded-2xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+            <span className="text-xs text-[#163832] font-bold">Daily Telemetry Submissions</span>
+            <div className="text-xl sm:text-2xl font-black text-amber-800 mt-0.5">{accounts.length * 7}+</div>
           </div>
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
-            <span className="text-[11px] text-slate-500 font-medium">Weekly AI Reinforcements</span>
-            <div className="text-xl sm:text-2xl font-black text-emerald-700 mt-0.5">Active</div>
+          <div className="p-3.5 rounded-2xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+            <span className="text-xs text-[#163832] font-bold">Weekly AI Reinforcements</span>
+            <div className="text-xl sm:text-2xl font-black text-[#235347] mt-0.5">Active</div>
           </div>
         </div>
       </div>

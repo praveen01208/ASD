@@ -39,7 +39,7 @@ export default function ProfilePage() {
           <h1 className="text-3xl sm:text-4xl font-black text-[#051F20] tracking-tight">
             Child Profile ({child?.name || "Leo"})
           </h1>
-          <p className="text-[#0B2B26]/70 mt-1.5 text-xs sm:text-sm">
+          <p className="text-[#0B2B26] mt-1.5 text-xs sm:text-sm font-medium">
             Stored clinical baseline details, sensory tolerances, dietary patterns, and behavioral motivators.
           </p>
         </div>
@@ -69,7 +69,7 @@ export default function ProfilePage() {
                         {child.code}
                       </span>
                     </div>
-                    <p className="text-[#0B2B26]/70 mt-0.5 text-xs font-medium">
+                    <p className="text-[#163832] mt-0.5 text-xs font-semibold">
                       Age {child.age} • {child.gender} • DOB: {child.dob}
                     </p>
                     <div className="flex items-center gap-1.5 text-xs text-[#235347] font-bold mt-1">
@@ -81,11 +81,11 @@ export default function ProfilePage() {
 
                 <div className="space-y-2 pt-3 border-t border-[#D5E8DA]/60 text-xs">
                   <div className="flex justify-between py-1 border-b border-[#D5E8DA]/40">
-                    <span className="text-[#0B2B26]/60 font-medium">ASD Classification</span>
+                    <span className="text-[#163832] font-bold">ASD Classification</span>
                     <span className="text-[#051F20] font-bold">{child.asdLevel}</span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-[#D5E8DA]/40">
-                    <span className="text-[#0B2B26]/60 font-medium">Communication Level</span>
+                    <span className="text-[#163832] font-bold">Communication Level</span>
                     <span className="text-[#235347] font-bold">{child.communicationLevel}</span>
                   </div>
                 </div>
@@ -95,7 +95,7 @@ export default function ProfilePage() {
                 <span className="bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-2xs">
                   <ShieldCheck className="w-3.5 h-3.5 text-[#235347]" /> Calibrated Baseline
                 </span>
-                <span className="text-[#0B2B26]/60 font-mono text-[11px]">ID: {child.id}</span>
+                <span className="text-[#235347] font-mono text-xs font-bold">ID: {child.id}</span>
               </div>
             </div>
 
@@ -108,15 +108,15 @@ export default function ProfilePage() {
 
               <div className="space-y-2.5 text-xs">
                 <div className="p-3 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA] flex justify-between items-center">
-                  <span className="text-[#0B2B26]/70 font-medium">Primary Caregiver:</span>
+                  <span className="text-[#163832] font-bold">Primary Caregiver:</span>
                   <span className="text-[#051F20] font-bold">{child.caregiverName} ({child.relationship})</span>
                 </div>
                 <div className="p-3 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA] flex justify-between items-center">
-                  <span className="text-[#0B2B26]/70 font-medium">Contact Number:</span>
+                  <span className="text-[#163832] font-bold">Contact Number:</span>
                   <span className="text-[#051F20] font-mono font-bold">{child.caregiverPhone}</span>
                 </div>
                 <div className="p-3 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA] flex justify-between items-center">
-                  <span className="text-[#0B2B26]/70 font-medium">Communication Protocol:</span>
+                  <span className="text-[#163832] font-bold">Communication Protocol:</span>
                   <span className="text-[#235347] font-bold">{child.demographics?.communicationStyle}</span>
                 </div>
               </div>
@@ -131,12 +131,12 @@ export default function ProfilePage() {
                 <Smile className="w-4 h-4 text-[#235347]" /> 2. Brushing Habits & Formulation
               </h3>
               <div className="space-y-2 text-[#0B2B26]">
-                <div><span className="text-[#0B2B26]/60">Frequency:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.frequency}</span></div>
-                <div><span className="text-[#0B2B26]/60">Duration:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.duration}</span></div>
-                <div><span className="text-[#0B2B26]/60">Toothbrush:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.toothbrushType}</span></div>
-                <div><span className="text-[#0B2B26]/60">Toothpaste:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.toothpaste}</span></div>
-                <div><span className="text-[#0B2B26]/60">Assistance:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.assistanceNeeded}</span></div>
-                <div><span className="text-[#0B2B26]/60">Tolerance:</span> <span className="text-[#235347] font-bold">{child.brushingHabits?.toleranceLevel}</span></div>
+                <div><span className="text-[#163832] font-bold">Frequency:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.frequency}</span></div>
+                <div><span className="text-[#163832] font-bold">Duration:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.duration}</span></div>
+                <div><span className="text-[#163832] font-bold">Toothbrush:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.toothbrushType}</span></div>
+                <div><span className="text-[#163832] font-bold">Toothpaste:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.toothpaste}</span></div>
+                <div><span className="text-[#163832] font-bold">Assistance:</span> <span className="text-[#051F20] font-bold">{child.brushingHabits?.assistanceNeeded}</span></div>
+                <div><span className="text-[#163832] font-bold">Tolerance:</span> <span className="text-[#235347] font-bold">{child.brushingHabits?.toleranceLevel}</span></div>
               </div>
             </div>
 
@@ -146,11 +146,11 @@ export default function ProfilePage() {
                 <Utensils className="w-4 h-4 text-[#235347]" /> 3. Dietary Habits & Enamel Defense
               </h3>
               <div className="space-y-2 text-[#0B2B26]">
-                <div><span className="text-[#0B2B26]/60">Sugar Exposure:</span> <span className="text-amber-700 font-bold">{child.dietaryHabits?.sugaryFoodFrequency}</span></div>
-                <div><span className="text-[#0B2B26]/60">Healthy Fruits/Vegetables:</span> <span className="text-[#235347] font-bold">{child.dietaryHabits?.healthyFoodFrequency}</span></div>
-                <div><span className="text-[#0B2B26]/60">Cheek Pooling (Holding Food):</span> <span className="text-[#051F20] font-bold">{child.dietaryHabits?.foodHoldingInMouth}</span></div>
-                <div><span className="text-[#0B2B26]/60">Night Feeding / Bed Bottle:</span> <span className="text-[#051F20] font-bold">{child.dietaryHabits?.nightFeedingOrBottle}</span></div>
-                <div><span className="text-[#0B2B26]/60">Hydration / Water:</span> <span className="text-[#051F20] font-bold">{child.dietaryHabits?.waterIntake}</span></div>
+                <div><span className="text-[#163832] font-bold">Sugar Exposure:</span> <span className="text-amber-700 font-bold">{child.dietaryHabits?.sugaryFoodFrequency}</span></div>
+                <div><span className="text-[#163832] font-bold">Healthy Fruits/Vegetables:</span> <span className="text-[#235347] font-bold">{child.dietaryHabits?.healthyFoodFrequency}</span></div>
+                <div><span className="text-[#163832] font-bold">Cheek Pooling (Holding Food):</span> <span className="text-[#051F20] font-bold">{child.dietaryHabits?.foodHoldingInMouth}</span></div>
+                <div><span className="text-[#163832] font-bold">Night Feeding / Bed Bottle:</span> <span className="text-[#051F20] font-bold">{child.dietaryHabits?.nightFeedingOrBottle}</span></div>
+                <div><span className="text-[#163832] font-bold">Hydration / Water:</span> <span className="text-[#051F20] font-bold">{child.dietaryHabits?.waterIntake}</span></div>
               </div>
             </div>
 
@@ -160,11 +160,11 @@ export default function ProfilePage() {
                 <Stethoscope className="w-4 h-4 text-[#235347]" /> 4. Dental & Medical History
               </h3>
               <div className="space-y-2 text-[#0B2B26]">
-                <div><span className="text-[#0B2B26]/60">Last Dental Visit:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.lastDentalVisit}</span></div>
-                <div><span className="text-[#0B2B26]/60">Past Dental Experience:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.pastDentalExperience}</span></div>
-                <div><span className="text-[#0B2B26]/60">Active Pain / Cavities:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.activeCavitiesOrPain}</span></div>
-                <div><span className="text-[#0B2B26]/60">Gum Bleeding:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.gumBleeding}</span></div>
-                <div><span className="text-[#0B2B26]/60">Medications:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.regularMedications}</span></div>
+                <div><span className="text-[#163832] font-bold">Last Dental Visit:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.lastDentalVisit}</span></div>
+                <div><span className="text-[#163832] font-bold">Past Dental Experience:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.pastDentalExperience}</span></div>
+                <div><span className="text-[#163832] font-bold">Active Pain / Cavities:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.activeCavitiesOrPain}</span></div>
+                <div><span className="text-[#163832] font-bold">Gum Bleeding:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.gumBleeding}</span></div>
+                <div><span className="text-[#163832] font-bold">Medications:</span> <span className="text-[#051F20] font-bold">{child.dentalMedicalHistory?.regularMedications}</span></div>
               </div>
             </div>
 
@@ -174,9 +174,9 @@ export default function ProfilePage() {
                 <HeartHandshake className="w-4 h-4 text-[#235347]" /> 5. Child Behaviour & Sensory Triggers
               </h3>
               <div className="space-y-2 text-[#0B2B26]">
-                <div><span className="text-[#0B2B26]/60">Mouth Opening:</span> <span className="text-[#051F20] font-bold">{child.childBehaviour?.mouthOpeningCooperation}</span></div>
+                <div><span className="text-[#163832] font-bold">Mouth Opening:</span> <span className="text-[#051F20] font-bold">{child.childBehaviour?.mouthOpeningCooperation}</span></div>
                 <div>
-                  <span className="text-[#0B2B26]/60 block mb-1">Sensory Triggers:</span>
+                  <span className="text-[#163832] font-bold block mb-1">Sensory Triggers:</span>
                   <div className="flex flex-wrap gap-1">
                     {child.childBehaviour?.sensoryAversionTriggers?.map((t, idx) => (
                       <span key={idx} className="px-2 py-0.5 rounded-full bg-rose-50 text-rose-800 border border-rose-200 text-[10px] font-bold">
@@ -186,7 +186,7 @@ export default function ProfilePage() {
                   </div>
                 </div>
                 <div>
-                  <span className="text-[#0B2B26]/60 block mb-1 mt-2">Effective Motivators:</span>
+                  <span className="text-[#163832] font-bold block mb-1 mt-2">Effective Motivators:</span>
                   <div className="flex flex-wrap gap-1">
                     {child.childBehaviour?.effectiveMotivators?.map((m, idx) => (
                       <span key={idx} className="px-2 py-0.5 rounded-full bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] text-[10px] font-bold">

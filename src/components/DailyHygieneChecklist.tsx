@@ -231,20 +231,20 @@ export default function DailyHygieneChecklist({
               <h3 className="text-base sm:text-lg font-bold text-[#051F20] tracking-tight">
                 Child&apos;s Daily Oral Hygiene Checklist
               </h3>
-              <p className="text-xs text-slate-500 mt-0.5">
-                Daily clinical tracking for <span className="font-semibold text-[#0B2B26]">{childDisplayName}</span> • Supervised by Dr. Nivrutti Reddy
+              <p className="text-xs text-[#163832] font-medium mt-0.5">
+                Daily clinical tracking for <span className="font-extrabold text-[#051F20]">{childDisplayName}</span> • Supervised by Dr. Nivrutti Reddy
               </p>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1.5 bg-amber-50 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-200 shadow-2xs">
+          <div className="flex items-center gap-1.5 bg-amber-50 text-amber-900 px-3 py-1.5 rounded-lg text-xs font-bold border border-amber-300 shadow-2xs">
             <Flame className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
             <span>{streak} Day Routine Streak</span>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-[#DAF1DE] text-[#051F20] px-3 py-1.5 rounded-lg text-xs font-semibold border border-[#8EB69B] shadow-2xs">
+          <div className="flex items-center gap-1.5 bg-[#DAF1DE] text-[#051F20] px-3 py-1.5 rounded-lg text-xs font-black border border-[#8EB69B] shadow-2xs">
             <ShieldCheck className="w-3.5 h-3.5 text-[#235347]" />
             <span>Score: {score}%</span>
           </div>
@@ -261,7 +261,7 @@ export default function DailyHygieneChecklist({
             <span className="text-xs font-bold uppercase tracking-wider text-[#235347] flex items-center gap-1.5">
               <Sun className="w-3.5 h-3.5 text-amber-500" /> Brushing Routine
             </span>
-            <span className="text-[11px] font-mono text-slate-400">4 Items</span>
+            <span className="text-[11px] font-mono font-bold text-[#163832]">4 Items</span>
           </div>
 
           <div className="space-y-2">
@@ -326,11 +326,11 @@ export default function DailyHygieneChecklist({
             DOMAIN 2: DIET (7 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
-              <Apple className="w-3.5 h-3.5 text-emerald-600" /> Dietary Habits
+          <div className="flex items-center justify-between pb-2 border-b border-[#D5E8DA]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#235347] flex items-center gap-1.5">
+              <Apple className="w-3.5 h-3.5 text-[#235347]" /> Dietary Habits
             </span>
-            <span className="text-[11px] font-mono text-slate-400">7 Items</span>
+            <span className="text-[11px] font-mono font-bold text-[#163832]">7 Items</span>
           </div>
 
           <div className="space-y-2">
@@ -379,26 +379,26 @@ export default function DailyHygieneChecklist({
                   className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
                       ? item.risk
-                        ? "bg-amber-50 border-amber-300 text-amber-950 font-medium"
-                        : "bg-emerald-50 border-emerald-300 text-emerald-950 font-medium"
-                      : "bg-slate-50/80 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
+                        ? "bg-amber-50 border-amber-300 text-amber-950 font-bold"
+                        : "bg-[#DAF1DE] border-[#8EB69B] text-[#051F20] font-bold"
+                      : "bg-[#F4FAF6] border-[#D5E8DA] text-[#0B2B26] hover:border-[#8EB69B] hover:bg-[#DAF1DE]/30 font-semibold"
                   }`}
                 >
                   <div className="flex items-center gap-2 min-w-0 pr-2">
                     {item.risk ? (
-                      <AlertCircle className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-amber-600" : "text-slate-400"}`} />
+                      <AlertCircle className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-amber-600" : "text-amber-700"}`} />
                     ) : (
-                      <Apple className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-400"}`} />
+                      <Apple className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-[#235347]" : "text-[#235347]"}`} />
                     )}
-                    <span className="text-xs font-medium leading-snug">{item.label}</span>
+                    <span className="text-xs font-semibold leading-snug">{item.label}</span>
                   </div>
                   <div
                     className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
                         ? item.risk
                           ? "bg-amber-600 border-amber-600 text-white font-bold"
-                          : "bg-emerald-600 border-emerald-600 text-white font-bold"
-                        : "border-slate-300 bg-white group-hover:border-slate-400"
+                          : "bg-[#235347] border-[#235347] text-white font-bold"
+                        : "border-[#8EB69B] bg-white group-hover:border-[#235347]"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -413,11 +413,11 @@ export default function DailyHygieneChecklist({
             DOMAIN 3: BEHAVIOR (3 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
-            <span className="text-xs font-bold uppercase tracking-wider text-purple-700 flex items-center gap-1.5">
-              <Smile className="w-3.5 h-3.5 text-purple-600" /> Behavioral Response
+          <div className="flex items-center justify-between pb-2 border-b border-[#D5E8DA]">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#235347] flex items-center gap-1.5">
+              <Smile className="w-3.5 h-3.5 text-[#235347]" /> Behavioral Response
             </span>
-            <span className="text-[11px] font-mono text-slate-400">3 Items</span>
+            <span className="text-[11px] font-mono font-bold text-[#163832]">3 Items</span>
           </div>
 
           <div className="space-y-2">
@@ -427,14 +427,14 @@ export default function DailyHygieneChecklist({
                 label: "Brushes independently",
                 risk: false,
                 icon: Smile,
-                iconColor: "text-purple-600",
+                iconColor: "text-[#235347]",
               },
               {
                 id: "cooperatedWithBrushing" as const,
                 label: "Cooperated with brushing",
                 risk: false,
                 icon: Heart,
-                iconColor: "text-pink-600",
+                iconColor: "text-[#235347]",
               },
               {
                 id: "showResistanceOrCrying" as const,
@@ -453,22 +453,22 @@ export default function DailyHygieneChecklist({
                   className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
                       ? item.risk
-                        ? "bg-rose-50 border-rose-300 text-rose-950 font-medium"
-                        : "bg-purple-50 border-purple-300 text-purple-950 font-medium"
-                      : "bg-slate-50/80 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
+                        ? "bg-rose-50 border-rose-300 text-rose-950 font-bold"
+                        : "bg-[#DAF1DE] border-[#8EB69B] text-[#051F20] font-bold"
+                      : "bg-[#F4FAF6] border-[#D5E8DA] text-[#0B2B26] hover:border-[#8EB69B] hover:bg-[#DAF1DE]/30 font-semibold"
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0 pr-2">
                     <Icon className={`w-4 h-4 flex-shrink-0 ${item.iconColor}`} />
-                    <span className="text-xs font-medium leading-snug">{item.label}</span>
+                    <span className="text-xs font-semibold leading-snug">{item.label}</span>
                   </div>
                   <div
                     className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
                         ? item.risk
                           ? "bg-rose-600 border-rose-600 text-white font-bold"
-                          : "bg-purple-600 border-purple-600 text-white font-bold"
-                        : "border-slate-300 bg-white group-hover:border-slate-400"
+                          : "bg-[#235347] border-[#235347] text-white font-bold"
+                        : "border-[#8EB69B] bg-white group-hover:border-[#235347]"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}

@@ -124,7 +124,7 @@ export default function LearningPage() {
             <h1 className="text-2xl sm:text-4xl font-extrabold text-[#051F20] tracking-tight">
               Visual Learning & Motivational Videos
             </h1>
-            <p className="text-slate-600 text-xs sm:text-sm max-w-2xl leading-relaxed">
+            <p className="text-[#0B2B26] text-xs sm:text-sm max-w-2xl leading-relaxed font-medium">
               Real high-definition video modules stored locally. Designed to engage children with ASD through joyful visual modeling, clear dietary cause-and-effect (shiny teeth vs. sugar bugs), and encouraging moral stories.
             </p>
           </div>
@@ -160,8 +160,8 @@ export default function LearningPage() {
             🪥
           </div>
           <div>
-            <div className="font-extrabold text-xs sm:text-sm text-slate-900">1. Step-by-Step Brushing</div>
-            <p className="text-[11px] text-slate-500">Child showing brushing steps with joy</p>
+            <div className="font-extrabold text-xs sm:text-sm text-[#051F20]">1. Step-by-Step Brushing</div>
+            <p className="text-[11px] text-[#163832] font-semibold">Child showing brushing steps with joy</p>
           </div>
         </button>
 
@@ -177,8 +177,8 @@ export default function LearningPage() {
             🍎
           </div>
           <div>
-            <div className="font-extrabold text-xs sm:text-sm text-slate-900">2. Diet Motivation: Shiny vs Bugs</div>
-            <p className="text-[11px] text-slate-500">Healthy shiny teeth vs bacteria feast</p>
+            <div className="font-extrabold text-xs sm:text-sm text-[#051F20]">2. Diet Motivation: Shiny vs Bugs</div>
+            <p className="text-[11px] text-[#163832] font-semibold">Healthy shiny teeth vs bacteria feast</p>
           </div>
         </button>
 
@@ -194,8 +194,8 @@ export default function LearningPage() {
             🌟
           </div>
           <div>
-            <div className="font-extrabold text-xs sm:text-sm text-slate-900">3. God Blesses Joyful Brushers</div>
-            <p className="text-[11px] text-slate-500">Cleanliness is Godliness moral story</p>
+            <div className="font-extrabold text-xs sm:text-sm text-[#051F20]">3. God Blesses Joyful Brushers</div>
+            <p className="text-[11px] text-[#163832] font-semibold">Cleanliness is Godliness moral story</p>
           </div>
         </button>
       </div>
@@ -263,7 +263,7 @@ export default function LearningPage() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-500 font-mono">On-Site MP4</span>
+                    <span className="text-[11px] text-[#163832] font-semibold font-mono">On-Site MP4</span>
                     <button
                       onClick={() => toggleFullscreen(brushingVideoRef)}
                       className="p-1.5 rounded-xl bg-[#DAF1DE]/60 hover:bg-[#DAF1DE] text-[#051F20] transition-colors cursor-pointer"
@@ -278,7 +278,7 @@ export default function LearningPage() {
                   <h3 className="font-extrabold text-base text-[#051F20]">
                     Step-by-Step Brushing: Child Showing Steps with Joy
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">
                     This video demonstrates the full, joyful routine from start to finish. Children learn best by visual modeling—watching another child brush happily normalizes the sensory sensations and builds enthusiasm.
                   </p>
                 </div>
@@ -310,7 +310,7 @@ export default function LearningPage() {
                             {s.time}
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-600 mt-0.5 leading-relaxed">
+                        <p className="text-[11px] text-[#0B2B26] mt-0.5 leading-relaxed font-medium">
                           {s.description}
                         </p>
                       </div>
@@ -385,7 +385,7 @@ export default function LearningPage() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-500 font-mono">Dr. Binocs Show</span>
+                    <span className="text-[11px] text-[#163832] font-semibold font-mono">Dr. Binocs Show</span>
                     <button
                       onClick={() => toggleFullscreen(dietVideoRef)}
                       className="p-1.5 rounded-xl bg-slate-200/70 hover:bg-slate-300 text-slate-700 transition-colors"
@@ -397,10 +397,10 @@ export default function LearningPage() {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
-                  <h3 className="font-extrabold text-base text-slate-900">
+                  <h3 className="font-extrabold text-base text-[#051F20]">
                     Diet Motivation: Shiny Teeth vs. Sugar Bugs (How Cavities Form)
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">
                     Watch Dr. Binocs explain what happens when we eat healthy foods vs. sugary snacks: bacteria feast on chocolates and sodas, releasing acids that turn teeth black and eat away enamel, until brushing saves the day!
                   </p>
                 </div>
@@ -412,7 +412,7 @@ export default function LearningPage() {
                   <div className="flex items-center gap-2 text-emerald-800 font-extrabold text-xs uppercase tracking-wider">
                     <Apple className="w-4 h-4 text-emerald-600" /> 1. Healthy Food = Shiny Teeth!
                   </div>
-                  <ul className="text-xs text-slate-700 space-y-2">
+                  <ul className="text-xs text-[#0B2B26] space-y-2 font-medium">
                     <li className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                       <span><strong>Crunchy Fruits (Apples, Carrots):</strong> Naturally scrub and polish tooth surfaces.</span>
@@ -432,7 +432,7 @@ export default function LearningPage() {
                   <div className="flex items-center gap-2 text-rose-800 font-extrabold text-xs uppercase tracking-wider">
                     <Candy className="w-4 h-4 text-rose-600" /> 2. Sugar Bugs Feast (What Causes Black Teeth)
                   </div>
-                  <ul className="text-xs text-slate-700 space-y-2">
+                  <ul className="text-xs text-[#0B2B26] space-y-2 font-medium">
                     <li className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-rose-500 flex-shrink-0" />
                       <span><strong>Chocolates & Sticky Toffees:</strong> Stick deep inside tooth grooves.</span>
@@ -461,7 +461,7 @@ export default function LearningPage() {
           <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs relative overflow-hidden">
             {/* Story Picker Sub-Tabs */}
             <div className="flex items-center gap-3 mb-6">
-              <span className="text-xs font-bold text-slate-700">Choose Motivational Story:</span>
+              <span className="text-xs font-bold text-[#051F20]">Choose Motivational Story:</span>
               <button
                 onClick={() => {
                   setActiveBlessingVideo("cleanliness");
@@ -551,7 +551,7 @@ export default function LearningPage() {
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-slate-500 font-mono">
+                    <span className="text-[11px] text-[#163832] font-semibold font-mono">
                       {activeBlessingVideo === "cleanliness" ? "Ted & Zoe Moral Story" : "Bedtime Tale"}
                     </span>
                     <button
@@ -565,12 +565,12 @@ export default function LearningPage() {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
-                  <h3 className="font-extrabold text-base text-slate-900">
+                  <h3 className="font-extrabold text-base text-[#051F20]">
                     {activeBlessingVideo === "cleanliness"
                       ? "Cleanliness Is Godliness: Moral Story for Children"
                       : "The Magic Toothbrush Adventure: Bedtime Motivation"}
                   </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs text-[#0B2B26] leading-relaxed font-medium">
                     Inspiring animated story teaching children that taking care of their teeth and maintaining body cleanliness is a divine virtue that brings blessings, vibrant health, and peaceful sleep.
                   </p>
                 </div>
@@ -586,15 +586,15 @@ export default function LearningPage() {
                     <span className="text-[10px] font-black uppercase tracking-widest text-amber-900 bg-amber-100 px-3 py-1 rounded-full border border-amber-200 inline-block mb-2">
                       Divine Blessing & Encouragement
                     </span>
-                    <h4 className="text-xl font-extrabold text-slate-900">
+                    <h4 className="text-xl font-extrabold text-[#051F20]">
                       “Clean Smiles Bring Big Blessings”
                     </h4>
-                    <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                    <p className="text-xs text-[#0B2B26] mt-2 leading-relaxed font-medium">
                       Every time you pick up your brush and care for your teeth morning and night, you are honoring the body given to you. God blesses the little champions who keep their smiles pure, strong, and bright!
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white border border-amber-200/70 italic font-serif text-slate-700 text-xs shadow-2xs">
+                  <div className="p-4 rounded-xl bg-white border border-amber-200/70 italic font-serif text-[#051F20] text-xs font-medium shadow-2xs">
                     “Cleanliness is next to godliness. A clean heart and a clean smile bring peace, glowing health, and joyful dreams.”
                   </div>
                 </div>

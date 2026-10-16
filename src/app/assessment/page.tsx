@@ -243,20 +243,20 @@ export default function AssessmentPage() {
                 <h1 className="text-2xl sm:text-4xl font-extrabold text-[#051F20] tracking-tight">
                   Baseline Clinical Oral Health Assessment
                 </h1>
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                  Calibrated profile for <strong className="text-[#0B2B26] font-semibold">{activeAccount?.name || "Your Child"}</strong> ({activeAccount?.code || "ASD-001"}). This baseline records your child&apos;s 20 intake responses across 4 clinical domains to guide all personalized routines and Argus AI advice.
+                <p className="text-[#0B2B26] text-xs sm:text-sm leading-relaxed font-medium">
+                  Calibrated profile for <strong className="text-[#051F20] font-black">{activeAccount?.name || "Your Child"}</strong> ({activeAccount?.code || "ASD-001"}). This baseline records your child&apos;s 20 intake responses across 4 clinical domains to guide all personalized routines and Argus AI advice.
                 </p>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2">
-                  <span className="px-3 py-1.5 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA] text-xs text-[#0B2B26] font-mono">
-                    Status: <strong className="text-[#235347] font-bold">Calibrated & Active</strong>
+                  <span className="px-3 py-1.5 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-xs text-[#051F20] font-mono">
+                    Status: <strong className="text-[#235347] font-black">Calibrated & Active</strong>
                   </span>
-                  <span className="px-3 py-1.5 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA] text-xs text-[#0B2B26]">
-                    ASD Level: <strong className="text-[#051F20] font-semibold">{activeAccount?.asdLevel || "ASD Profile"}</strong>
+                  <span className="px-3 py-1.5 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-xs text-[#051F20]">
+                    ASD Level: <strong className="text-[#051F20] font-black">{activeAccount?.asdLevel || "ASD Profile"}</strong>
                   </span>
                   <Link
                     href="/care-plan"
-                    className="px-4 py-2 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs"
+                    className="px-4 py-2 rounded-xl bg-[#235347] hover:bg-[#163832] text-white font-extrabold text-xs flex items-center gap-1.5 transition-all shadow-xs"
                   >
                     <span>View Resulting Care Plan</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -285,55 +285,55 @@ export default function AssessmentPage() {
           {/* 4 Core Clinical Baseline Metrics */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#235347] block mb-1">
+              <span className="text-xs font-black uppercase tracking-wider text-[#051F20] block mb-1">
                 Baseline Oral Health Score
               </span>
-              <div className="text-2xl sm:text-3xl font-black text-[#051F20]">82%</div>
-              <p className="text-[11px] text-slate-500 mt-1">
+              <div className="text-3xl font-black text-[#051F20]">82%</div>
+              <p className="text-xs text-[#163832] font-medium mt-1">
                 Calibrated against brushing frequency and gum health.
               </p>
             </div>
 
             <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#235347] block mb-1">
+              <span className="text-xs font-black uppercase tracking-wider text-[#051F20] block mb-1">
                 Toothbrushing Setup
               </span>
-              <div className="text-base font-bold text-[#051F20] truncate">
+              <div className="text-base font-extrabold text-[#051F20] truncate">
                 {activeAccount?.brushingHabits?.toothbrushType || "Ultra-soft Manual"}
               </div>
-              <p className="text-[11px] text-slate-500 mt-1">
-                Paste: {activeAccount?.brushingHabits?.toothpaste || "Mild non-foaming"}
+              <p className="text-xs text-[#163832] font-medium mt-1">
+                Paste: <strong className="text-[#051F20] font-bold">{activeAccount?.brushingHabits?.toothpaste || "Mild non-foaming"}</strong>
               </p>
             </div>
 
             <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 block mb-1">
+              <span className="text-xs font-black uppercase tracking-wider text-amber-800 block mb-1">
                 Dietary Sugar Risk
               </span>
-              <div className="text-base font-bold text-[#051F20] truncate">
+              <div className="text-base font-extrabold text-[#051F20] truncate">
                 {activeAccount?.dietaryHabits?.sugaryFoodFrequency || "Moderate / Controlled"}
               </div>
-              <p className="text-[11px] text-slate-500 mt-1">
-                Food holding: {activeAccount?.dietaryHabits?.foodHoldingInMouth || "None reported"}
+              <p className="text-xs text-[#163832] font-medium mt-1">
+                Food holding: <strong className="text-[#051F20] font-bold">{activeAccount?.dietaryHabits?.foodHoldingInMouth || "None reported"}</strong>
               </p>
             </div>
 
             <div className="bg-white rounded-2xl p-5 border border-[#D5E8DA] hover:border-[#8EB69B] shadow-xs transition-colors">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#235347] block mb-1">
+              <span className="text-xs font-black uppercase tracking-wider text-[#051F20] block mb-1">
                 Cooperation Level
               </span>
-              <div className="text-base font-bold text-[#051F20] truncate">
+              <div className="text-base font-extrabold text-[#051F20] truncate">
                 {activeAccount?.childBehaviour?.mouthOpeningCooperation || "Tolerates with guidance"}
               </div>
-              <p className="text-[11px] text-slate-500 mt-1">
-                Assistance: {activeAccount?.brushingHabits?.assistanceNeeded || "Guided brushing"}
+              <p className="text-xs text-[#163832] font-medium mt-1">
+                Assistance: <strong className="text-[#051F20] font-bold">{activeAccount?.brushingHabits?.assistanceNeeded || "Guided brushing"}</strong>
               </p>
             </div>
           </div>
 
           {/* Detailed 4 Clinical Domains from 20-Question Intake */}
           <div className="space-y-4">
-            <h2 className="text-lg font-bold text-[#051F20] flex items-center gap-2">
+            <h2 className="text-lg font-black text-[#051F20] flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-[#235347]" />
               <span>Calibrated Intake Findings (4 Clinical Domains)</span>
             </h2>
@@ -341,124 +341,124 @@ export default function AssessmentPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Domain 1: Demographics & Special Needs */}
               <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
-                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
+                <div className="flex items-center gap-2.5 pb-2.5 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-black text-xs">
                     01
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#051F20]">Demographics & ASD Classification</h3>
-                    <p className="text-[10px] text-slate-500">Questions 1 to 5</p>
+                    <h3 className="font-extrabold text-sm text-[#051F20]">Demographics & ASD Classification</h3>
+                    <p className="text-xs font-bold text-[#235347]">Questions 1 to 5</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Child Name & Age:</span>
-                    <span className="text-[#0B2B26] font-semibold">{activeAccount?.name || "Child"}, {activeAccount?.age || 6} yrs</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Child Name & Age:</span>
+                    <span className="text-[#051F20] font-extrabold">{activeAccount?.name || "Child"}, {activeAccount?.age || 6} yrs</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">ASD Severity:</span>
-                    <span className="text-[#235347] font-bold">{activeAccount?.asdLevel || "Diagnosed ASD"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">ASD Severity:</span>
+                    <span className="text-[#051F20] font-black">{activeAccount?.asdLevel || "Diagnosed ASD"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Communication Style:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.demographics?.communicationStyle || "Verbal with visual prompts"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Communication Style:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.demographics?.communicationStyle || "Verbal with visual prompts"}</span>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-slate-500">Caregiver Contact:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.caregiverName || "Primary Caregiver"}</span>
+                  <div className="flex justify-between items-center py-1.5">
+                    <span className="text-[#163832] font-bold">Caregiver Contact:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.caregiverName || "Primary Caregiver"}</span>
                   </div>
                 </div>
               </div>
 
               {/* Domain 2: Brushing Habits & Sensitivities */}
               <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
-                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
+                <div className="flex items-center gap-2.5 pb-2.5 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-black text-xs">
                     02
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#051F20]">Brushing Habits & Sensory Tolerance</h3>
-                    <p className="text-[10px] text-slate-500">Questions 6 to 11</p>
+                    <h3 className="font-extrabold text-sm text-[#051F20]">Brushing Habits & Sensory Tolerance</h3>
+                    <p className="text-xs font-bold text-[#235347]">Questions 6 to 11</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Brushing Frequency:</span>
-                    <span className="text-[#0B2B26] font-semibold">{activeAccount?.brushingHabits?.frequency || "Twice daily"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Brushing Frequency:</span>
+                    <span className="text-[#051F20] font-extrabold">{activeAccount?.brushingHabits?.frequency || "Twice daily"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Toothbrush Type:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.brushingHabits?.toothbrushType || "Triple-headed / Ultra-soft"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Toothbrush Type:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.brushingHabits?.toothbrushType || "Triple-headed / Ultra-soft"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Toothpaste Flavor:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.brushingHabits?.toothpaste || "Mild non-foaming paste"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Toothpaste Flavor:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.brushingHabits?.toothpaste || "Mild non-foaming paste"}</span>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-slate-500">Sensory Triggers:</span>
-                    <span className="text-amber-700 font-semibold">SLS foam, mint cold sensation</span>
+                  <div className="flex justify-between items-center py-1.5">
+                    <span className="text-[#163832] font-bold">Sensory Triggers:</span>
+                    <span className="text-amber-800 font-extrabold">SLS foam, mint cold sensation</span>
                   </div>
                 </div>
               </div>
 
               {/* Domain 3: Dietary Patterns & Sugar Exposure */}
               <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
-                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
+                <div className="flex items-center gap-2.5 pb-2.5 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-black text-xs">
                     03
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#051F20]">Dietary Habits & Sugar Exposure</h3>
-                    <p className="text-[10px] text-slate-500">Questions 12 to 16</p>
+                    <h3 className="font-extrabold text-sm text-[#051F20]">Dietary Habits & Sugar Exposure</h3>
+                    <p className="text-xs font-bold text-[#235347]">Questions 12 to 16</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Sweet / Sugary Snacks:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.dietaryHabits?.sugaryFoodFrequency || "Limited to meals"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Sweet / Sugary Snacks:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.dietaryHabits?.sugaryFoodFrequency || "Limited to meals"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Food Holding in Cheeks:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.dietaryHabits?.foodHoldingInMouth || "Rare / None"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Food Holding in Cheeks:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.dietaryHabits?.foodHoldingInMouth || "Rare / None"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Bedtime Bottle / Milk:</span>
-                    <span className="text-[#235347] font-semibold">No bottle in bed (Water only)</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Bedtime Bottle / Milk:</span>
+                    <span className="text-[#051F20] font-black">No bottle in bed (Water only)</span>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-slate-500">Daily Water Hydration:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.dietaryHabits?.waterIntake || "Adequate (>1 Liter)"}</span>
+                  <div className="flex justify-between items-center py-1.5">
+                    <span className="text-[#163832] font-bold">Daily Water Hydration:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.dietaryHabits?.waterIntake || "Adequate (>1 Liter)"}</span>
                   </div>
                 </div>
               </div>
 
               {/* Domain 4: Clinical Dental History & Cooperation */}
               <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs space-y-3">
-                <div className="flex items-center gap-2 pb-2 border-b border-[#D5E8DA]">
-                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-bold text-xs">
+                <div className="flex items-center gap-2.5 pb-2.5 border-b border-[#D5E8DA]">
+                  <div className="w-7 h-7 rounded-lg bg-[#DAF1DE] text-[#051F20] border border-[#8EB69B] flex items-center justify-center font-black text-xs">
                     04
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm text-[#051F20]">Dental History & Cooperation</h3>
-                    <p className="text-[10px] text-slate-500">Questions 17 to 20</p>
+                    <h3 className="font-extrabold text-sm text-[#051F20]">Dental History & Cooperation</h3>
+                    <p className="text-xs font-bold text-[#235347]">Questions 17 to 20</p>
                   </div>
                 </div>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Past Dental Visits:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.dentalMedicalHistory?.lastDentalVisit || "Within last 6-12 months"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Past Dental Visits:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.dentalMedicalHistory?.lastDentalVisit || "Within last 6-12 months"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Past Experience:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.dentalMedicalHistory?.pastDentalExperience || "Mild anxiety"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Past Experience:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.dentalMedicalHistory?.pastDentalExperience || "Mild anxiety"}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-[#D5E8DA]">
-                    <span className="text-slate-500">Active Pain / Cavities:</span>
-                    <span className="text-[#235347] font-semibold">{activeAccount?.dentalMedicalHistory?.activeCavitiesOrPain || "No active toothache reported"}</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-[#D5E8DA]">
+                    <span className="text-[#163832] font-bold">Active Pain / Cavities:</span>
+                    <span className="text-[#051F20] font-black">{activeAccount?.dentalMedicalHistory?.activeCavitiesOrPain || "No active toothache reported"}</span>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-slate-500">Gum Bleeding:</span>
-                    <span className="text-slate-800 font-medium">{activeAccount?.dentalMedicalHistory?.gumBleeding || "No bleeding observed"}</span>
+                  <div className="flex justify-between items-center py-1.5">
+                    <span className="text-[#163832] font-bold">Gum Bleeding:</span>
+                    <span className="text-[#051F20] font-bold">{activeAccount?.dentalMedicalHistory?.gumBleeding || "No bleeding observed"}</span>
                   </div>
                 </div>
               </div>
@@ -511,7 +511,7 @@ export default function AssessmentPage() {
 
           {/* Week Selector Chips */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mr-1">
+            <span className="text-xs font-black text-[#051F20] uppercase tracking-wider mr-1">
               Historical Weeks:
             </span>
             {assessments.map((a, idx) => (
@@ -521,12 +521,12 @@ export default function AssessmentPage() {
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 whitespace-nowrap cursor-pointer ${
                   selectedWeekIndex === idx
                     ? "bg-[#235347] text-white shadow-xs"
-                    : "bg-white text-slate-700 hover:text-[#051F20] border border-[#D5E8DA] hover:border-[#8EB69B]"
+                    : "bg-white text-[#163832] hover:text-[#051F20] border border-[#D5E8DA] hover:border-[#8EB69B]"
                 }`}
               >
                 <span>{a.motivationBadge?.icon || "🌟"}</span>
                 <span>{a.date}</span>
-                <span className="font-mono text-[10px] opacity-80">({a.oralHygieneScore}%)</span>
+                <span className="font-mono text-[10px] opacity-90 font-bold">({a.oralHygieneScore}%)</span>
               </button>
             ))}
           </div>
@@ -545,21 +545,21 @@ export default function AssessmentPage() {
 
               <div className="text-center sm:text-left flex-1">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-1">
-                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                  <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
                     Weekly Motivation Milestone
                   </span>
-                  <span className="text-xs text-slate-500">Streak: {currentAssessment.routineStreakDays} Days Consistent</span>
+                  <span className="text-xs font-bold text-[#163832]">Streak: {currentAssessment.routineStreakDays} Days Consistent</span>
                 </div>
 
                 <h2 className="text-xl sm:text-2xl font-black text-[#051F20] mt-1">
                   {currentAssessment.motivationBadge?.title || "Sparkling Routine Hero"}
                 </h2>
 
-                <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#0B2B26] mt-1 max-w-xl leading-relaxed font-medium">
                   {currentAssessment.motivationBadge?.description || "Outstanding effort and habit formation!"}
                 </p>
 
-                <div className="mt-3 p-3 rounded-xl bg-[#DAF1DE]/70 border border-[#8EB69B]/60 text-xs italic text-[#051F20] max-w-xl">
+                <div className="mt-3 p-3 rounded-xl bg-[#DAF1DE] border border-[#8EB69B] text-xs font-medium text-[#051F20] max-w-xl">
                   “{currentAssessment.statusSummary}”
                 </div>
               </div>
@@ -571,7 +571,7 @@ export default function AssessmentPage() {
             {/* Oral Hygiene */}
             <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-xs font-black uppercase tracking-wider text-[#051F20]">
                   Oral Hygiene Index
                 </span>
                 <Sparkles className="w-4 h-4 text-[#235347]" />
@@ -579,13 +579,13 @@ export default function AssessmentPage() {
               <div className="text-3xl font-black text-[#235347]">
                 {currentAssessment.oralHygieneScore}%
               </div>
-              <div className="w-full h-2 bg-slate-100 rounded-full mt-3 overflow-hidden">
+              <div className="w-full h-2 bg-[#DAF1DE] rounded-full mt-3 overflow-hidden">
                 <div
                   className="h-full bg-[#235347] rounded-full"
                   style={{ width: `${currentAssessment.oralHygieneScore}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-500 mt-2">
+              <p className="text-xs text-[#163832] font-semibold mt-2">
                 Based on daily morning and bedtime brushing consistency.
               </p>
             </div>
@@ -593,7 +593,7 @@ export default function AssessmentPage() {
             {/* Dietary Risk */}
             <div className="bg-white rounded-2xl p-6 border border-amber-200/80 shadow-xs">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-xs font-black uppercase tracking-wider text-amber-900">
                   Dietary Enamel Risk
                 </span>
                 <Flame className="w-4 h-4 text-amber-600" />
@@ -601,13 +601,13 @@ export default function AssessmentPage() {
               <div className="text-3xl font-black text-amber-700">
                 {currentAssessment.dietaryRiskScore}%
               </div>
-              <div className="w-full h-2 bg-slate-100 rounded-full mt-3 overflow-hidden">
+              <div className="w-full h-2 bg-amber-100 rounded-full mt-3 overflow-hidden">
                 <div
                   className="h-full bg-amber-500 rounded-full"
                   style={{ width: `${currentAssessment.dietaryRiskScore}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-500 mt-2">
+              <p className="text-xs text-[#163832] font-semibold mt-2">
                 Lower is better. Sugar exposure reduced through healthy meals.
               </p>
             </div>
@@ -615,7 +615,7 @@ export default function AssessmentPage() {
             {/* Sensory Comfort */}
             <div className="bg-white rounded-2xl p-6 border border-[#D5E8DA] shadow-xs">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-xs font-black uppercase tracking-wider text-[#051F20]">
                   Sensory Comfort Index
                 </span>
                 <Heart className="w-4 h-4 text-[#235347]" />
@@ -623,13 +623,13 @@ export default function AssessmentPage() {
               <div className="text-3xl font-black text-[#235347]">
                 {currentAssessment.sensoryComfortScore}%
               </div>
-              <div className="w-full h-2 bg-slate-100 rounded-full mt-3 overflow-hidden">
+              <div className="w-full h-2 bg-[#DAF1DE] rounded-full mt-3 overflow-hidden">
                 <div
                   className="h-full bg-[#235347] rounded-full"
                   style={{ width: `${currentAssessment.sensoryComfortScore}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-500 mt-2">
+              <p className="text-xs text-[#163832] font-semibold mt-2">
                 Calibrated against texture, foaming tolerance, and cooperation.
               </p>
             </div>
@@ -644,11 +644,11 @@ export default function AssessmentPage() {
 
             <div className="space-y-3">
               {currentAssessment.aiRecommendations?.map((rec, i) => (
-                <div key={i} className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#DAF1DE]/20 border border-[#D5E8DA]">
+                <div key={i} className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
                   <div className="w-6 h-6 rounded-lg bg-[#235347] text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
                     {i + 1}
                   </div>
-                  <p className="text-xs sm:text-sm text-[#0B2B26] leading-relaxed font-medium">
+                  <p className="text-xs sm:text-sm text-[#0B2B26] leading-relaxed font-semibold">
                     {rec}
                   </p>
                 </div>
@@ -656,7 +656,7 @@ export default function AssessmentPage() {
             </div>
 
             <div className="pt-4 border-t border-[#D5E8DA] flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="text-xs text-slate-500">
+              <div className="text-xs text-[#163832] font-semibold">
                 Watch this week&apos;s joyful story videos to reinforce habits before brushing:
               </div>
               <Link
@@ -693,8 +693,8 @@ export default function AssessmentPage() {
                 <h2 className="text-2xl sm:text-3xl font-black text-[#051F20] mt-2">
                   Weekly Oral Health Hero Certificate
                 </h2>
-                <p className="text-xs text-slate-600">
-                  Awarded to <strong className="text-[#051F20] text-sm">{activeAccount?.name || "Our Champion"}</strong>
+                <p className="text-xs text-[#0B2B26] font-medium">
+                  Awarded to <strong className="text-[#051F20] text-sm font-black">{activeAccount?.name || "Our Champion"}</strong>
                 </p>
               </div>
             </div>
@@ -704,29 +704,29 @@ export default function AssessmentPage() {
               <div className="text-xl sm:text-2xl font-black text-amber-700">
                 ⭐ {currentAssessment.motivationBadge?.title || "Diamond Routine Champion"} ⭐
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed italic">
+              <p className="text-xs sm:text-sm text-[#0B2B26] max-w-md mx-auto leading-relaxed italic font-medium">
                 “{currentAssessment.statusSummary}”
               </p>
 
               <div className="grid grid-cols-3 gap-3 max-w-md mx-auto pt-2">
                 <div className="p-2.5 rounded-xl bg-[#DAF1DE] border border-[#8EB69B]">
-                  <div className="text-[10px] text-[#235347] font-medium">Hygiene Score</div>
+                  <div className="text-[10px] text-[#235347] font-bold">Hygiene Score</div>
                   <div className="text-lg font-black text-[#051F20]">{currentAssessment.oralHygieneScore}%</div>
                 </div>
-                <div className="p-2.5 rounded-xl bg-[#DAF1DE]/60 border border-[#8EB69B]">
-                  <div className="text-[10px] text-[#235347] font-medium">Sensory Score</div>
+                <div className="p-2.5 rounded-xl bg-[#DAF1DE] border border-[#8EB69B]">
+                  <div className="text-[10px] text-[#235347] font-bold">Sensory Score</div>
                   <div className="text-lg font-black text-[#051F20]">{currentAssessment.sensoryComfortScore}%</div>
                 </div>
                 <div className="p-2.5 rounded-xl bg-amber-50 border border-amber-200">
-                  <div className="text-[10px] text-amber-700 font-medium">Streak Days</div>
-                  <div className="text-lg font-black text-amber-900">{currentAssessment.routineStreakDays}d 🔥</div>
+                  <div className="text-[10px] text-amber-800 font-bold">Streak Days</div>
+                  <div className="text-lg font-black text-amber-950">{currentAssessment.routineStreakDays}d 🔥</div>
                 </div>
               </div>
             </div>
 
             {/* Certificate Footer Buttons */}
-            <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 relative z-10">
-              <span className="text-[11px] text-slate-500 font-medium">
+            <div className="pt-4 border-t border-[#D5E8DA] flex flex-wrap items-center justify-between gap-3 relative z-10">
+              <span className="text-xs text-[#163832] font-semibold">
                 Issued on {currentAssessment.date} • Argus AI Clinical System
               </span>
 

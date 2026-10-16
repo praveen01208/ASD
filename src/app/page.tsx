@@ -200,26 +200,26 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
           <div className="md:col-span-8 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-[#051F20] bg-[#DAF1DE] border border-[#8EB69B] px-2.5 py-0.5 rounded-full shadow-2xs">
+              <span className="text-xs font-black text-[#051F20] bg-[#DAF1DE] border border-[#8EB69B] px-2.5 py-0.5 rounded-full shadow-2xs">
                 Dr. Nivrutti Reddy Clinical Protocol
               </span>
-              <span className="text-slate-400 hidden sm:inline">•</span>
-              <span className="text-xs text-slate-500 font-medium">Autism Pediatric Oral Health System</span>
+              <span className="text-[#235347] hidden sm:inline font-bold">•</span>
+              <span className="text-xs text-[#163832] font-bold">Autism Pediatric Oral Health System</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#051F20] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black text-[#051F20] tracking-tight">
               Sequential Care Portal for {childName}
             </h1>
 
-            <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
-              Welcome, <strong className="text-[#0B2B26] font-semibold">{caregiverName}</strong>. Follow your child&apos;s 5-step daily routine below. Designed to make brushing predictable, peaceful, and joyful.
+            <p className="text-xs sm:text-sm text-[#0B2B26] max-w-xl leading-relaxed font-medium">
+              Welcome, <strong className="text-[#051F20] font-black">{caregiverName}</strong>. Follow your child&apos;s 5-step daily routine below. Designed to make brushing predictable, peaceful, and joyful.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <span className="text-xs text-[#0B2B26] bg-[#DAF1DE]/40 px-3 py-1 rounded-xl border border-[#D5E8DA] font-mono">
+              <span className="text-xs text-[#051F20] bg-[#DAF1DE] px-3 py-1 rounded-xl border border-[#8EB69B] font-mono font-bold">
                 ID: <strong className="text-[#235347]">{childCode}</strong>
               </span>
-              <span className="text-xs text-[#0B2B26] bg-[#DAF1DE]/40 px-3 py-1 rounded-xl border border-[#D5E8DA] font-medium">
+              <span className="text-xs text-[#051F20] bg-[#DAF1DE] px-3 py-1 rounded-xl border border-[#8EB69B] font-bold">
                 {asdLevel}
               </span>
               <Link
@@ -252,10 +252,10 @@ export default function Dashboard() {
       {/* ── 2. Sequential 5-Step Care Roadmap ── */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-[#051F20] flex items-center gap-2">
+          <h2 className="text-sm font-black uppercase tracking-wider text-[#051F20] flex items-center gap-2">
             <span>5-Step Sequential Care Journey</span>
           </h2>
-          <span className="text-xs text-slate-500">Step-by-step guidance</span>
+          <span className="text-xs font-bold text-[#163832]">Step-by-step guidance</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
@@ -267,12 +267,12 @@ export default function Dashboard() {
               <span className="text-[10px] font-black text-[#235347] uppercase tracking-wider block mb-1">
                 Step 1
               </span>
-              <div className="font-bold text-xs text-[#0B2B26] group-hover:text-[#235347] transition-colors">
+              <div className="font-extrabold text-xs text-[#051F20] group-hover:text-[#235347] transition-colors">
                 Baseline Assessment
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">20Q Clinical Profile</p>
+              <p className="text-[11px] font-semibold text-[#163832] mt-0.5">20Q Clinical Profile</p>
             </div>
-            <span className="mt-2 text-[10px] text-[#235347] font-semibold flex items-center gap-1">
+            <span className="mt-2 text-[10px] text-[#235347] font-bold flex items-center gap-1">
               <Check className="w-3 h-3 text-[#235347]" /> Calibrated
             </span>
           </Link>
@@ -285,12 +285,12 @@ export default function Dashboard() {
               <span className="text-[10px] font-black text-[#235347] uppercase tracking-wider block mb-1">
                 Step 2
               </span>
-              <div className="font-bold text-xs text-[#0B2B26] group-hover:text-[#235347] transition-colors">
+              <div className="font-extrabold text-xs text-[#051F20] group-hover:text-[#235347] transition-colors">
                 Daily Routine Checklist
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">Morning & Bedtime</p>
+              <p className="text-[11px] font-semibold text-[#163832] mt-0.5">Morning & Bedtime</p>
             </div>
-            <span className="mt-2 text-[10px] text-[#235347] font-semibold">
+            <span className="mt-2 text-[10px] text-[#235347] font-bold">
               {isTodayLogged ? "✓ Done Today" : "Pending Today"}
             </span>
           </a>
@@ -303,12 +303,12 @@ export default function Dashboard() {
               <span className="text-[10px] font-black text-[#235347] uppercase tracking-wider block mb-1">
                 Step 3
               </span>
-              <div className="font-bold text-xs text-[#0B2B26] group-hover:text-[#235347] transition-colors">
+              <div className="font-extrabold text-xs text-[#051F20] group-hover:text-[#235347] transition-colors">
                 Visual Video Suite
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">3 Joyful Lessons</p>
+              <p className="text-[11px] font-semibold text-[#163832] mt-0.5">3 Joyful Lessons</p>
             </div>
-            <span className="mt-2 text-[10px] text-[#235347] font-semibold">On-site MP4s</span>
+            <span className="mt-2 text-[10px] text-[#235347] font-bold">On-site MP4s</span>
           </Link>
 
           <Link
@@ -319,12 +319,12 @@ export default function Dashboard() {
               <span className="text-[10px] font-black text-[#235347] uppercase tracking-wider block mb-1">
                 Step 4
               </span>
-              <div className="font-bold text-xs text-[#0B2B26] group-hover:text-[#235347] transition-colors">
+              <div className="font-extrabold text-xs text-[#051F20] group-hover:text-[#235347] transition-colors">
                 Child Care Plan
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">Dr. Reddy Roadmap</p>
+              <p className="text-[11px] font-semibold text-[#163832] mt-0.5">Dr. Reddy Roadmap</p>
             </div>
-            <span className="mt-2 text-[10px] text-[#235347] font-semibold">Sensory Paced</span>
+            <span className="mt-2 text-[10px] text-[#235347] font-bold">Sensory Paced</span>
           </Link>
 
           <Link
@@ -335,12 +335,12 @@ export default function Dashboard() {
               <span className="text-[10px] font-black text-[#235347] uppercase tracking-wider block mb-1">
                 Step 5
               </span>
-              <div className="font-bold text-xs text-[#0B2B26] group-hover:text-[#235347] transition-colors">
+              <div className="font-extrabold text-xs text-[#051F20] group-hover:text-[#235347] transition-colors">
                 Argus AI Assistant
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5">Simple Steps Q&A</p>
+              <p className="text-[11px] font-semibold text-[#163832] mt-0.5">Simple Steps Q&A</p>
             </div>
-            <span className="mt-2 text-[10px] text-[#235347] font-semibold">24/7 Support</span>
+            <span className="mt-2 text-[10px] text-[#235347] font-bold">24/7 Support</span>
           </Link>
         </div>
       </div>
@@ -402,27 +402,27 @@ export default function Dashboard() {
 
             {/* Quick Summary of Today's Log */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-                <span className="text-slate-500 block text-[11px]">Morning Brushing</span>
-                <span className="font-semibold text-[#235347] mt-0.5 block">
+              <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+                <span className="text-[#163832] font-bold block text-xs">Morning Brushing</span>
+                <span className="font-extrabold text-[#235347] mt-0.5 block text-sm">
                   {todayLogData?.brushedMorning ? "✓ Completed" : "Not Logged"}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-                <span className="text-slate-500 block text-[11px]">Bedtime Brushing</span>
-                <span className="font-semibold text-[#235347] mt-0.5 block">
+              <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+                <span className="text-[#163832] font-bold block text-xs">Bedtime Brushing</span>
+                <span className="font-extrabold text-[#235347] mt-0.5 block text-sm">
                   {todayLogData?.brushedNight ? "✓ Completed" : "Scheduled Tonight"}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-                <span className="text-slate-500 block text-[11px]">Dietary Balance</span>
-                <span className="font-semibold text-[#051F20] mt-0.5 block">
+              <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+                <span className="text-[#163832] font-bold block text-xs">Dietary Balance</span>
+                <span className="font-extrabold text-[#051F20] mt-0.5 block text-sm">
                   {todayLogData?.healthyBreakfast && todayLogData?.healthyLunch ? "Healthy Meals" : "Standard"}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-                <span className="text-slate-500 block text-[11px]">Child Cooperation</span>
-                <span className="font-semibold text-[#235347] mt-0.5 block">
+              <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+                <span className="text-[#163832] font-bold block text-xs">Child Cooperation</span>
+                <span className="font-extrabold text-[#235347] mt-0.5 block text-sm">
                   {todayLogData?.cooperatedWithBrushing ? "Cooperative" : "Sensory Guided"}
                 </span>
               </div>
@@ -595,34 +595,34 @@ export default function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
-            <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-              <span className="text-[#051F20] font-bold block mb-1">1. Demographics</span>
-              <div className="text-slate-800 font-medium">{activeChild.name}, {activeChild.age} yrs</div>
-              <div className="text-[10px] text-slate-500 truncate">{activeChild.demographics?.communicationStyle}</div>
+            <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+              <span className="text-[#051F20] font-black block mb-1">1. Demographics</span>
+              <div className="text-[#051F20] font-bold">{activeChild.name}, {activeChild.age} yrs</div>
+              <div className="text-xs text-[#163832] font-semibold truncate">{activeChild.demographics?.communicationStyle}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-              <span className="text-[#051F20] font-bold block mb-1">2. Brushing</span>
-              <div className="text-slate-800 font-medium">{activeChild.brushingHabits?.toothbrushType || "Soft manual"}</div>
-              <div className="text-[10px] text-slate-500">{activeChild.brushingHabits?.frequency || "Twice daily"}</div>
+            <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+              <span className="text-[#051F20] font-black block mb-1">2. Brushing</span>
+              <div className="text-[#051F20] font-bold">{activeChild.brushingHabits?.toothbrushType || "Soft manual"}</div>
+              <div className="text-xs text-[#163832] font-semibold">{activeChild.brushingHabits?.frequency || "Twice daily"}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-              <span className="text-[#051F20] font-bold block mb-1">3. Diet</span>
-              <div className="text-slate-800 font-medium">Sugar: {activeChild.dietaryHabits?.sugaryFoodFrequency || "Rarely"}</div>
-              <div className="text-[10px] text-slate-500">Snacks: {activeChild.dietaryHabits?.snackingFrequency || "1-2 times"}</div>
+            <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+              <span className="text-[#051F20] font-black block mb-1">3. Diet</span>
+              <div className="text-[#051F20] font-bold">Sugar: {activeChild.dietaryHabits?.sugaryFoodFrequency || "Rarely"}</div>
+              <div className="text-xs text-[#163832] font-semibold">Snacks: {activeChild.dietaryHabits?.snackingFrequency || "1-2 times"}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-              <span className="text-[#051F20] font-bold block mb-1">4. Dental History</span>
-              <div className="text-slate-800 font-medium">{activeChild.dentalMedicalHistory?.lastDentalVisit || "Regular"}</div>
-              <div className="text-[10px] text-slate-500">{activeChild.dentalMedicalHistory?.activeCavitiesOrPain || "None active"}</div>
+            <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+              <span className="text-[#051F20] font-black block mb-1">4. Dental History</span>
+              <div className="text-[#051F20] font-bold">{activeChild.dentalMedicalHistory?.lastDentalVisit || "Regular"}</div>
+              <div className="text-xs text-[#163832] font-semibold">{activeChild.dentalMedicalHistory?.activeCavitiesOrPain || "None active"}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#DAF1DE]/30 border border-[#D5E8DA]">
-              <span className="text-[#051F20] font-bold block mb-1">5. Sensory/Behavior</span>
-              <div className="text-slate-800 font-medium truncate">{activeChild.childBehaviour?.sensoryAversionTriggers?.slice(0, 2).join(", ") || "Standard"}</div>
-              <div className="text-[10px] text-slate-500">{activeChild.childBehaviour?.mouthOpeningCooperation || "Cooperative"}</div>
+            <div className="p-3 rounded-xl bg-[#DAF1DE]/40 border border-[#D5E8DA]">
+              <span className="text-[#051F20] font-black block mb-1">5. Sensory/Behavior</span>
+              <div className="text-[#051F20] font-bold truncate">{activeChild.childBehaviour?.sensoryAversionTriggers?.slice(0, 2).join(", ") || "Standard"}</div>
+              <div className="text-xs text-[#163832] font-semibold">{activeChild.childBehaviour?.mouthOpeningCooperation || "Cooperative"}</div>
             </div>
           </div>
         </div>

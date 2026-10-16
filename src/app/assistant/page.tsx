@@ -137,10 +137,10 @@ export default function AssistantPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-[#051F20] tracking-tight">
             Argus AI Oral Health Companion
           </h1>
-          <p className="text-slate-600 text-xs sm:text-sm mt-0.5 font-medium">
+          <p className="text-[#0B2B26] text-xs sm:text-sm mt-0.5 font-medium">
             Empathetic pediatric oral health guidance tailored for neurodivergent children
           </p>
         </div>
@@ -159,7 +159,7 @@ export default function AssistantPage() {
       <div className="flex-1 flex flex-col md:flex-row gap-5 overflow-hidden min-h-0">
         {/* Quick Actions Sidebar */}
         <div className="w-full md:w-80 bg-white rounded-3xl p-4 flex flex-col gap-2.5 overflow-y-auto flex-shrink-0 border border-[#D5E8DA] shadow-xs">
-          <h3 className="font-bold text-slate-700 text-xs uppercase tracking-wider mb-1 px-1 flex items-center justify-between">
+          <h3 className="font-bold text-[#051F20] text-xs uppercase tracking-wider mb-1 px-1 flex items-center justify-between">
             <span>Quick Prompt Chips</span>
             <span className="text-[10px] text-[#235347] font-semibold">1-Tap</span>
           </h3>
@@ -201,7 +201,7 @@ export default function AssistantPage() {
               </div>
               <div>
                 <h2 className="font-bold text-[#051F20] text-sm">Argus AI</h2>
-                <p className="text-[11px] text-slate-500 font-medium">Child: {activeAccount?.name || "Leo"} ({activeAccount?.code || "ASD-001"}) • Pediatric ASD Oral Health Guide</p>
+                <p className="text-xs text-[#163832] font-semibold">Child: {activeAccount?.name || "Leo"} ({activeAccount?.code || "ASD-001"}) • Pediatric ASD Oral Health Guide</p>
               </div>
             </div>
             
@@ -210,7 +210,7 @@ export default function AssistantPage() {
                 role: "assistant", 
                 content: `Hello! I am **Argus**. How can I help you and ${activeAccount?.name || "your child"} today?` 
               }])}
-              className="text-xs text-slate-500 hover:text-[#051F20] flex items-center gap-1.5 transition-colors px-2.5 py-1.5 rounded-lg hover:bg-[#DAF1DE]/40 border border-transparent hover:border-[#8EB69B] cursor-pointer"
+              className="text-xs text-[#163832] hover:text-[#051F20] font-bold flex items-center gap-1.5 transition-colors px-2.5 py-1.5 rounded-lg hover:bg-[#DAF1DE]/40 border border-transparent hover:border-[#8EB69B] cursor-pointer"
               title="Reset conversation"
             >
               <RefreshCw className="w-3.5 h-3.5" /> Clear
@@ -283,8 +283,8 @@ export default function AssistantPage() {
                 Send <Send className="w-3.5 h-3.5" />
               </button>
             </form>
-            <p className="text-[11px] text-slate-500 mt-2 text-center flex items-center justify-center gap-1">
-              <AlertCircle className="w-3.5 h-3.5 text-slate-400" />
+            <p className="text-xs text-[#163832] mt-2 text-center font-medium flex items-center justify-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5 text-[#235347]" />
               Guidance is supportive and does not replace in-person professional dental care.
             </p>
           </div>
@@ -301,7 +301,7 @@ function QuickActionBtn({ title, desc, onClick }: { title: string; desc: string;
       className="w-full text-left p-3.5 rounded-2xl bg-[#DAF1DE]/20 hover:bg-[#DAF1DE]/50 border border-[#D5E8DA] hover:border-[#8EB69B] transition-all group cursor-pointer"
     >
       <div className="text-xs font-bold text-[#051F20] group-hover:text-[#235347] transition-colors">{title}</div>
-      <div className="text-[11px] text-slate-500 mt-1 leading-snug font-normal">{desc}</div>
+      <div className="text-xs text-[#163832] mt-1 leading-snug font-medium">{desc}</div>
     </button>
   );
 }

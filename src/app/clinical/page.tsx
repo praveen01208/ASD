@@ -21,7 +21,7 @@ export default function ClinicalOutcomesPage() {
           Clinical Ground Truth Verification
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-[#051F20] tracking-tight">Clinical Outcomes</h1>
-        <p className="text-[#0B2B26]/70 mt-1.5 text-sm sm:text-base">
+        <p className="text-[#0B2B26] mt-1.5 text-sm sm:text-base font-medium">
           Professional pediatric dental examination benchmarks validating multimodal AI telemetry.
         </p>
       </div>
@@ -50,20 +50,20 @@ export default function ClinicalOutcomesPage() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="p-4 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
-            <span className="text-xs font-semibold text-[#0B2B26]/70 block mb-1">Overall Oral Hygiene Status</span>
+            <span className="text-xs font-bold text-[#163832] block mb-1">Overall Oral Hygiene Status</span>
             <span className="text-base font-bold text-[#235347]">Significantly Improved</span>
           </div>
           <div className="p-4 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
-            <span className="text-xs font-semibold text-[#0B2B26]/70 block mb-1">Preventive Intervention Need</span>
+            <span className="text-xs font-bold text-[#163832] block mb-1">Preventive Intervention Need</span>
             <span className="text-base font-bold text-[#235347]">Ongoing Desensitization</span>
           </div>
           <div className="p-4 rounded-xl bg-[#F4FAF6] border border-[#D5E8DA]">
-            <span className="text-xs font-semibold text-[#0B2B26]/70 block mb-1">Dental Treatment Status</span>
+            <span className="text-xs font-bold text-[#163832] block mb-1">Dental Treatment Status</span>
             <span className="text-base font-bold text-[#235347]">Fluoride Varnish Applied</span>
           </div>
         </div>
         
-        <p className="text-xs text-[#0B2B26]/60 italic mb-8">
+        <p className="text-xs text-[#163832] font-medium italic mb-8">
           Note: Clinical measurements remain the clinical gold standard. AI predictions are adjunctive and do not substitute direct dentist examination.
         </p>
         
@@ -141,7 +141,7 @@ function MeasureCard({ title, baseline, current, delta }: { title: string; basel
         </div>
       </div>
       <div className="pt-2 border-t border-[#D5E8DA]/60 flex items-center justify-between text-xs font-mono">
-        <span className="text-[#0B2B26]/60">Baseline → Now</span>
+        <span className="text-[#163832] font-bold">Baseline → Now</span>
         <span className="text-[#235347] font-bold">{delta}</span>
       </div>
     </div>
