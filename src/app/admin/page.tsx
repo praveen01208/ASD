@@ -214,26 +214,23 @@ export default function AdminPage() {
     return (
       <div className="min-h-[80vh] flex items-center justify-center p-4">
         <div className="w-full max-w-md relative">
-          {/* Ambient Security Glow */}
-          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-amber-500/30 via-teal-500/30 to-indigo-500/30 blur-xl opacity-70" />
-
-          <div className="relative liquid-glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 shadow-2xl bg-gradient-to-b from-slate-900/95 via-slate-950/95 to-[#030712] overflow-hidden">
+          <div className="relative rounded-3xl p-6 sm:p-8 border border-amber-300 shadow-xl bg-white overflow-hidden">
             {/* Security Header */}
             <div className="text-center space-y-3">
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 p-0.5 shadow-lg shadow-amber-500/30 flex items-center justify-center">
-                <div className="w-full h-full rounded-2xl bg-slate-950 flex items-center justify-center">
-                  <ShieldAlert className="w-8 h-8 text-amber-400 animate-pulse" />
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-amber-100 border border-amber-300 p-0.5 shadow-xs flex items-center justify-center">
+                <div className="w-full h-full rounded-2xl bg-white flex items-center justify-center">
+                  <ShieldAlert className="w-8 h-8 text-amber-600 animate-pulse" />
                 </div>
               </div>
 
               <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-300 bg-amber-500/20 px-3 py-1 rounded-full border border-amber-500/30">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
                   Restricted Access • Single Master Console
                 </span>
-                <h1 className="text-2xl font-black text-white mt-2 tracking-tight">
+                <h1 className="text-2xl font-black text-slate-900 mt-2 tracking-tight">
                   Admin Command Portal
                 </h1>
-                <p className="text-xs text-slate-300 mt-1 max-w-sm mx-auto">
+                <p className="text-xs text-slate-600 mt-1 max-w-sm mx-auto">
                   Sign in with the single pre-created master administrative account to access all patient data, intake responses, and telemetry.
                 </p>
               </div>
@@ -241,8 +238,8 @@ export default function AdminPage() {
 
             {/* Error Message */}
             {authError && (
-              <div className="mt-5 p-3 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-start gap-2.5 text-xs text-rose-200 animate-in fade-in">
-                <AlertCircle className="w-4 h-4 text-rose-400 flex-shrink-0 mt-0.5" />
+              <div className="mt-5 p-3 rounded-xl bg-rose-50 border border-rose-200 flex items-start gap-2.5 text-xs text-rose-800 animate-in fade-in">
+                <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
                 <span>{authError}</span>
               </div>
             )}
@@ -250,7 +247,7 @@ export default function AdminPage() {
             {/* Login Form */}
             <form onSubmit={handleAdminLogin} className="mt-6 space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                <label className="block text-xs font-bold text-slate-700 mb-1.5">
                   Master Administrator Email
                 </label>
                 <div className="relative">
@@ -261,20 +258,20 @@ export default function AdminPage() {
                     value={adminEmail}
                     onChange={(e) => setAdminEmail(e.target.value)}
                     placeholder="admin@asdcare.com"
-                    className="w-full liquid-glass-input rounded-xl pl-9 pr-3 py-2.5 text-xs sm:text-sm text-white"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-xs sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-teal-500"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-slate-300">
+                  <label className="text-xs font-bold text-slate-700">
                     Master Security Key / Password
                   </label>
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="text-[11px] text-teal-400 hover:text-teal-300 flex items-center gap-1"
+                    className="text-[11px] text-teal-700 hover:text-teal-800 flex items-center gap-1 font-semibold"
                   >
                     {showPassword ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
                     <span>{showPassword ? "Hide" : "Show"}</span>
@@ -288,7 +285,7 @@ export default function AdminPage() {
                     value={adminPassword}
                     onChange={(e) => setAdminPassword(e.target.value)}
                     placeholder="Enter admin password..."
-                    className="w-full liquid-glass-input rounded-xl pl-9 pr-3 py-2.5 text-xs sm:text-sm text-white"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2.5 text-xs sm:text-sm text-slate-900 focus:bg-white focus:outline-none focus:border-teal-500"
                   />
                 </div>
               </div>
@@ -297,11 +294,11 @@ export default function AdminPage() {
               <button
                 type="submit"
                 disabled={isLoggingIn}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-teal-400 hover:from-amber-300 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm shadow-lg shadow-amber-500/20 transition-all hover:scale-[1.02] flex items-center justify-center gap-2 mt-2"
+                className="w-full py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs sm:text-sm shadow-xs transition-all hover:scale-[1.02] flex items-center justify-center gap-2 mt-2"
               >
                 {isLoggingIn ? (
                   <span className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full border-2 border-slate-950 border-t-transparent animate-spin" />
+                    <span className="w-3 h-3 rounded-full border-2 border-white border-t-transparent animate-spin" />
                     Authenticating Authority...
                   </span>
                 ) : (
@@ -313,23 +310,23 @@ export default function AdminPage() {
               </button>
 
               {/* Pre-created Account Credential Helper */}
-              <div className="pt-3 border-t border-white/10 text-center">
+              <div className="pt-3 border-t border-slate-100 text-center">
                 <button
                   type="button"
                   onClick={handleAutofillCredentials}
-                  className="text-[11px] text-amber-300 hover:text-amber-200 underline font-semibold flex items-center justify-center gap-1 mx-auto"
+                  className="text-[11px] text-amber-700 hover:text-amber-800 underline font-semibold flex items-center justify-center gap-1 mx-auto"
                 >
                   <KeyRound className="w-3 h-3" />
                   Click to Auto-fill Pre-created Master Credentials
                 </button>
-                <div className="text-[10px] text-slate-400 mt-1 font-mono">
+                <div className="text-[10px] text-slate-500 mt-1 font-mono">
                   Default: {PRE_CREATED_ADMIN.email} • Password Protected
                 </div>
               </div>
             </form>
 
             <div className="mt-5 text-center">
-              <Link href="/" className="text-xs text-slate-400 hover:text-white transition-colors">
+              <Link href="/" className="text-xs text-slate-500 hover:text-slate-800 transition-colors">
                 ← Return to User Portal
               </Link>
             </div>
@@ -354,26 +351,26 @@ export default function AdminPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-300">
       {/* Top Admin Security Banner */}
-      <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-amber-500/40 bg-gradient-to-r from-amber-950/40 via-slate-900/95 to-teal-950/40 shadow-2xl relative overflow-hidden">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-amber-300 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-extrabold">
-                <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold">
+                <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />
                 {PRE_CREATED_ADMIN.role}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30 text-[10px] font-mono font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200 text-[10px] font-mono font-bold">
                 Logged in as: {PRE_CREATED_ADMIN.email}
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold">
                 ✓ Full Multi-User Access
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight">
               Administrative Command Center
             </h1>
-            <p className="text-slate-300 text-xs sm:text-sm mt-1.5 max-w-2xl leading-relaxed">
+            <p className="text-slate-600 text-xs sm:text-sm mt-1.5 max-w-2xl leading-relaxed">
               Supervise, inspect, and calibrate all registered caregiver profiles, baseline intake submissions across 5 clinical domains, daily telemetry logs, and weekly AI assessments.
             </p>
           </div>
@@ -381,14 +378,14 @@ export default function AdminPage() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/onboarding"
-              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-300 hover:to-cyan-300 text-slate-950 font-extrabold text-xs shadow-md shadow-teal-500/20 flex items-center gap-2 transition-all hover:scale-105"
+              className="px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shadow-xs flex items-center gap-2 transition-all hover:scale-105"
             >
               <PlusCircle className="w-4 h-4" /> Add Child Account
             </Link>
 
             <button
               onClick={handleAdminLogout}
-              className="px-4 py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 font-bold text-xs flex items-center gap-2 transition-all"
+              className="px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs flex items-center gap-2 transition-all"
             >
               <LogOut className="w-4 h-4" />
               <span>Lock Admin Session</span>
@@ -397,22 +394,22 @@ export default function AdminPage() {
         </div>
 
         {/* Global Statistics Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-white/10">
-          <div className="p-3.5 rounded-2xl liquid-glass border border-white/10">
-            <span className="text-[11px] text-slate-400">Total Registered Children</span>
-            <div className="text-xl sm:text-2xl font-black text-white mt-0.5">{accounts.length}</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-100">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+            <span className="text-[11px] text-slate-500 font-medium">Total Registered Children</span>
+            <div className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">{accounts.length}</div>
           </div>
-          <div className="p-3.5 rounded-2xl liquid-glass border border-white/10">
-            <span className="text-[11px] text-slate-400">Active Profiles</span>
-            <div className="text-xl sm:text-2xl font-black text-teal-300 mt-0.5">{accounts.length}</div>
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+            <span className="text-[11px] text-slate-500 font-medium">Active Profiles</span>
+            <div className="text-xl sm:text-2xl font-black text-teal-700 mt-0.5">{accounts.length}</div>
           </div>
-          <div className="p-3.5 rounded-2xl liquid-glass border border-white/10">
-            <span className="text-[11px] text-slate-400">Daily Telemetry Submissions</span>
-            <div className="text-xl sm:text-2xl font-black text-amber-300 mt-0.5">{accounts.length * 7}+</div>
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+            <span className="text-[11px] text-slate-500 font-medium">Daily Telemetry Submissions</span>
+            <div className="text-xl sm:text-2xl font-black text-amber-700 mt-0.5">{accounts.length * 7}+</div>
           </div>
-          <div className="p-3.5 rounded-2xl liquid-glass border border-white/10">
-            <span className="text-[11px] text-slate-400">Weekly AI Reinforcements</span>
-            <div className="text-xl sm:text-2xl font-black text-emerald-400 mt-0.5">Active</div>
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+            <span className="text-[11px] text-slate-500 font-medium">Weekly AI Reinforcements</span>
+            <div className="text-xl sm:text-2xl font-black text-emerald-700 mt-0.5">Active</div>
           </div>
         </div>
       </div>

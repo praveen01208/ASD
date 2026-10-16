@@ -196,51 +196,51 @@ export default function Dashboard() {
   return (
     <div className="max-w-6xl mx-auto space-y-7 pb-24 animate-fade-in">
       {/* ── 1. Top Clinical Welcome & Soothing Hero ── */}
-      <div className="liquid-glass-card rounded-3xl p-6 sm:p-7 border border-teal-500/25 relative overflow-hidden">
+      <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-xs relative overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
           <div className="md:col-span-8 space-y-3">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-xs font-bold text-teal-400 bg-teal-500/15 border border-teal-500/30 px-2.5 py-0.5 rounded-full">
+              <span className="text-xs font-bold text-teal-800 bg-teal-50 border border-teal-200 px-2.5 py-0.5 rounded-full shadow-2xs">
                 Dr. Nivrutti Reddy Clinical Protocol
               </span>
-              <span className="text-slate-500 hidden sm:inline">•</span>
-              <span className="text-xs text-slate-300">Autism Pediatric Oral Health System</span>
+              <span className="text-slate-400 hidden sm:inline">•</span>
+              <span className="text-xs text-slate-500 font-medium">Autism Pediatric Oral Health System</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Sequential Care Portal for {childName}
             </h1>
 
-            <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
-              Welcome, <strong className="text-white">{caregiverName}</strong>. Follow your child&apos;s 5-step daily routine below. Designed to make brushing predictable, peaceful, and joyful.
+            <p className="text-xs sm:text-sm text-slate-600 max-w-xl leading-relaxed">
+              Welcome, <strong className="text-slate-900 font-semibold">{caregiverName}</strong>. Follow your child&apos;s 5-step daily routine below. Designed to make brushing predictable, peaceful, and joyful.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <span className="text-xs text-slate-400 bg-slate-900/80 px-3 py-1 rounded-xl border border-white/10 font-mono">
-                ID: <strong className="text-teal-300">{childCode}</strong>
+              <span className="text-xs text-slate-600 bg-slate-100 px-3 py-1 rounded-xl border border-slate-200 font-mono">
+                ID: <strong className="text-teal-700">{childCode}</strong>
               </span>
-              <span className="text-xs text-slate-400 bg-slate-900/80 px-3 py-1 rounded-xl border border-white/10">
+              <span className="text-xs text-slate-600 bg-slate-100 px-3 py-1 rounded-xl border border-slate-200 font-medium">
                 {asdLevel}
               </span>
               <Link
                 href="/helpline"
-                className="text-xs font-semibold text-rose-300 hover:text-rose-200 bg-rose-500/10 border border-rose-500/20 px-3 py-1 rounded-xl flex items-center gap-1.5 transition-all"
+                className="text-xs font-semibold text-rose-700 hover:text-rose-800 bg-rose-50 border border-rose-200 px-3 py-1 rounded-xl flex items-center gap-1.5 transition-all shadow-2xs"
               >
-                <Phone className="w-3 h-3 text-rose-400" />
+                <Phone className="w-3 h-3 text-rose-600" />
                 <span>24/7 Helpline: 9284046972</span>
               </Link>
             </div>
           </div>
 
           <div className="md:col-span-4">
-            <div className="rounded-2xl overflow-hidden border border-teal-500/25 shadow-lg aspect-video relative group">
+            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-video relative group">
               <img
                 src="/images/dental_clinic_chair_care.jpg"
                 alt="Gentle dentist examining child in dental chair"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent flex items-end p-2.5">
-                <span className="text-[10px] text-teal-200 font-medium">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent flex items-end p-2.5">
+                <span className="text-[10px] text-teal-100 font-medium">
                   Soothing pediatric clinical examination
                 </span>
               </div>
@@ -252,95 +252,95 @@ export default function Dashboard() {
       {/* ── 2. Sequential 5-Step Care Roadmap ── */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-bold uppercase tracking-wider text-teal-400 flex items-center gap-2">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-teal-800 flex items-center gap-2">
             <span>5-Step Sequential Care Journey</span>
           </h2>
-          <span className="text-xs text-slate-400">Step-by-step guidance</span>
+          <span className="text-xs text-slate-500">Step-by-step guidance</span>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           <Link
             href="/assessment?tab=baseline"
-            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+            className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-teal-400 hover:shadow-xs transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <span className="text-[10px] font-black text-teal-400 uppercase tracking-wider block mb-1">
+              <span className="text-[10px] font-black text-teal-700 uppercase tracking-wider block mb-1">
                 Step 1
               </span>
-              <div className="font-bold text-xs text-white group-hover:text-teal-300 transition-colors">
+              <div className="font-bold text-xs text-slate-900 group-hover:text-teal-700 transition-colors">
                 Baseline Assessment
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">20Q Clinical Profile</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">20Q Clinical Profile</p>
             </div>
-            <span className="mt-2 text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-              <Check className="w-3 h-3" /> Calibrated
+            <span className="mt-2 text-[10px] text-emerald-700 font-semibold flex items-center gap-1">
+              <Check className="w-3 h-3 text-emerald-600" /> Calibrated
             </span>
           </Link>
 
           <a
             href="#daily-checklist"
-            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+            className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-cyan-400 hover:shadow-xs transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <span className="text-[10px] font-black text-cyan-400 uppercase tracking-wider block mb-1">
+              <span className="text-[10px] font-black text-cyan-700 uppercase tracking-wider block mb-1">
                 Step 2
               </span>
-              <div className="font-bold text-xs text-white group-hover:text-cyan-300 transition-colors">
+              <div className="font-bold text-xs text-slate-900 group-hover:text-cyan-700 transition-colors">
                 Daily Routine Checklist
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">Morning & Bedtime</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">Morning & Bedtime</p>
             </div>
-            <span className="mt-2 text-[10px] text-teal-300 font-semibold">
+            <span className="mt-2 text-[10px] text-teal-700 font-semibold">
               {isTodayLogged ? "✓ Done Today" : "Pending Today"}
             </span>
           </a>
 
           <Link
             href="/learning"
-            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+            className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-amber-400 hover:shadow-xs transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <span className="text-[10px] font-black text-amber-400 uppercase tracking-wider block mb-1">
+              <span className="text-[10px] font-black text-amber-700 uppercase tracking-wider block mb-1">
                 Step 3
               </span>
-              <div className="font-bold text-xs text-white group-hover:text-amber-300 transition-colors">
+              <div className="font-bold text-xs text-slate-900 group-hover:text-amber-700 transition-colors">
                 Visual Video Suite
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">3 Joyful Lessons</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">3 Joyful Lessons</p>
             </div>
-            <span className="mt-2 text-[10px] text-amber-300 font-semibold">On-site MP4s</span>
+            <span className="mt-2 text-[10px] text-amber-700 font-semibold">On-site MP4s</span>
           </Link>
 
           <Link
             href="/care-plan"
-            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+            className="p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-xs transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <span className="text-[10px] font-black text-indigo-400 uppercase tracking-wider block mb-1">
+              <span className="text-[10px] font-black text-indigo-700 uppercase tracking-wider block mb-1">
                 Step 4
               </span>
-              <div className="font-bold text-xs text-white group-hover:text-indigo-300 transition-colors">
+              <div className="font-bold text-xs text-slate-900 group-hover:text-indigo-700 transition-colors">
                 Child Care Plan
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">Dr. Reddy Roadmap</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">Dr. Reddy Roadmap</p>
             </div>
-            <span className="mt-2 text-[10px] text-indigo-300 font-semibold">Sensory Paced</span>
+            <span className="mt-2 text-[10px] text-indigo-700 font-semibold">Sensory Paced</span>
           </Link>
 
           <Link
             href="/assistant"
-            className="col-span-2 sm:col-span-1 p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+            className="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-emerald-400 hover:shadow-xs transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider block mb-1">
+              <span className="text-[10px] font-black text-emerald-700 uppercase tracking-wider block mb-1">
                 Step 5
               </span>
-              <div className="font-bold text-xs text-white group-hover:text-emerald-300 transition-colors">
+              <div className="font-bold text-xs text-slate-900 group-hover:text-emerald-700 transition-colors">
                 Argus AI Assistant
               </div>
-              <p className="text-[11px] text-slate-400 mt-0.5">Simple Steps Q&A</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">Simple Steps Q&A</p>
             </div>
-            <span className="mt-2 text-[10px] text-emerald-400 font-semibold">24/7 Support</span>
+            <span className="mt-2 text-[10px] text-emerald-700 font-semibold">24/7 Support</span>
           </Link>
         </div>
       </div>
@@ -349,23 +349,23 @@ export default function Dashboard() {
       <div id="daily-checklist" className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-teal-400" />
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-teal-600" />
               Child&apos;s Daily Oral Hygiene Checklist
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               {formattedToday} • Routine telemetry for active clinical monitoring
             </p>
           </div>
 
           <div className="flex items-center gap-2">
             {isTodayLogged ? (
-              <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Logged for Today
+              <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold flex items-center gap-1.5 shadow-2xs">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Logged for Today
               </span>
             ) : (
-              <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5" /> Pending Today&apos;s Routine
+              <span className="px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-semibold flex items-center gap-1.5 shadow-2xs">
+                <Clock className="w-3.5 h-3.5 text-amber-600" /> Pending Today&apos;s Routine
               </span>
             )}
           </div>
@@ -373,17 +373,17 @@ export default function Dashboard() {
 
         {/* If ALREADY logged today, show a clean, reassuring confirmation card (NEVER re-prompt) */}
         {isTodayLogged ? (
-          <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center">
                   <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
                 <div>
-                  <h3 className="text-sm sm:text-base font-bold text-white">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900">
                     Today&apos;s Oral Hygiene Routine Successfully Logged
                   </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-slate-500 mt-0.5">
                     Data recorded in database and synced with monitoring telemetry & Argus AI.
                   </p>
                 </div>
@@ -392,7 +392,7 @@ export default function Dashboard() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/monitoring"
-                  className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs flex items-center gap-1.5 transition-all shadow-sm"
+                  className="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs flex items-center gap-1.5 transition-all shadow-xs"
                 >
                   <span>View Full Monitoring Timeline</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -402,27 +402,27 @@ export default function Dashboard() {
 
             {/* Quick Summary of Today's Log */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-                <span className="text-slate-400 block text-[11px]">Morning Brushing</span>
-                <span className="font-semibold text-emerald-400 mt-0.5 block">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                <span className="text-slate-500 block text-[11px]">Morning Brushing</span>
+                <span className="font-semibold text-emerald-700 mt-0.5 block">
                   {todayLogData?.brushedMorning ? "✓ Completed" : "Not Logged"}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-                <span className="text-slate-400 block text-[11px]">Bedtime Brushing</span>
-                <span className="font-semibold text-emerald-400 mt-0.5 block">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                <span className="text-slate-500 block text-[11px]">Bedtime Brushing</span>
+                <span className="font-semibold text-emerald-700 mt-0.5 block">
                   {todayLogData?.brushedNight ? "✓ Completed" : "Scheduled Tonight"}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-                <span className="text-slate-400 block text-[11px]">Dietary Balance</span>
-                <span className="font-semibold text-teal-300 mt-0.5 block">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                <span className="text-slate-500 block text-[11px]">Dietary Balance</span>
+                <span className="font-semibold text-teal-800 mt-0.5 block">
                   {todayLogData?.healthyBreakfast && todayLogData?.healthyLunch ? "Healthy Meals" : "Standard"}
                 </span>
               </div>
-              <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-                <span className="text-slate-400 block text-[11px]">Child Cooperation</span>
-                <span className="font-semibold text-sky-400 mt-0.5 block">
+              <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+                <span className="text-slate-500 block text-[11px]">Child Cooperation</span>
+                <span className="font-semibold text-sky-700 mt-0.5 block">
                   {todayLogData?.cooperatedWithBrushing ? "Cooperative" : "Sensory Guided"}
                 </span>
               </div>
@@ -439,19 +439,19 @@ export default function Dashboard() {
 
       {/* ── WEEKLY AI ASSESSMENT & REINFORCEMENT ── */}
       {latestAssessment && (
-        <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+        <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center">
                 <Award className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-teal-50 text-teal-800 border border-teal-200">
                     Weekly Assessment • {latestAssessment.date}
                   </span>
                 </div>
-                <h3 className="text-sm sm:text-base font-bold text-white mt-0.5">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900 mt-0.5">
                   {latestAssessment.motivationBadge?.title || "Routine Consistency Champion"}
                 </h3>
               </div>
@@ -459,7 +459,7 @@ export default function Dashboard() {
 
             <Link
               href="/assessment"
-              className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs flex items-center gap-1.5 transition-all self-start sm:self-auto"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 font-semibold text-xs flex items-center gap-1.5 transition-all self-start sm:self-auto"
             >
               <span>Weekly Telemetry & Certificate</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -467,21 +467,21 @@ export default function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80 flex items-center justify-between">
-              <span className="text-slate-400">Oral Hygiene Index:</span>
-              <span className="text-sm font-bold text-teal-400">{latestAssessment.oralHygieneScore}%</span>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+              <span className="text-slate-500">Oral Hygiene Index:</span>
+              <span className="text-sm font-bold text-teal-700">{latestAssessment.oralHygieneScore}%</span>
             </div>
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80 flex items-center justify-between">
-              <span className="text-slate-400">Enamel Dietary Risk:</span>
-              <span className="text-sm font-bold text-amber-400">{latestAssessment.dietaryRiskScore}%</span>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+              <span className="text-slate-500">Enamel Dietary Risk:</span>
+              <span className="text-sm font-bold text-amber-700">{latestAssessment.dietaryRiskScore}%</span>
             </div>
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80 flex items-center justify-between">
-              <span className="text-slate-400">Sensory Comfort Index:</span>
-              <span className="text-sm font-bold text-emerald-400">{latestAssessment.sensoryComfortScore}%</span>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+              <span className="text-slate-500">Sensory Comfort Index:</span>
+              <span className="text-sm font-bold text-emerald-700">{latestAssessment.sensoryComfortScore}%</span>
             </div>
           </div>
 
-          <p className="text-xs text-slate-300 italic bg-[#0B1120]/60 p-3 rounded-xl border border-slate-800/50">
+          <p className="text-xs text-slate-700 italic bg-teal-50/50 p-3 rounded-xl border border-teal-100">
             “{latestAssessment.statusSummary}”
           </p>
         </div>
@@ -491,16 +491,16 @@ export default function Dashboard() {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-              <Play className="w-4 h-4 text-teal-400" />
+            <h2 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
+              <Play className="w-4 h-4 text-teal-600" />
               Visual Learning & Motivational Videos
             </h2>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-500">
               On-site video lessons stored directly on our servers (no external links)
             </p>
           </div>
 
-          <Link href="/learning" className="text-xs font-semibold text-teal-400 hover:underline flex items-center gap-1">
+          <Link href="/learning" className="text-xs font-semibold text-teal-700 hover:text-teal-800 flex items-center gap-1">
             Open Video Suite <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -508,20 +508,20 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <Link
             href="/learning"
-            className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
+            className="bg-white rounded-2xl p-5 border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <div className="w-9 h-9 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center font-bold text-xs mb-3 border border-teal-500/20">
+              <div className="w-9 h-9 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center font-bold text-xs mb-3 border border-teal-200">
                 01
               </div>
-              <h3 className="font-bold text-sm text-white group-hover:text-teal-400 transition-colors">
+              <h3 className="font-bold text-sm text-slate-900 group-hover:text-teal-700 transition-colors">
                 Step-by-Step Brushing
               </h3>
-              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Child showing the 5 brushing steps with pure joy, gentle circles, and zero sensory fear.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-teal-400 flex items-center gap-1">
+            <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-teal-700 flex items-center gap-1">
               <span>Watch Video Module</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
@@ -529,20 +529,20 @@ export default function Dashboard() {
 
           <Link
             href="/learning"
-            className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
+            className="bg-white rounded-2xl p-5 border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xs mb-3 border border-amber-500/20">
+              <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold text-xs mb-3 border border-amber-200">
                 02
               </div>
-              <h3 className="font-bold text-sm text-white group-hover:text-amber-400 transition-colors">
+              <h3 className="font-bold text-sm text-slate-900 group-hover:text-amber-700 transition-colors">
                 Diet Motivation: Shiny vs. Bugs
               </h3>
-              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Healthy food makes teeth shiny like diamonds. Unhealthy chocolates and soda feed bacteria that eat teeth and turn them black.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-amber-400 flex items-center gap-1">
+            <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-amber-700 flex items-center gap-1">
               <span>Watch Video Module</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
@@ -550,20 +550,20 @@ export default function Dashboard() {
 
           <Link
             href="/learning"
-            className="bg-[#0F172A] rounded-2xl p-5 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group"
+            className="bg-white rounded-2xl p-5 border border-slate-200 hover:border-slate-300 transition-all flex flex-col justify-between group shadow-2xs"
           >
             <div>
-              <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-xs mb-3 border border-indigo-500/20">
+              <div className="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-xs mb-3 border border-indigo-200">
                 03
               </div>
-              <h3 className="font-bold text-sm text-white group-hover:text-indigo-400 transition-colors">
+              <h3 className="font-bold text-sm text-slate-900 group-hover:text-indigo-700 transition-colors">
                 God Blesses Joyful Brushers
               </h3>
-              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Cleanliness is Godliness: caring for your mouth and teeth brings health, peace, and divine blessings.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-indigo-400 flex items-center gap-1">
+            <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold text-indigo-700 flex items-center gap-1">
               <span>Watch Video Module</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
@@ -573,21 +573,21 @@ export default function Dashboard() {
 
       {/* ── STORED CLINICAL BASELINE (5 DOMAINS) ── */}
       {activeChild && (
-        <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div>
-              <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-teal-400" />
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-teal-600" />
                 Step 1: Stored Baseline Assessment (Intake Record)
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Calibrated against {activeChild.name}&apos;s profile on record • Never re-prompted
               </p>
             </div>
 
             <Link
               href="/assessment?tab=baseline"
-              className="text-xs font-semibold text-teal-400 hover:underline flex items-center gap-1"
+              className="text-xs font-semibold text-teal-700 hover:text-teal-800 flex items-center gap-1"
             >
               <span>View Full Baseline Assessment</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -595,34 +595,34 @@ export default function Dashboard() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-              <span className="text-teal-400 font-bold block mb-1">1. Demographics</span>
-              <div className="text-slate-200">{activeChild.name}, {activeChild.age} yrs</div>
-              <div className="text-[10px] text-slate-400 truncate">{activeChild.demographics?.communicationStyle}</div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+              <span className="text-teal-800 font-bold block mb-1">1. Demographics</span>
+              <div className="text-slate-800 font-medium">{activeChild.name}, {activeChild.age} yrs</div>
+              <div className="text-[10px] text-slate-500 truncate">{activeChild.demographics?.communicationStyle}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-              <span className="text-teal-400 font-bold block mb-1">2. Brushing</span>
-              <div className="text-slate-200">{activeChild.brushingHabits?.toothbrushType || "Soft manual"}</div>
-              <div className="text-[10px] text-slate-400">{activeChild.brushingHabits?.frequency || "Twice daily"}</div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+              <span className="text-teal-800 font-bold block mb-1">2. Brushing</span>
+              <div className="text-slate-800 font-medium">{activeChild.brushingHabits?.toothbrushType || "Soft manual"}</div>
+              <div className="text-[10px] text-slate-500">{activeChild.brushingHabits?.frequency || "Twice daily"}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-              <span className="text-teal-400 font-bold block mb-1">3. Diet</span>
-              <div className="text-slate-200">Sugar: {activeChild.dietaryHabits?.sugaryFoodFrequency || "Rarely"}</div>
-              <div className="text-[10px] text-slate-400">Snacks: {activeChild.dietaryHabits?.snackingFrequency || "1-2 times"}</div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+              <span className="text-teal-800 font-bold block mb-1">3. Diet</span>
+              <div className="text-slate-800 font-medium">Sugar: {activeChild.dietaryHabits?.sugaryFoodFrequency || "Rarely"}</div>
+              <div className="text-[10px] text-slate-500">Snacks: {activeChild.dietaryHabits?.snackingFrequency || "1-2 times"}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-              <span className="text-teal-400 font-bold block mb-1">4. Dental History</span>
-              <div className="text-slate-200">{activeChild.dentalMedicalHistory?.lastDentalVisit || "Regular"}</div>
-              <div className="text-[10px] text-slate-400">{activeChild.dentalMedicalHistory?.activeCavitiesOrPain || "None active"}</div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+              <span className="text-teal-800 font-bold block mb-1">4. Dental History</span>
+              <div className="text-slate-800 font-medium">{activeChild.dentalMedicalHistory?.lastDentalVisit || "Regular"}</div>
+              <div className="text-[10px] text-slate-500">{activeChild.dentalMedicalHistory?.activeCavitiesOrPain || "None active"}</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-[#0B1120] border border-slate-800/80">
-              <span className="text-teal-400 font-bold block mb-1">5. Sensory/Behavior</span>
-              <div className="text-slate-200 truncate">{activeChild.childBehaviour?.sensoryAversionTriggers?.slice(0, 2).join(", ") || "Standard"}</div>
-              <div className="text-[10px] text-slate-400">{activeChild.childBehaviour?.mouthOpeningCooperation || "Cooperative"}</div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
+              <span className="text-teal-800 font-bold block mb-1">5. Sensory/Behavior</span>
+              <div className="text-slate-800 font-medium truncate">{activeChild.childBehaviour?.sensoryAversionTriggers?.slice(0, 2).join(", ") || "Standard"}</div>
+              <div className="text-[10px] text-slate-500">{activeChild.childBehaviour?.mouthOpeningCooperation || "Cooperative"}</div>
             </div>
           </div>
         </div>

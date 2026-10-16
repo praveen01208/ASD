@@ -219,33 +219,33 @@ export default function DailyHygieneChecklist({
   const childDisplayName = activeChild?.name || "Your Child";
 
   return (
-    <div className="bg-[#0F172A] rounded-2xl border border-slate-800 p-5 sm:p-7 shadow-sm space-y-6">
+    <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-7 shadow-xs space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-teal-500/10 text-teal-400 rounded-xl border border-teal-500/20">
+            <div className="p-2 bg-teal-50 text-teal-700 rounded-xl border border-teal-200">
               <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
                 Child&apos;s Daily Oral Hygiene Checklist
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Daily clinical tracking for <span className="font-semibold text-slate-200">{childDisplayName}</span> • Supervised by Dr. Nivrutti Reddy
+              <p className="text-xs text-slate-500 mt-0.5">
+                Daily clinical tracking for <span className="font-semibold text-slate-800">{childDisplayName}</span> • Supervised by Dr. Nivrutti Reddy
               </p>
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-2.5">
-          <div className="flex items-center gap-1.5 bg-slate-800/80 text-amber-400 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-700/80">
-            <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+          <div className="flex items-center gap-1.5 bg-amber-50 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-semibold border border-amber-200 shadow-2xs">
+            <Flame className="w-3.5 h-3.5 text-amber-600 fill-amber-500" />
             <span>{streak} Day Routine Streak</span>
           </div>
 
-          <div className="flex items-center gap-1.5 bg-teal-500/10 text-teal-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-teal-500/20">
-            <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+          <div className="flex items-center gap-1.5 bg-teal-50 text-teal-800 px-3 py-1.5 rounded-lg text-xs font-semibold border border-teal-200 shadow-2xs">
+            <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
             <span>Score: {score}%</span>
           </div>
         </div>
@@ -257,9 +257,9 @@ export default function DailyHygieneChecklist({
             DOMAIN 1: BRUSHING (4 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-            <span className="text-xs font-bold uppercase tracking-wider text-teal-400 flex items-center gap-1.5">
-              <Sun className="w-3.5 h-3.5 text-amber-400" /> Brushing Routine
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+            <span className="text-xs font-bold uppercase tracking-wider text-teal-700 flex items-center gap-1.5">
+              <Sun className="w-3.5 h-3.5 text-amber-500" /> Brushing Routine
             </span>
             <span className="text-[11px] font-mono text-slate-400">4 Items</span>
           </div>
@@ -270,25 +270,25 @@ export default function DailyHygieneChecklist({
                 id: "brushedMorning" as const,
                 label: "Brushed teeth in the morning",
                 icon: Sun,
-                iconColor: "text-amber-400",
+                iconColor: "text-amber-500",
               },
               {
                 id: "brushedNight" as const,
                 label: "Brushed teeth before going to bed at night",
                 icon: Moon,
-                iconColor: "text-indigo-400",
+                iconColor: "text-indigo-500",
               },
               {
                 id: "allowedTongueCleaning" as const,
                 label: "Allowed mouth/tongue cleaning",
                 icon: Sparkle,
-                iconColor: "text-teal-400",
+                iconColor: "text-teal-600",
               },
               {
                 id: "usedAdditionalAids" as const,
                 label: "Used additional aids (Floss, interdental brush)",
                 icon: ShieldCheck,
-                iconColor: "text-sky-400",
+                iconColor: "text-sky-600",
               },
             ].map((item) => {
               const active = log[item.id];
@@ -299,8 +299,8 @@ export default function DailyHygieneChecklist({
                   onClick={() => toggleField(item.id)}
                   className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
-                      ? "bg-teal-500/10 border-teal-500/30 text-white"
-                      : "bg-[#0B1120] border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
+                      ? "bg-teal-50 border-teal-300 text-teal-950 font-medium shadow-2xs"
+                      : "bg-slate-50/80 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0 pr-2">
@@ -310,8 +310,8 @@ export default function DailyHygieneChecklist({
                   <div
                     className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
-                        ? "bg-teal-500 border-teal-400 text-white font-bold"
-                        : "border-slate-700 bg-slate-900 group-hover:border-slate-600"
+                        ? "bg-teal-600 border-teal-600 text-white font-bold"
+                        : "border-slate-300 bg-white group-hover:border-slate-400"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -326,9 +326,9 @@ export default function DailyHygieneChecklist({
             DOMAIN 2: DIET (7 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-              <Apple className="w-3.5 h-3.5 text-emerald-400" /> Dietary Habits
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
+              <Apple className="w-3.5 h-3.5 text-emerald-600" /> Dietary Habits
             </span>
             <span className="text-[11px] font-mono text-slate-400">7 Items</span>
           </div>
@@ -379,16 +379,16 @@ export default function DailyHygieneChecklist({
                   className={`p-2.5 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
                       ? item.risk
-                        ? "bg-amber-500/10 border-amber-500/30 text-amber-200"
-                        : "bg-emerald-500/10 border-emerald-500/30 text-white"
-                      : "bg-[#0B1120] border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
+                        ? "bg-amber-50 border-amber-300 text-amber-950 font-medium"
+                        : "bg-emerald-50 border-emerald-300 text-emerald-950 font-medium"
+                      : "bg-slate-50/80 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
                   }`}
                 >
                   <div className="flex items-center gap-2 min-w-0 pr-2">
                     {item.risk ? (
-                      <AlertCircle className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-amber-400" : "text-slate-500"}`} />
+                      <AlertCircle className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-amber-600" : "text-slate-400"}`} />
                     ) : (
-                      <Apple className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-emerald-400" : "text-slate-500"}`} />
+                      <Apple className={`w-3.5 h-3.5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-400"}`} />
                     )}
                     <span className="text-xs font-medium leading-snug">{item.label}</span>
                   </div>
@@ -396,9 +396,9 @@ export default function DailyHygieneChecklist({
                     className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
                         ? item.risk
-                          ? "bg-amber-500 border-amber-400 text-slate-950 font-bold"
-                          : "bg-emerald-500 border-emerald-400 text-white font-bold"
-                        : "border-slate-700 bg-slate-900 group-hover:border-slate-600"
+                          ? "bg-amber-600 border-amber-600 text-white font-bold"
+                          : "bg-emerald-600 border-emerald-600 text-white font-bold"
+                        : "border-slate-300 bg-white group-hover:border-slate-400"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -413,9 +413,9 @@ export default function DailyHygieneChecklist({
             DOMAIN 3: BEHAVIOR (3 ITEMS)
             ========================================================= */}
         <div className="space-y-3">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-            <span className="text-xs font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
-              <Smile className="w-3.5 h-3.5 text-purple-400" /> Behavioral Response
+          <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+            <span className="text-xs font-bold uppercase tracking-wider text-purple-700 flex items-center gap-1.5">
+              <Smile className="w-3.5 h-3.5 text-purple-600" /> Behavioral Response
             </span>
             <span className="text-[11px] font-mono text-slate-400">3 Items</span>
           </div>
@@ -427,21 +427,21 @@ export default function DailyHygieneChecklist({
                 label: "Brushes independently",
                 risk: false,
                 icon: Smile,
-                iconColor: "text-purple-400",
+                iconColor: "text-purple-600",
               },
               {
                 id: "cooperatedWithBrushing" as const,
                 label: "Cooperated with brushing",
                 risk: false,
                 icon: Heart,
-                iconColor: "text-pink-400",
+                iconColor: "text-pink-600",
               },
               {
                 id: "showResistanceOrCrying" as const,
                 label: "Show Resistance / crying while brushing",
                 risk: true,
                 icon: AlertCircle,
-                iconColor: "text-rose-400",
+                iconColor: "text-rose-600",
               },
             ].map((item) => {
               const active = log[item.id];
@@ -453,9 +453,9 @@ export default function DailyHygieneChecklist({
                   className={`p-3 rounded-xl border cursor-pointer transition-all flex items-center justify-between group ${
                     active
                       ? item.risk
-                        ? "bg-rose-500/10 border-rose-500/30 text-rose-200"
-                        : "bg-purple-500/10 border-purple-500/30 text-white"
-                      : "bg-[#0B1120] border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
+                        ? "bg-rose-50 border-rose-300 text-rose-950 font-medium"
+                        : "bg-purple-50 border-purple-300 text-purple-950 font-medium"
+                      : "bg-slate-50/80 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0 pr-2">
@@ -466,9 +466,9 @@ export default function DailyHygieneChecklist({
                     className={`w-5 h-5 rounded-md flex items-center justify-center border flex-shrink-0 transition-all ${
                       active
                         ? item.risk
-                          ? "bg-rose-500 border-rose-400 text-white font-bold"
-                          : "bg-purple-500 border-purple-400 text-white font-bold"
-                        : "border-slate-700 bg-slate-900 group-hover:border-slate-600"
+                          ? "bg-rose-600 border-rose-600 text-white font-bold"
+                          : "bg-purple-600 border-purple-600 text-white font-bold"
+                        : "border-slate-300 bg-white group-hover:border-slate-400"
                     }`}
                   >
                     {active && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -479,12 +479,12 @@ export default function DailyHygieneChecklist({
           </div>
 
           {/* Clinical Telemetry Insight Box */}
-          <div className="p-3.5 rounded-xl bg-[#0B1120] border border-slate-800 mt-4 text-xs space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-teal-400">
-              <ShieldCheck className="w-3.5 h-3.5" />
+          <div className="p-3.5 rounded-xl bg-teal-50/70 border border-teal-200/80 mt-4 text-xs space-y-1">
+            <div className="flex items-center gap-1.5 font-bold text-teal-800">
+              <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
               Argus AI Telemetry Calibration
             </div>
-            <p className="text-[11px] text-slate-400 leading-relaxed">
+            <p className="text-[11px] text-slate-600 leading-relaxed">
               {log.showResistanceOrCrying
                 ? `Sensory resistance logged for ${childDisplayName}. Argus adjusts pacing and provides non-verbal reassurance guidance.`
                 : log.consumedStickyFood
@@ -496,9 +496,9 @@ export default function DailyHygieneChecklist({
       </div>
 
       {/* Footer Save Action Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800 pt-4">
-        <div className="text-xs text-slate-400 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200 pt-4">
+        <div className="text-xs text-slate-500 flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-500" />
           <span>Stores in database & dynamically updates monitoring telemetry</span>
         </div>
 
@@ -506,7 +506,7 @@ export default function DailyHygieneChecklist({
           type="button"
           disabled={isSaving}
           onClick={handleSave}
-          className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold rounded-xl transition-all shadow-sm disabled:opacity-50"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold rounded-xl transition-all shadow-xs disabled:opacity-50"
         >
           {isSaving ? (
             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

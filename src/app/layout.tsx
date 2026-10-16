@@ -39,11 +39,11 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} min-h-screen dark scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} min-h-screen scroll-smooth`}
     >
       <body 
         suppressHydrationWarning 
-        className="min-h-screen bg-[#0C1524] text-slate-100 antialiased overflow-x-hidden"
+        className="min-h-screen bg-[#F8FAFC] text-slate-800 antialiased overflow-x-hidden"
       >
         <AuthProvider>
           <AppLayoutClient>{children}</AppLayoutClient>

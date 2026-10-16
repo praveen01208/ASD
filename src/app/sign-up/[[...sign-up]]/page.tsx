@@ -37,31 +37,31 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-[#080D1A] text-slate-100 selection:bg-teal-600 selection:text-white">
-      <div className="w-full max-w-md bg-[#0F172A] p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-xl relative">
+    <div className="flex min-h-screen items-center justify-center p-4 bg-[#F8FAFC] text-slate-800 selection:bg-teal-600 selection:text-white">
+      <div className="w-full max-w-md bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-xs relative">
         {/* Header */}
         <div className="text-center mb-6">
           <Link href="/landing" className="inline-flex items-center gap-2.5 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center p-1.5 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center p-1.5 shadow-xs">
               <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
             </div>
-            <span className="font-bold text-base tracking-tight text-white">ASD Oral Care AI</span>
+            <span className="font-bold text-base tracking-tight text-slate-900">ASD Oral Care AI</span>
           </Link>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Create Caregiver Account</h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Create Caregiver Account</h1>
+          <p className="text-xs text-slate-500 mt-1">
             Supervised by Dr. Nivrutti Reddy • Clinical ASD Oral Health Protocol
           </p>
         </div>
 
         {/* Database Status Pill */}
-        <div className="mb-5 flex items-center justify-center gap-2 py-1 px-3 rounded-full bg-slate-800/80 border border-slate-700/80 text-[11px] text-slate-300 mx-auto w-fit">
-          <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+        <div className="mb-5 flex items-center justify-center gap-2 py-1 px-3 rounded-full bg-teal-50 border border-teal-200 text-[11px] text-teal-800 mx-auto w-fit font-medium">
+          <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
           <span>{isConfigured ? "Connected to Supabase Database" : "Local Development Mode Active"}</span>
         </div>
 
         {errorMsg && (
-          <div className="mb-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-2 font-medium">
+            <AlertCircle className="w-4 h-4 flex-shrink-0 text-rose-600" />
             <span>{errorMsg}</span>
           </div>
         )}
@@ -69,7 +69,7 @@ export default function SignUpPage() {
         {/* Sign Up Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Caregiver Full Name</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Caregiver Full Name</label>
             <div className="relative">
               <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
@@ -77,13 +77,13 @@ export default function SignUpPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Sarah Jenkins"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-teal-500 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-teal-500 transition-all"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Email Address</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Email Address</label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
@@ -92,13 +92,13 @@ export default function SignUpPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="caregiver@example.com"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-teal-500 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-teal-500 transition-all"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">Password</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Password</label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
@@ -108,7 +108,7 @@ export default function SignUpPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="At least 6 characters"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700/80 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-teal-500 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-xs focus:bg-white focus:outline-none focus:border-teal-500 transition-all"
               />
             </div>
           </div>
@@ -116,7 +116,7 @@ export default function SignUpPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-semibold text-xs shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-semibold text-xs shadow-xs transition-all flex items-center justify-center gap-2 disabled:opacity-50"
           >
             {loading ? (
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -130,21 +130,21 @@ export default function SignUpPage() {
         </form>
 
         {/* Quick Demo Access */}
-        <div className="mt-4 pt-4 border-t border-slate-800">
+        <div className="mt-4 pt-4 border-t border-slate-100">
           <button
             type="button"
             onClick={signInAsDemo}
-            className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold transition-all flex items-center justify-center gap-2"
+            className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 text-xs font-semibold transition-all flex items-center justify-center gap-2"
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-teal-400" />
+            <ShieldCheck className="w-3.5 h-3.5 text-teal-600" />
             <span>Quick Demo Caregiver Access</span>
           </button>
         </div>
 
         {/* Footer Links */}
-        <div className="mt-5 text-center text-xs text-slate-400">
+        <div className="mt-5 text-center text-xs text-slate-500">
           Already registered?{" "}
-          <Link href="/sign-in" className="text-teal-400 hover:underline font-semibold">
+          <Link href="/sign-in" className="text-teal-700 hover:underline font-semibold">
             Sign In to Portal
           </Link>
         </div>
