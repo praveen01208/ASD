@@ -18,7 +18,15 @@ export const metadata: Metadata = {
   title: "ASD Oral Care AI • Small steps, consistent routines, healthier smiles",
   description: "A simple, predictable digital space for parents and caregivers of children with ASD. Supervised by Dr. Nivrutti Reddy.",
   icons: {
-    icon: "/asd-logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png" },
+      { url: "/asd-logo.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-icon.png" },
+      { url: "/apple-touch-icon.png" },
+    ],
   },
 };
 
