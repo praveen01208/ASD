@@ -113,26 +113,35 @@ export default function LearningPage() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-8 pb-20 animate-in fade-in duration-300">
-      {/* Page Header */}
-      <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-teal-500/30 bg-gradient-to-r from-teal-950/50 via-slate-900/90 to-indigo-950/50 shadow-2xl relative overflow-hidden">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative z-10">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-300 text-xs font-extrabold mb-3">
+      {/* Page Header with Soothing Clinical Setup Image */}
+      <div className="liquid-glass-card rounded-3xl p-6 sm:p-8 border border-teal-500/30 overflow-hidden relative">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center relative z-10">
+          <div className="md:col-span-8 space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-500/30 text-teal-300 text-xs font-extrabold mb-2">
               <Film className="w-3.5 h-3.5 text-teal-400" />
-              100% On-Site Catchy Video Modules (Saved Locally)
+              On-Site Stored Video Modules • No External Links
             </div>
             <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
               Visual Learning & Motivational Videos
             </h1>
-            <p className="text-slate-300 text-xs sm:text-sm mt-2 max-w-2xl leading-relaxed">
-              Real high-definition video lessons stored directly on our servers. Designed to engage neurodivergent children with joy, clarity, dietary awareness, and heartwarming motivation. No external links or redirects.
+            <p className="text-slate-200 text-xs sm:text-sm max-w-2xl leading-relaxed">
+              Real high-definition video modules stored locally. Designed to engage children with ASD through joyful visual modeling, clear dietary cause-and-effect (shiny teeth vs. sugar bugs), and encouraging moral stories.
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="px-3 py-1.5 rounded-xl bg-teal-500/20 border border-teal-500/30 text-teal-300 text-xs font-mono font-bold flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5" /> High-Definition Stored Media
-            </span>
+          <div className="md:col-span-4">
+            <div className="rounded-2xl overflow-hidden border border-teal-500/30 shadow-lg aspect-video relative group">
+              <img
+                src="/images/modern_soothing_dental_clinic.jpg"
+                alt="Soothing pediatric dental clinic setup"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent flex items-end p-2.5">
+                <span className="text-[10px] text-teal-200 font-medium">
+                  Soothing dental clinic environment
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -143,7 +152,7 @@ export default function LearningPage() {
           onClick={() => setActiveTab("brushing")}
           className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 ${
             activeTab === "brushing"
-              ? "bg-teal-500/20 border-teal-400/50 shadow-lg shadow-teal-500/20 text-white"
+              ? "bg-teal-500/25 border-teal-400/60 shadow-lg shadow-teal-500/20 text-white"
               : "liquid-glass border-white/10 hover:border-white/20 text-slate-300"
           }`}
         >
@@ -152,7 +161,7 @@ export default function LearningPage() {
           </div>
           <div>
             <div className="font-extrabold text-xs sm:text-sm">1. Step-by-Step Brushing</div>
-            <p className="text-[11px] text-slate-400">Child showing brushing steps with joy</p>
+            <p className="text-[11px] text-slate-300">Child showing brushing steps with joy</p>
           </div>
         </button>
 
@@ -160,7 +169,7 @@ export default function LearningPage() {
           onClick={() => setActiveTab("diet")}
           className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 ${
             activeTab === "diet"
-              ? "bg-amber-500/20 border-amber-400/50 shadow-lg shadow-amber-500/20 text-white"
+              ? "bg-amber-500/25 border-amber-400/60 shadow-lg shadow-amber-500/20 text-white"
               : "liquid-glass border-white/10 hover:border-white/20 text-slate-300"
           }`}
         >
@@ -169,7 +178,7 @@ export default function LearningPage() {
           </div>
           <div>
             <div className="font-extrabold text-xs sm:text-sm">2. Diet Motivation: Shiny vs Bugs</div>
-            <p className="text-[11px] text-slate-400">Healthy shiny teeth vs bacteria feast</p>
+            <p className="text-[11px] text-slate-300">Healthy shiny teeth vs bacteria feast</p>
           </div>
         </button>
 
@@ -177,7 +186,7 @@ export default function LearningPage() {
           onClick={() => setActiveTab("blessing")}
           className={`p-4 rounded-2xl border text-left transition-all flex items-center gap-3.5 ${
             activeTab === "blessing"
-              ? "bg-indigo-500/20 border-indigo-400/50 shadow-lg shadow-indigo-500/20 text-white"
+              ? "bg-indigo-500/25 border-indigo-400/60 shadow-lg shadow-indigo-500/20 text-white"
               : "liquid-glass border-white/10 hover:border-white/20 text-slate-300"
           }`}
         >
@@ -186,10 +195,11 @@ export default function LearningPage() {
           </div>
           <div>
             <div className="font-extrabold text-xs sm:text-sm">3. God Blesses Joyful Brushers</div>
-            <p className="text-[11px] text-slate-400">Cleanliness is Godliness moral story</p>
+            <p className="text-[11px] text-slate-300">Cleanliness is Godliness moral story</p>
           </div>
         </button>
       </div>
+
 
       {/* ──────────────────────────────────────────────────────────────────────
           VIDEO 1: STEP-BY-STEP BRUSHING (STORED MP4)

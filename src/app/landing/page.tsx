@@ -216,16 +216,55 @@ export default function LandingPage() {
         </div>
 
         {/* Clinical Trust Checkpoints */}
-        <div className="mt-10 pt-8 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
+        <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300">
           <span className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-teal-400" /> 20-Question Intake Answered Once Post-Registration
+            <CheckCircle2 className="w-4 h-4 text-teal-400" /> Step 1: Baseline Assessment (Answered Once)
           </span>
           <span className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-teal-400" /> Daily-Once Oral Telemetry Checklist
+            <CheckCircle2 className="w-4 h-4 text-teal-400" /> Step 2: Daily Oral Checklist (60s Routine)
           </span>
           <span className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-teal-400" /> Supervised by Dr. Nivrutti Reddy
           </span>
+        </div>
+
+        {/* Soothing Clinical Pictures Showcase */}
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto text-left">
+          <div className="rounded-2xl overflow-hidden border border-teal-500/25 liquid-glass p-2 space-y-2 group">
+            <div className="rounded-xl overflow-hidden aspect-video relative">
+              <img
+                src="/images/dental_clinic_chair_care.jpg"
+                alt="Gentle pediatric dentist checking child on dental chair"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-3">
+                <span className="text-xs text-white font-semibold">
+                  Gentle, Fear-Free Dental Chair Examinations
+                </span>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-300 px-1 leading-relaxed">
+              Dr. Reddy&apos;s desensitization protocol prepares children with ASD to sit calmly in modern dental chairs with zero panic.
+            </p>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden border border-teal-500/25 liquid-glass p-2 space-y-2 group">
+            <div className="rounded-xl overflow-hidden aspect-video relative">
+              <img
+                src="/images/modern_soothing_dental_clinic.jpg"
+                alt="Soothing pediatric dental clinic room"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-3">
+                <span className="text-xs text-white font-semibold">
+                  Calming, Sensory-Friendly Clinical Environment
+                </span>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-300 px-1 leading-relaxed">
+              Soft ambient lighting, pastel walls, and predictable visual cues designed specifically for sensory-sensitive children.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -341,6 +380,44 @@ export default function LandingPage() {
             <Play className="w-3.5 h-3.5 text-teal-400" />
             <span>Open Video Suite</span>
           </Link>
+        </div>
+
+        {/* Featured Child Brushing Inspiration Card */}
+        <div className="mb-8 rounded-3xl overflow-hidden border border-teal-500/25 liquid-glass p-3 sm:p-4">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div className="md:col-span-5 rounded-2xl overflow-hidden aspect-video relative shadow-md">
+              <img
+                src="/images/child_happy_brushing.jpg"
+                alt="Happy child joyfully brushing teeth"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent flex items-end p-2.5">
+                <span className="text-[11px] text-teal-200 font-semibold">
+                  Joyful, fear-free morning routines
+                </span>
+              </div>
+            </div>
+            <div className="md:col-span-7 space-y-2">
+              <span className="text-xs font-bold text-teal-400 uppercase tracking-wider">
+                Visual Modeling Power
+              </span>
+              <h3 className="text-lg sm:text-xl font-bold text-white">
+                Children Learn by Seeing Happy Peers Brush
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                Neurodivergent children thrive when they observe joyful, relatable peers happily brushing their teeth. Our on-site video suite replaces stress and tantrums with calm curiosity, healthy diet motivation, and positive moral encouragement.
+              </p>
+              <div className="pt-2 flex items-center gap-3">
+                <Link
+                  href="/learning"
+                  className="px-4 py-2 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shadow-teal-500/20"
+                >
+                  <Play className="w-3.5 h-3.5 fill-slate-950" />
+                  <span>Start Watching Modules</span>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">

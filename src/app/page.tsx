@@ -195,49 +195,158 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-6xl mx-auto space-y-7 pb-24 animate-fade-in">
-      {/* ── Top Clinical Header Bar ── */}
-      <div className="bg-[#0F172A] rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 p-1 flex items-center justify-center flex-shrink-0">
-            <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-teal-400">
-                ASD Pediatric Oral Care
+      {/* ── 1. Top Clinical Welcome & Soothing Hero ── */}
+      <div className="liquid-glass-card rounded-3xl p-6 sm:p-7 border border-teal-500/25 relative overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+          <div className="md:col-span-8 space-y-3">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-bold text-teal-400 bg-teal-500/15 border border-teal-500/30 px-2.5 py-0.5 rounded-full">
+                Dr. Nivrutti Reddy Clinical Protocol
               </span>
-              <span className="text-slate-500">•</span>
-              <span className="text-xs text-slate-400">Dr. Nivrutti Reddy Clinical Protocol</span>
+              <span className="text-slate-500 hidden sm:inline">•</span>
+              <span className="text-xs text-slate-300">Autism Pediatric Oral Health System</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">
-              Care Portal for {childName}
+
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              Sequential Care Portal for {childName}
             </h1>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Profile: <span className="text-slate-300 font-mono">{childCode}</span> • {asdLevel} • Caregiver: {caregiverName}
+
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl leading-relaxed">
+              Welcome, <strong className="text-white">{caregiverName}</strong>. Follow your child&apos;s 5-step daily routine below. Designed to make brushing predictable, peaceful, and joyful.
             </p>
+
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              <span className="text-xs text-slate-400 bg-slate-900/80 px-3 py-1 rounded-xl border border-white/10 font-mono">
+                ID: <strong className="text-teal-300">{childCode}</strong>
+              </span>
+              <span className="text-xs text-slate-400 bg-slate-900/80 px-3 py-1 rounded-xl border border-white/10">
+                {asdLevel}
+              </span>
+              <Link
+                href="/helpline"
+                className="text-xs font-semibold text-rose-300 hover:text-rose-200 bg-rose-500/10 border border-rose-500/20 px-3 py-1 rounded-xl flex items-center gap-1.5 transition-all"
+              >
+                <Phone className="w-3 h-3 text-rose-400" />
+                <span>24/7 Helpline: 9284046972</span>
+              </Link>
+            </div>
+          </div>
+
+          <div className="md:col-span-4">
+            <div className="rounded-2xl overflow-hidden border border-teal-500/25 shadow-lg aspect-video relative group">
+              <img
+                src="/images/dental_clinic_chair_care.jpg"
+                alt="Gentle dentist examining child in dental chair"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent flex items-end p-2.5">
+                <span className="text-[10px] text-teal-200 font-medium">
+                  Soothing pediatric clinical examination
+                </span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="flex items-center gap-2.5 flex-shrink-0">
+      {/* ── 2. Sequential 5-Step Care Roadmap ── */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-teal-400 flex items-center gap-2">
+            <span>5-Step Sequential Care Journey</span>
+          </h2>
+          <span className="text-xs text-slate-400">Step-by-step guidance</span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           <Link
-            href="/helpline"
-            className="px-3.5 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/15 text-rose-300 border border-rose-500/25 text-xs font-semibold transition-all flex items-center gap-1.5"
+            href="/assessment?tab=baseline"
+            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
           >
-            <Phone className="w-3.5 h-3.5 text-rose-400" />
-            <span>24/7 Helpline: 9284046972</span>
+            <div>
+              <span className="text-[10px] font-black text-teal-400 uppercase tracking-wider block mb-1">
+                Step 1
+              </span>
+              <div className="font-bold text-xs text-white group-hover:text-teal-300 transition-colors">
+                Baseline Assessment
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">20Q Clinical Profile</p>
+            </div>
+            <span className="mt-2 text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+              <Check className="w-3 h-3" /> Calibrated
+            </span>
           </Link>
-          <Link
-            href="/consultants"
-            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition-all flex items-center gap-1.5"
+
+          <a
+            href="#daily-checklist"
+            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
           >
-            <Stethoscope className="w-3.5 h-3.5 text-teal-400" />
-            <span>Consultants</span>
+            <div>
+              <span className="text-[10px] font-black text-cyan-400 uppercase tracking-wider block mb-1">
+                Step 2
+              </span>
+              <div className="font-bold text-xs text-white group-hover:text-cyan-300 transition-colors">
+                Daily Routine Checklist
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">Morning & Bedtime</p>
+            </div>
+            <span className="mt-2 text-[10px] text-teal-300 font-semibold">
+              {isTodayLogged ? "✓ Done Today" : "Pending Today"}
+            </span>
+          </a>
+
+          <Link
+            href="/learning"
+            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+          >
+            <div>
+              <span className="text-[10px] font-black text-amber-400 uppercase tracking-wider block mb-1">
+                Step 3
+              </span>
+              <div className="font-bold text-xs text-white group-hover:text-amber-300 transition-colors">
+                Visual Video Suite
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">3 Joyful Lessons</p>
+            </div>
+            <span className="mt-2 text-[10px] text-amber-300 font-semibold">On-site MP4s</span>
+          </Link>
+
+          <Link
+            href="/care-plan"
+            className="p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+          >
+            <div>
+              <span className="text-[10px] font-black text-indigo-400 uppercase tracking-wider block mb-1">
+                Step 4
+              </span>
+              <div className="font-bold text-xs text-white group-hover:text-indigo-300 transition-colors">
+                Child Care Plan
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">Dr. Reddy Roadmap</p>
+            </div>
+            <span className="mt-2 text-[10px] text-indigo-300 font-semibold">Sensory Paced</span>
+          </Link>
+
+          <Link
+            href="/assistant"
+            className="col-span-2 sm:col-span-1 p-3.5 rounded-2xl liquid-glass border border-teal-500/30 hover:border-teal-400 transition-all flex flex-col justify-between group"
+          >
+            <div>
+              <span className="text-[10px] font-black text-emerald-400 uppercase tracking-wider block mb-1">
+                Step 5
+              </span>
+              <div className="font-bold text-xs text-white group-hover:text-emerald-300 transition-colors">
+                Argus AI Assistant
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">Simple Steps Q&A</p>
+            </div>
+            <span className="mt-2 text-[10px] text-emerald-400 font-semibold">24/7 Support</span>
           </Link>
         </div>
       </div>
 
-      {/* ── DAILY CHECKLIST (ASKED ONCE DAILY) ── */}
-      <div className="space-y-3">
+      {/* ── 3. Step 2 in Action: Child's Daily Oral Hygiene Checklist ── */}
+      <div id="daily-checklist" className="space-y-3">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
@@ -409,11 +518,11 @@ export default function Dashboard() {
                 Step-by-Step Brushing
               </h3>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                Children happily demonstrating the 5 gentle steps to normalize sensations and build positive habits.
+                Child showing the 5 brushing steps with pure joy, gentle circles, and zero sensory fear.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-teal-400 flex items-center gap-1">
-              <span>Watch Video</span>
+              <span>Watch Video Module</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
           </Link>
@@ -430,11 +539,11 @@ export default function Dashboard() {
                 Diet Motivation: Shiny vs. Bugs
               </h3>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                Dr. Binocs explains how bacteria feast on chocolates and sodas, and how healthy food keeps teeth shiny.
+                Healthy food makes teeth shiny like diamonds. Unhealthy chocolates and soda feed bacteria that eat teeth and turn them black.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-amber-400 flex items-center gap-1">
-              <span>Watch Video</span>
+              <span>Watch Video Module</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
           </Link>
@@ -451,11 +560,11 @@ export default function Dashboard() {
                 God Blesses Joyful Brushers
               </h3>
               <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-                Cleanliness is Godliness moral story showing how caring for teeth brings divine blessings and peace.
+                Cleanliness is Godliness: caring for your mouth and teeth brings health, peace, and divine blessings.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-800 text-xs font-semibold text-indigo-400 flex items-center gap-1">
-              <span>Watch Video</span>
+              <span>Watch Video Module</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </div>
           </Link>
@@ -469,7 +578,7 @@ export default function Dashboard() {
             <div>
               <h3 className="text-sm sm:text-base font-bold text-white flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-teal-400" />
-                Stored Clinical Baseline (Answered at Intake)
+                Step 1: Stored Baseline Assessment (Intake Record)
               </h3>
               <p className="text-xs text-slate-400">
                 Calibrated against {activeChild.name}&apos;s profile on record • Never re-prompted
@@ -477,10 +586,10 @@ export default function Dashboard() {
             </div>
 
             <Link
-              href="/profile"
+              href="/assessment?tab=baseline"
               className="text-xs font-semibold text-teal-400 hover:underline flex items-center gap-1"
             >
-              <span>View Full Clinical Profile</span>
+              <span>View Full Baseline Assessment</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>

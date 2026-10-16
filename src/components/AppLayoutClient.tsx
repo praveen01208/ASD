@@ -25,7 +25,7 @@ export default function AppLayoutClient({
   // Render clean full-width layout without the regular user sidebar!
   if (!isSignedIn || isLandingPage || isAuthPage || isAdminPage || isOnboardingPage) {
     return (
-      <div className="relative min-h-screen w-full bg-[#080D1A] text-slate-100 overflow-x-hidden">
+      <div className="relative min-h-screen w-full bg-[#0C1524] text-slate-100 overflow-x-hidden">
         {/* Fixed Background Video */}
         <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
           <video
@@ -35,10 +35,10 @@ export default function AppLayoutClient({
             playsInline
             preload="metadata"
             className="absolute inset-0 w-full h-full object-cover will-change-transform"
-            style={{ opacity: 0.26, transform: "translateZ(0)" }}
+            style={{ opacity: 0.22, transform: "translateZ(0)" }}
             src="/bg.mp4"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#080D1A]/85 via-[#080D1A]/75 to-[#080D1A]/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0C1524]/85 via-[#101C30]/75 to-[#0C1524]/95" />
         </div>
 
         <main className="relative z-10 w-full min-h-screen">{children}</main>
@@ -51,7 +51,7 @@ export default function AppLayoutClient({
   }
 
   return (
-    <div className="min-h-screen w-full bg-[#080D1A] text-slate-100 relative selection:bg-teal-600 selection:text-white flex flex-col md:flex-row">
+    <div className="min-h-screen w-full bg-[#0C1524] text-slate-100 relative selection:bg-teal-600 selection:text-white flex flex-col md:flex-row">
       {/* Fixed Background Video */}
       <div className="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
         <video
@@ -61,14 +61,14 @@ export default function AppLayoutClient({
           playsInline
           preload="metadata"
           className="absolute inset-0 w-full h-full object-cover will-change-transform"
-          style={{ opacity: 0.22, transform: "translateZ(0)" }}
+          style={{ opacity: 0.20, transform: "translateZ(0)" }}
           src="/bg.mp4"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#080D1A]/88 via-[#080D1A]/80 to-[#080D1A]/95" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0C1524]/88 via-[#101C30]/80 to-[#0C1524]/95" />
       </div>
 
       {/* Mobile Top Header with Hamburger & ASD Logo */}
-      <div className="md:hidden sticky top-0 z-40 w-full px-4 py-2.5 liquid-glass flex items-center justify-between border-b border-white/10 bg-[#030712]/90 backdrop-blur-md">
+      <div className="md:hidden sticky top-0 z-40 w-full px-4 py-2.5 liquid-glass flex items-center justify-between border-b border-teal-500/20 bg-[#0C1524]/90 backdrop-blur-md">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-slate-900 border border-teal-400/40 p-0.5 flex items-center justify-center">
             <img src="/asd-logo.png" alt="ASD Logo" className="w-full h-full object-contain" />

@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #080D1A;
-  --foreground: #F1F5F9;
-  --surface-card: #0F172A;
-  --surface-card-hover: #162036;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-focus: #0EA5E9;
-  --accent-teal: #0D9488;
-  --accent-cyan: #0284C7;
-  --accent-emerald: #059669;
+  --background: #0C1524;
+  --foreground: #F8FAFC;
+  --surface-card: #121E33;
+  --surface-card-hover: #182844;
+  --border-subtle: rgba(45, 212, 191, 0.14);
+  --border-focus: #14B8A6;
+  --accent-teal: #14B8A6;
+  --accent-cyan: #0EA5E9;
+  --accent-emerald: #10B981;
 }
 
 @theme inline {
@@ -27,8 +27,8 @@ html {
 }
 
 body {
-  background-color: #080D1A;
-  color: #F1F5F9;
+  background-color: #0C1524;
+  color: #F8FAFC;
   font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
@@ -37,30 +37,30 @@ body {
 }
 
 /* =========================================================
-   REFINED CLINICAL SURFACE DESIGN SYSTEM
-   Clean, human, prestigious — without artificial neon artifacts
+   REFINED SOOTHING CLINICAL SURFACE DESIGN SYSTEM
+   Soft, welcoming, reassuring for ASD children & caregivers
    ========================================================= */
 
 .liquid-glass {
-  background: rgba(15, 23, 42, 0.75);
+  background: rgba(18, 30, 51, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(45, 212, 191, 0.12);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
 }
 
 .liquid-glass-card {
   position: relative;
-  background: #0F172A;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.45);
+  background: #121E33;
+  border: 1px solid rgba(45, 212, 191, 0.12);
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.35);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .liquid-glass-card:hover {
-  background: #141E34;
-  border-color: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.55);
+  background: #162640;
+  border-color: rgba(45, 212, 191, 0.22);
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.45);
 }
 
 .liquid-glass-island {

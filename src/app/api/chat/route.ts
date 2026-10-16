@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 ` : "";
 
     // Argus – specialized system prompt with deep user questionnaire context
-    const systemPrompt = `You are **Argus**, a compassionate, expert AI oral health companion for parents and caregivers of children with Autism Spectrum Disorder (ASD). You specialize in pediatric oral health, ASD behavioral strategies, sensory desensitization, and caregiver support.
+    const systemPrompt = `You are **Argus**, a gentle, supportive AI oral care companion for parents and caregivers of children with Autism Spectrum Disorder (ASD).
 
 ## Active Child Profile (From Clinical Intake Questionnaire)
 - **Child's Name:** ${activeChildName} (${activeChildAge})
@@ -69,28 +69,37 @@ export async function POST(request: Request) {
 - **Toothbrush Type:** ${brushType}
 - **Toothpaste Used:** ${brushPaste}
 - **Brushing Frequency:** ${brushFreq}
-- **Known Brushing Challenges:** ${brushDifficulties}
+- **Known Challenges:** ${brushDifficulties}
 - **Sensory Sensitivities:** ${sensoryTriggers}
-- **Food Pocketing / Holding Behavior:** ${foodHolding}
-- **Fine Motor Skills:** ${motorSkills}
-- **Baseline Oral Health Score:** ${recentAssessment.oral_hygiene_score}%
+- **Food Holding In Cheek:** ${foodHolding}
+- **Motor Skills:** ${motorSkills}
+- **Baseline Oral Score:** ${recentAssessment.oral_hygiene_score}%
 ${dailyStatus}
 
-## Your Core Responsibilities
-1. **Evidence-Based Advice:** Provide actionable, clinically grounded pediatric oral care strategies tailored specifically for ${activeChildName} based on the questionnaire data above (e.g., sensory-safe toothpaste, visual step schedules, desensitization ladders, social stories).
-2. **Warm & Empowering Tone:** Caregivers are often exhausted and anxious. Always affirm their efforts, celebrate small wins, and use encouraging language.
-3. **Structured Responses:** Use bullet points, numbered steps, or short paragraphs. Avoid overwhelming walls of text.
-4. **Personalized Context:** Always reference ${activeChildName}'s specific habits, sensitivities, or toothbrush type when answering.
-5. **Safety First:** For urgent dental pain, bleeding, or emergencies, always direct caregivers to seek professional dental or medical care immediately.
+## MANDATORY FORMATTING RULE: ALWAYS SIMPLE & STEPWISE
+Parents of children with ASD are often tired and stressed. Keep all answers ultra-simple, gentle, and strictly sequential.
+You MUST format EVERY response into clear numbered steps like this:
 
-## Communication Style
-- Use friendly, accessible language (avoid excessive jargon).
-- Use relevant emojis sparingly to add warmth (e.g., 🦷 🪥 💙 ✅).
-- Keep responses concise but complete — 3 to 6 bullet points or 2-3 short paragraphs is ideal.
-- Use **bold** for key terms and action steps.
+**Step 1: [Short, simple action title]**
+• [1 or 2 plain, easy-to-follow sentences that a busy parent can do right now]
+
+**Step 2: [Next action title]**
+• [1 or 2 plain sentences]
+
+**Step 3: [Next action title]**
+• [1 or 2 plain sentences]
+
+**Step 4: [Warm encouraging tip for ${activeChildName}]**
+• [1 encouraging sentence]
+
+RULES:
+- Plain English only (5th-grade reading level).
+- Absolutely NO medical jargon or long paragraphs.
+- Keep each step ultra-short (1-2 sentences maximum).
+- Tailor advice to ${activeChildName}'s specific sensitivities: ${sensoryTriggers}.
 
 ## Mandatory Disclaimer
-Always conclude every response with this note on a new line:
+Conclude every response on a new line:
 *This guidance is supportive and does not replace professional dental or medical assessment.*`;
 
     if (!apiKey) {
@@ -98,52 +107,88 @@ Always conclude every response with this note on a new line:
       let dynamicReply = "";
 
       if (q.includes("refus") || q.includes("open") || q.includes("clench") || q.includes("tantrum") || q.includes("resist") || q.includes("cry")) {
-        dynamicReply = `I understand how overwhelming brushing resistance can feel with **${activeChildName}** (challenges noted: *${brushDifficulties}*). Here is a gentle, sensory-attuned clinical protocol:
+        dynamicReply = `Here is a gentle, 4-step way to help **${activeChildName}** brush without crying:
 
-1. **Step-by-Step Desensitization:** Do not jump straight to the teeth. Start by gently touching the lips with a clean finger or soft wet gauze, count to 5 together, then celebrate.
-2. **Predictable Visual Schedule:** Use a visual countdown (a visual sand timer or a 2-minute favorite melody). Children with ASD thrive when they know *exactly* when an activity will conclude.
-3. **Choice and Control:** Offer two acceptable choices (e.g., *"Do you want to brush the top teeth or bottom teeth first?"* or *"Do you want the blue or yellow brush?"*).
-4. **Sensory-Attuned Pace:** Given ${activeChildName}'s profile (${sensoryTriggers}), aim for 30 calm seconds today instead of a 2-minute struggle. Consistency beats force every single time. 🌟`;
+**Step 1: Start with gentle touch (No brush yet)**
+• Gently touch your child's lips with a soft wet washcloth or clean finger for 5 seconds. This prepares their mouth calmly.
+
+**Step 2: Use a predictable timer or song**
+• Play a favorite 1-minute song or visual timer so ${activeChildName} knows exactly when brushing will finish.
+
+**Step 3: Let your child make a small choice**
+• Ask: *"Do you want to brush top teeth first or bottom teeth first?"* Giving a choice gives them a feeling of calm control.
+
+**Step 4: Celebrate even 20 seconds!**
+• Stop before crying starts, clap, and say: *"Great job taking care of your teeth!"* Small calm steps win every day. 🌟`;
       } else if (q.includes("toothpaste") || q.includes("paste") || q.includes("foam") || q.includes("flavor") || q.includes("flavour") || q.includes("mint") || q.includes("taste")) {
-        dynamicReply = `Sensory aversion to toothpaste is very common in autism. For **${activeChildName}** (currently using: *${brushPaste}*):
+        dynamicReply = `Here is an easy 3-step guide for toothpaste with **${activeChildName}**:
 
-1. **Eliminate Foaming (SLS-Free):** Standard sodium lauryl sulfate creates foaming that triggers gag reflexes and sensory panic. Choose non-foaming, SLS-free pastes (e.g., Oranurse unflavored, Biotene, or gentle xylitol gels).
-2. **Ditch Harsh Mint:** Mint activates cold/pain thermoreceptors that feel like burning to sensory-defensive children. Opt for unflavored, mild fruit, or apple-cinnamon flavors.
-3. **Dry Brushing First:** Start brushing with just warm water to remove plaque mechanically, then introduce a tiny rice-grain smear of paste once comfortable.`;
+**Step 1: Switch to non-foaming (SLS-free) paste**
+• Foaming paste causes choking sensations. Choose a non-foaming paste like Oranurse or a gentle clear fruit gel.
+
+**Step 2: Avoid strong mint flavors**
+• Mint feels like burning ice to sensitive mouths. Use mild fruit, strawberry, or completely unflavored paste.
+
+**Step 3: Use a tiny rice-grain smear**
+• You only need a tiny dot on the bristles. Less paste means less sensory struggle and better cooperation. 🪥`;
       } else if (q.includes("brush") || q.includes("toothbrush") || q.includes("electric") || q.includes("3-sided") || q.includes("triple")) {
-        dynamicReply = `Selecting the right toothbrush for **${activeChildName}** (currently using: *${brushType}*):
+        dynamicReply = `Here is a 3-step guide to pick the best brush for **${activeChildName}**:
 
-1. **Triple-Headed (3-Sided) Brush:** Hugs all 3 tooth surfaces (front, back, and biting surface) simultaneously. This cuts required brushing time by over 50% while guaranteeing coverage.
-2. **Ultra-Soft Microbristles:** Avoid medium or stiff bristles that cause gingival microtrauma. Look for 10,000+ nano-bristle brushes with velvety softness.
-3. **Electric Sonic Brushes:** While some children enjoy the soothing rhythmic vibration, others experience it as painful buzzing (${sensoryTriggers.includes("vibration") ? "⚠️ Warning: vibration sensitivity detected in profile!" : "test gently first"}). Test the vibration on **${activeChildName}**'s hand or arm first before bringing it to the mouth.`;
+**Step 1: Try a 3-sided (triple-headed) toothbrush**
+• It cleans the front, back, and biting surfaces all at once, cutting brushing time in half.
+
+**Step 2: Pick ultra-soft microbristles**
+• Very soft bristles feel like a gentle massage and will not hurt sensitive gums.
+
+**Step 3: Test vibrations on the hand first**
+• If trying an electric brush, place it against ${activeChildName}'s arm or hand first so the buzzing feels safe and fun. 🌟`;
       } else if (q.includes("pool") || q.includes("holding") || q.includes("cheek") || q.includes("pouch") || q.includes("swallow") || q.includes("food")) {
-        dynamicReply = `Food pouching or holding food in cheeks is a frequent oral-motor sensory behavior (Status for ${activeChildName}: *${foodHolding}*):
+        dynamicReply = `Here is a 3-step routine to help stop food holding in cheeks:
 
-1. **High Enamel Risk:** Pocketed carbohydrates (like rice, bread, or biscuits) ferment rapidly in the cheek pouch, bathing molars in acid and accelerating cavities.
-2. **Post-Meal Swish Routine:** Introduce a "water swirl" habit immediately after eating. Make it a fun game: *"Let's see who can make the loudest swirl sound!"*
-3. **Cheek Massage:** After meals, gently stroke **${activeChildName}**'s cheeks from back to front with warm hands to help prompt sensory awareness and swallowing.`;
+**Step 1: Play the "Water Swirl" game right after eating**
+• Give ${activeChildName} a small cup of water and say: *"Let's swirl water like a washing machine and spit out the food bugs!"*
+
+**Step 2: Gentle cheek stroke**
+• Lightly stroke ${activeChildName}'s cheeks from back to front with warm fingers to remind their tongue to swallow.
+
+**Step 3: Offer crunchy fruits as natural scrubbers**
+• An apple slice or carrot stick naturally sweeps away soft food stuck in back molars. 🍎`;
       } else if (q.includes("dentist") || q.includes("visit") || q.includes("clinic") || q.includes("doctor") || q.includes("appointment")) {
-        dynamicReply = `Preparing **${activeChildName}** for a clinical dental visit requires desensitization well in advance:
+        dynamicReply = `Here is a 3-step plan to prepare **${activeChildName}** for the dentist:
 
-1. **Social Stories & Picture Cards:** Read a simple picture story showing the waiting room, the big reclining chair, the sunglasses for the bright overhead light, and the mirror tool.
-2. **Sensory Comfort Kit:** Bring sunglasses to block bright operatory lamps, noise-canceling headphones for suction noises, and a weighted comfort toy for the lap.
-3. **Desensitization "Meet & Greet":** Schedule a zero-procedure appointment where **${activeChildName}** simply sits in the chair, counts teeth with the pediatric dentist, gets a sticker, and leaves with positive memories.`;
+**Step 1: Read a picture story at home**
+• Show pictures of the big comfortable dental chair, the friendly doctor, and the count-teeth mirror.
+
+**Step 2: Pack a comfort kit**
+• Bring dark sunglasses for the overhead light and noise-canceling headphones to block strange suction sounds.
+
+**Step 3: Do a quick "Say Hello" practice visit**
+• Visit just to sit in the chair for 2 minutes, get a sticker from Dr. Reddy's team, and head home smiling! 🩺`;
       } else if (q.includes("diet") || q.includes("sugar") || q.includes("snack") || q.includes("night") || q.includes("bottle") || q.includes("milk")) {
-        dynamicReply = `Dietary enamel defense strategy for **${activeChildName}**:
+        dynamicReply = `Here are 3 simple steps to keep **${activeChildName}**'s teeth shiny and free from sugar bugs:
 
-1. **Eliminate Bedtime Milk Bottles:** Nursing or sipping milk bottles during the night allows milk sugars (lactose) to pool around teeth while saliva flow drops, leading to aggressive decay.
-2. **Structured Snack Windows:** Rather than frequent carbohydrate grazing, group treats with main meals when natural saliva production is at its peak to buffer acid.
-3. **Enamel-Friendly Crunchy Foods:** Crunchy apples, cucumbers, and carrot sticks naturally scrape plaque and stimulate mineralizing saliva.`;
+**Step 1: Give treats with meals, not all day**
+• Eating chocolates or sweets with lunch is much safer than sipping sweet drinks throughout the afternoon.
+
+**Step 2: No milk bottles in bed**
+• Milk sugars pool around teeth while sleeping and feed bacteria. Stick to plain water at bedtime.
+
+**Step 3: Drink a sip of water after snacks**
+• A quick sip of water immediately washes away sugars before bacteria can start eating the enamel. 💧`;
       } else {
-        dynamicReply = `Based on **${activeChildName}**'s stored clinical profile (${activeAsdLevel}) and intake questionnaire:
+        dynamicReply = `Here is a simple stepwise routine for **${activeChildName}**:
 
-• **Sensory Triggers on Record:** ${sensoryTriggers}
-• **Current Toothbrush & Paste:** ${brushType} with ${brushPaste}
-• **Brushing Frequency:** ${brushFreq}
-• **Oral-Motor / Attitude:** ${motorSkills}
+**Step 1: Set a fixed time and spot**
+• Brush at the exact same hour every morning and bedtime in the same gentle bathroom light.
 
-**Recommended Next Step:**
-Keep routines completely predictable by brushing at the exact same hour and bathroom setting every day. Use non-foaming paste and a visual timer to give ${activeChildName} a safe, reassuring routine! 🌟`;
+**Step 2: Use soft bristles and mild paste**
+• Apply a tiny pea-sized drop of non-foaming paste on ultra-soft bristles.
+
+**Step 3: Follow 5 gentle circles**
+• Brush front, back, and chewing surfaces with joyful circular motions while singing a 1-minute tune.
+
+**Step 4: Celebrate the shiny smile!**
+• High five ${activeChildName} for doing their best today! 🌟`;
       }
 
       return NextResponse.json({

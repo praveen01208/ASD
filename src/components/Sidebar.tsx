@@ -21,21 +21,23 @@ import {
   Sparkles,
   LogOut,
   Home,
-  Baby
+  Baby,
+  ShieldCheck,
+  CheckCircle2
 } from "lucide-react";
 import { getUserProfile, fetchUserProfileFromServer, getActiveAccount, ChildAccount } from "@/lib/userStore";
 
 const navigation = [
-  { name: "My Child's Care", href: "/", icon: HeartHandshake },
+  { name: "Care Overview", href: "/", icon: HeartHandshake },
+  { name: "1. Baseline Assessment", href: "/assessment?tab=baseline", icon: ShieldCheck, badge: "Step 1" },
+  { name: "2. Daily Routine Checklist", href: "/monitoring", icon: CheckCircle2, badge: "Step 2" },
+  { name: "3. Visual Learning & Videos", href: "/learning", icon: PlaySquare, badge: "Step 3" },
+  { name: "4. Child Care Plan", href: "/care-plan", icon: ListChecks, badge: "Step 4" },
+  { name: "5. Argus AI Guide", href: "/assistant", icon: MessageSquareHeart, badge: "Step 5" },
   { name: "Child Profile", href: "/profile", icon: User },
-  { name: "AI Assessment (Weekly)", href: "/assessment", icon: Activity },
-  { name: "Care Plan", href: "/care-plan", icon: ListChecks },
-  { name: "Visual Learning & Videos", href: "/learning", icon: PlaySquare },
-  { name: "Daily Monitoring", href: "/monitoring", icon: FileText },
-  { name: "Argus AI Assistant", href: "/assistant", icon: MessageSquareHeart },
+  { name: "Weekly AI Assessment", href: "/assessment?tab=weekly", icon: Activity },
+  { name: "Specialized Consultants", href: "/consultants", icon: Stethoscope },
   { name: "24/7 Helpline", href: "/helpline", icon: Phone, badge: "9284046972" },
-  { name: "Consultants Panel", href: "/consultants", icon: Stethoscope },
-  { name: "Progress & Telemetry", href: "/progress", icon: LineChart },
   { name: "Clinical Reports", href: "/reports", icon: FileText },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
@@ -153,23 +155,7 @@ export default function Sidebar() {
             );
           })}
         </nav>
-        
-        {/* Quick Helpline Support Card (Calling 9284046972) */}
-        <div className="mt-3 p-3 rounded-2xl liquid-glass border border-rose-500/30 text-xs">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-rose-300 flex items-center gap-1">
-              <Phone className="w-3 h-3" /> 24/7 Helpline
-            </span>
-            <span className="w-2 h-2 rounded-full bg-rose-400"></span>
-          </div>
-          <div className="text-[11px] text-white font-mono font-bold mb-2">+91 9284046972</div>
-          <Link
-            href="/helpline"
-            className="w-full py-1.5 px-2.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-500/40 font-bold text-[11px] flex items-center justify-center gap-1.5 transition-all"
-          >
-            Emergency & Support
-          </Link>
-        </div>
+
 
         {/* User Account / Sign In / Log Out */}
         <div className="mt-3 space-y-2">
